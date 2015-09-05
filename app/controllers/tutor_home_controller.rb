@@ -26,6 +26,10 @@ class TutorHomeController < ApplicationController
     end
   end
 
+  def show_user
+    @users = current_tutor.users
+  end
+
   private
     def check_subjects(array, element, subject_name)
       if element == true

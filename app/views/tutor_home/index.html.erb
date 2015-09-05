@@ -89,8 +89,9 @@
 <div class="container-fluid">
   <h3>メニュー</h3>
   <ul>
-    <li>現在指導中の学生の詳細</li>
+    <li><%= link_to '現在指導中の学生の詳細', tutor_home_show_user_path %></li>
     <li>コメントに返信する</li>
+    <li><%= link_to "報告の一覧を見る", tutor_see_reports_index_path %></li>
     <li><%= link_to '設定', tutors_edit_profile_path %></li>
     <li>お問い合わせ</li>
   </ul>

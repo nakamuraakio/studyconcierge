@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <% @users.each do |user| %>
+  <div class="panel panel-default">
+    <p class="panel-heading"><strong><%= user.name %>の報告</strong></p>
+    <ul>
+      <table class="table">
+        <tr>
+          <th>報告日時</th>
+          <th>報告週の平均学習時間</th>
+          <th></th>
+        </tr>
+        <% user.reports.each do |report| %>
+        <tr>
+          <td><%= report.created_at %></td>
+          <td><%= report.average_studytime %></td>
+          <td><%= link_to '詳細を見る', url_for(:controller => 'tutor_see_reports', :action => 'show', :id => report.id) %></td>
+        </tr>
+        <% end %>
+      </table>
+    </ul>
+  </div>
+  <% end %>
+</div>

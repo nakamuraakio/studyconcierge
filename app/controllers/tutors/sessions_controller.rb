@@ -1,6 +1,10 @@
 class Tutors::SessionsController < Devise::SessionsController
 # before_filter :configure_sign_in_params, only: [:create]
-
+before_action do
+  if user_signed_in?
+    redirect_to root_path
+  end
+end
   # GET /resource/sign_in
   # def new
   #   super

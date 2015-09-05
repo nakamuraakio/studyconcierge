@@ -1,6 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
-  
+  before_action do
+    if !user_signed_in? && !tutor_signed_in?
+      redirect_to root_path
+    end
+  end
 
   def create
   	@comment = Comment.new(comment_params)
@@ -9,15 +12,24 @@ class CommentsController < ApplicationController
     @comment.tutor_id = @report.user.tutor.id
     @comment.comment_count = @report.comments.count + 1
     if current_tutor
-      @comment.created_by_user == false
+      @comment.created_by_user = false
     end
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to @report, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @report }
+      	if user_signed_in?
+          format.html { redirect_to @report, notice: 'Comment was successfully created.' }
+          #format.json { render :show, status: :created, location: @report }
+        else
+          format.html { redirect_to url_for(:controller => 'tutor_see_reports', :action => 'show', :id => @report.id), notice: 'Comment was successfully created.' }
+          #format.json { render :show, status: :created, location: @report }
+        end
       else
-        format.html { redirect_to @report }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+      	if user_signed_in?
+          format.html { redirect_to @report }
+          #format.json { render json: @report.errors, status: :unprocessable_entity }
+        else
+          format.html { redirect_to url_for(:controller => 'tutor_see_reports', :action => 'show', :id => @report.id), notice: '保存に失敗しました。'}
+        end
       end
     end
   end
@@ -29,8 +41,12 @@ class CommentsController < ApplicationController
   	@report = Report.find(@comment.report_id)
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to @report, notice: 'Report was successfully destroyed.' }
-      format.json { head :no_content }
+      if user_signed_in?
+        format.html { redirect_to @report, notice: 'Comment was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+      	format.html { redirect_to url_for(:controller => 'tutor_see_reports', :action => 'show', :id => @report.id), notice: 'Comment was successfully destroyed.' }
+      end
     end
   end
 

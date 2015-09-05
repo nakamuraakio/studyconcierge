@@ -1,5 +1,7 @@
 <div class="container-fluid">
-<% if current_user.subject.japanese %>
+<h3><%= @report.user.name %>さんの報告</h3>
+
+<% if @report.user.subject.japanese %>
 <p>
   <strong>Japanese percentage:</strong>
   <%= @report.japanese_percentage %>
@@ -11,7 +13,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.old_japanese %>
+<% if @report.user.subject.old_japanese %>
 <p>
   <strong>Old japanese percentage:</strong>
   <%= @report.old_japanese_percentage %>
@@ -23,7 +25,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.old_chinese %>
+<% if @report.user.subject.old_chinese %>
 <p>
   <strong>Old chinese percentage:</strong>
   <%= @report.old_chinese_percentage %>
@@ -35,7 +37,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.english %>
+<% if @report.user.subject.english %>
 <p>
   <strong>English percentage:</strong>
   <%= @report.english_percentage %>
@@ -47,7 +49,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.math %>
+<% if @report.user.subject.math %>
 <p>
   <strong>Math percentage:</strong>
   <%= @report.math_percentage %>
@@ -59,7 +61,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.physics %>
+<% if @report.user.subject.physics %>
 <p>
   <strong>Physics percentage:</strong>
   <%= @report.physics_percentage %>
@@ -71,7 +73,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.chemistry %>
+<% if @report.user.subject.chemistry %>
 <p>
   <strong>Chemistry percentage:</strong>
   <%= @report.chemistry_percentage %>
@@ -83,7 +85,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.biology %>
+<% if @report.user.subject.biology %>
 <p>
   <strong>Biology percentage:</strong>
   <%= @report.biology_percentage %>
@@ -95,7 +97,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.geology %>
+<% if @report.user.subject.geology %>
 <p>
   <strong>Geology percentage:</strong>
   <%= @report.geology_percentage %>
@@ -107,7 +109,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.world_history %>
+<% if @report.user.subject.world_history %>
 <p>
   <strong>World history percentage:</strong>
   <%= @report.world_history_percentage %>
@@ -119,7 +121,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.japanese_history %>
+<% if @report.user.subject.japanese_history %>
 <p>
   <strong>Japanese history percentage:</strong>
   <%= @report.japanese_history_percentage %>
@@ -131,7 +133,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.politics_and_economics %>
+<% if @report.user.subject.politics_and_economics %>
 <p>
   <strong>Politics and economics percentage:</strong>
   <%= @report.politics_and_economics_percentage %>
@@ -143,7 +145,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.modern_society %>
+<% if @report.user.subject.modern_society %>
 <p>
   <strong>Modern society percentage:</strong>
   <%= @report.modern_society_percentage %>
@@ -155,7 +157,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.ethics %>
+<% if @report.user.subject.ethics %>
 <p>
   <strong>Ethics percentage:</strong>
   <%= @report.ethics_percentage %>
@@ -167,7 +169,7 @@
 </p>
 <% end %>
 
-<% if current_user.subject.geography %>
+<% if @report.user.subject.geography %>
 <p>
   <strong>Geography percentage:</strong>
   <%= @report.geography_percentage %>
@@ -202,25 +204,19 @@
       <p>チューターID：<%= comment.tutor_id %></p>
     <% end %>
     <p><%= comment.content %></p>
-    <% if comment.created_by_user %>
-      <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
-    <% end %>
+    <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
   </div>
   <% end %>
 
   <% if @comments.count > 7 %>
     <p>コメント数の上限に到達しました</p>
-  <% elsif @comments.count % 2 == 0 %>
-    <p>チューターからの返信待ちです</p>
+  <% elsif @comments.count % 2 == 1 %>
+    <p>ユーザーからの返信待ちです</p>
   <% else %>
     <%= render 'comments/form' %>
   <% end %>
 <% else %>
-  <p>チューターからの返信待ちです</p>
+  <%= render 'comments/form' %>
 <% end %>
 
-
-
-<%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
 </div>

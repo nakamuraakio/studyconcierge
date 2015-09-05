@@ -6,6 +6,7 @@ class Tutor < ActiveRecord::Base
 
   has_one :subject, dependent: :destroy
   has_many :users
+  has_many :reports, through: :users
   has_many :comments, dependent: :destroy
   accepts_nested_attributes_for :subject, allow_destroy: true
 

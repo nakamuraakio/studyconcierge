@@ -1,0 +1,28 @@
+<div class="container-fluid">
+<h3>現在指導中の学生の詳細</h3>
+<% @users.each do |user| %>
+  <div class="panel panel-default">
+    <p>
+      名前：<%= user.name %>
+    </p>
+    <p>
+      プロフィール画像：<%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => user.id), :height => '64', :width => '64', :class => 'img-circle' %>
+    </p>
+    <p>
+      生年月日：<%= user.birth %>
+    </p>
+    <p>
+      高校名、学年：<%= user.school %>・<%= user.year %>年生
+    </p>
+    <p>
+      現住地：<%= user.lives_in %>
+    </p>
+    <p>
+      志望校：<%= user.school_desire %>
+    </p>
+    <p>
+
+    </p>
+  </div>
+<% end %>
+</div>

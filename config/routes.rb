@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   
   get 'home/index'
   get 'tutor_home/index'
+  get 'tutor_home/show_user'
+  get 'tutor_see_reports/index'
+  get 'tutor_see_reports/show/:id' => 'tutor_see_reports#show'
   root to: 'landing#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
