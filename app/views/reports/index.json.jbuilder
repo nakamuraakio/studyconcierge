@@ -1,0 +1,4 @@
+json.array!(@reports) do |report|
+  json.extract! report, :id, :japanese_percentage, :japanese_comment, :old_japanese_percentage, :old_japanese_comment, :old_chinese_percentage, :old_chinese_comment, :english_percentage, :english_comment, :math_percentage, :math_comment, :physics_percentage, :physics_comment, :chemistry_percentage, :chemistry_comment, :biology_percentage, :biology_comment, :geology_percentage, :geology_comment, :world_history_percentage, :world_history_comment, :japanese_history_percentage, :japanese_history_comment, :politics_and_economics_percentage, :politics_and_economics_comment, :modrn_society_percentage, :modern_society_comment, :ethics_percentage, :ethics_comment, :geography_percentage, :geography_comment, :average_studytime, :free_comment, :user_id
+  json.url report_url(report, format: :json)
+end

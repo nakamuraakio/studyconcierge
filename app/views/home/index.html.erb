@@ -1,0 +1,81 @@
+<div class="container-fluid">
+<h3>ユーザープロフィール</h3>
+<table class="table">
+<tr>
+  <td>メールアドレス</td>
+  <td><%= current_user.email %></td>
+</tr>
+<tr>
+  <td>名前</td>
+  <td><%= current_user.name %></td>
+</tr>
+<tr>
+  <td>プロフィール画像</td>
+  <td>
+    <% if current_user.photo == "" %>
+      <%= image_tag '1310.png', :height => '64', :width => '64', :class=> 'img-circle' %>
+    <% else %>
+      <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '64', :width => '64', :class => 'img-circle' %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td>誕生日</td>
+  <td><%= current_user.birth %></td>
+</tr>
+<tr>
+  <td>学年</td>
+  <td><%= current_user.year %></td>
+</tr>
+<tr>
+  <td>学校名</td>
+  <td><%= current_user.school %></td>
+</tr>
+<tr>
+  <td>住所</td>
+  <td><%= current_user.lives_in %></td>
+</tr>
+<tr>
+  <td>志望校</td>
+  <td><%= current_user.school_desire %></td>
+</tr>
+<tr>
+  <td>選択中のチューター</td>
+  <td>
+    <% if current_user.tutor.nil? %>
+      <%= '選択されていません' %>
+    <% else %>
+      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
+      <%= current_user.tutor.name %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td>報告回数</td>
+  <td><%= current_user.reports.count %></td>
+</tr>
+<tr>
+  <td>報告したい科目</td>
+  <td>
+    <ul>
+      <% @subjects.each do |subject| %>
+        <li><%= subject %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>
+</table>
+</div>
+<hr>
+
+<div class="container-fluid">
+  <h3>メニュー</h3>
+  <ul>
+    <li><%= link_to '勉強を報告する', reports_path %></li>
+    <li>コメントに返信する</li>
+    <li><%= link_to 'チューターを選択/変更する', select_tutor_index_path %></li>
+    <li><%= link_to '設定', users_edit_profile_path %></li>
+    <li>お問い合わせ</li>
+  </ul>
+</div>
+

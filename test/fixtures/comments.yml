@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: MyString
+  read_flag: false
+  comment_count: 1
+  created_by_user: false
+  report_id: 1
+  user_id: 1
+  tutor_id: 1
+
+two:
+  content: MyString
+  read_flag: false
+  comment_count: 1
+  created_by_user: false
+  report_id: 1
+  user_id: 1
+  tutor_id: 1

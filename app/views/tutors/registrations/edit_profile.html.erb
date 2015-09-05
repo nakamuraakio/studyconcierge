@@ -1,0 +1,111 @@
+<div class="container-fluid">
+<h2><%= resource_name.to_s.humanize %>を編集する</h2>
+
+<%= form_for(resource, as: resource_name, :url => url_for(:controller => 'tutors/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <%= link_to 'パスワードを変更する', edit_tutor_registration_path %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "名前" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :photo_file, "プロフィール画像" %><br>
+    <%= f.file_field :photo_file %>
+  </div>
+
+  <div class="field">
+    <%= f.label "誕生年月日" %><br>
+    <%= f.date_select(
+          :birth,
+          use_month_numbers: true,
+          start_year:     1990,
+          end_year:       (Time.now.year - 10),
+          default:        Date.new(1999, 1, 1),
+          date_separator: '/') 
+    %>
+  </div>
+
+  <div class="field">
+    <%= f.label "大学名・学部・学年" %><br>
+    <%= f.text_field :university %>
+  </div>
+
+  <div class="field">
+    <%= f.label "出身地" %><br>
+    <%= f.text_field :is_from %>
+  </div>
+
+  <div class="field">
+    <%= f.label "出身高校" %><br>
+    <%= f.text_field :highschool %>
+  </div>
+
+  <%= f.fields_for :subject, current_tutor.subject || Subject.new do |c| %>
+    <div class="field">
+      <%= c.label "受験で使った科目" %><br>
+      <label><%= c.check_box :japanese %> 現代文</label>
+      <label><%= c.check_box :old_japanese %> 古文</label>
+      <label><%= c.check_box :old_chinese %> 漢文</label>
+      <label><%= c.check_box :english %> 英語</label>
+      <label><%= c.check_box :math %> 数学</label>
+      <label><%= c.check_box :physics %> 物理</label>
+      <label><%= c.check_box :chemistry %> 化学</label>
+      <label><%= c.check_box :biology %> 生物</label><br>
+      <label><%= c.check_box :geology %> 地学</label>
+      <label><%= c.check_box :world_history %> 世界史</label>
+      <label><%= c.check_box :japanese_history %> 日本史</label>
+      <label><%= c.check_box :politics_and_economics %> 政治経済</label>
+      <label><%= c.check_box :modern_society %> 現代社会</label>
+      <label><%= c.check_box :ethics %> 倫理</label>
+      <label><%= c.check_box :geography %> 地理</label>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "担当曜日" %><br>
+    <%= f.text_field :available_day %>
+  </div>
+
+  <div class="field">
+    <%= f.label "最大指導人数" %><br>
+    <%= f.number_field :capacity %>
+  </div>
+
+  <div class="field">
+    <%= f.label "最近こんなことしてます" %><br>
+    <%= f.text_area :nowadays %>
+  </div>
+
+  <div class="field">
+    <%= f.label "夢" %><br>
+    <%= f.text_area :dream %>
+  </div>
+
+  <div class="field">
+    <%= f.label "運営からの紹介" %><br>
+    <%= f.text_area :intro %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>アカウントを削除する</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>
+</div>

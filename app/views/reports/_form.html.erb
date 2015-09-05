@@ -1,0 +1,181 @@
+<div class="container-fluid">
+<%= form_for(@report) do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% unless current_user.subject.nil? %>
+
+  <% if current_user.subject.japanese %>
+    <div class="field">
+      <%= f.label :japanese_percentage %><br>
+      <%= f.number_field :japanese_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :japanese_comment %><br>
+      <%= f.text_field :japanese_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.old_japanese %>
+    <div class="field">
+      <%= f.label :old_japanese_percentage %><br>
+      <%= f.number_field :old_japanese_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :old_japanese_comment %><br>
+      <%= f.text_field :old_japanese_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.old_chinese %>
+    <div class="field">
+      <%= f.label :old_chinese_percentage %><br>
+      <%= f.number_field :old_chinese_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :old_chinese_comment %><br>
+      <%= f.text_field :old_chinese_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.english %>
+    <div class="field">
+      <%= f.label :english_percentage %><br>
+      <%= f.number_field :english_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :english_comment %><br>
+      <%= f.text_field :english_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.math %>
+    <div class="field">
+      <%= f.label :math_percentage %><br>
+      <%= f.number_field :math_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :math_comment %><br>
+      <%= f.text_field :math_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.physics %>
+    <div class="field">
+      <%= f.label :physics_percentage %><br>
+      <%= f.number_field :physics_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :physics_comment %><br>
+      <%= f.text_field :physics_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.chemistry %>
+    <div class="field">
+      <%= f.label :chemistry_percentage %><br>
+      <%= f.number_field :chemistry_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :chemistry_comment %><br>
+      <%= f.text_field :chemistry_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.biology %>
+    <div class="field">
+      <%= f.label :biology_percentage %><br>
+      <%= f.number_field :biology_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :biology_comment %><br>
+      <%= f.text_field :biology_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.geology %>
+    <div class="field">
+      <%= f.label :geology_percentage %><br>
+      <%= f.number_field :geology_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :geology_comment %><br>
+      <%= f.text_field :geology_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.world_history %>
+    <div class="field">
+      <%= f.label :world_history_percentage %><br>
+      <%= f.number_field :world_history_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :world_history_comment %><br>
+      <%= f.text_field :world_history_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.japanese_history %>
+    <div class="field">
+      <%= f.label :japanese_history_percentage %><br>
+      <%= f.number_field :japanese_history_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :japanese_history_comment %><br>
+      <%= f.text_field :japanese_history_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.politics_and_economics %>
+    <div class="field">
+      <%= f.label :politics_and_economics_percentage %><br>
+      <%= f.number_field :politics_and_economics_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :politics_and_economics_comment %><br>
+      <%= f.text_field :politics_and_economics_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.modern_society %>
+    <div class="field">
+      <%= f.label :modern_society_percentage %><br>
+      <%= f.number_field :modern_society_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :modern_society_comment %><br>
+      <%= f.text_field :modern_society_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.ethics %>
+    <div class="field">
+      <%= f.label :ethics_percentage %><br>
+      <%= f.number_field :ethics_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :ethics_comment %><br>
+      <%= f.text_field :ethics_comment %>
+    </div>
+  <% end %>
+  <% if current_user.subject.geography %>
+    <div class="field">
+      <%= f.label :geography_percentage %><br>
+      <%= f.number_field :geography_percentage %><b>%</b>
+    </div>
+    <div class="field">
+      <%= f.label :geography_comment %><br>
+      <%= f.text_field :geography_comment %>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :average_studytime %><br>
+    <%= f.number_field :average_studytime %><b>時間</b>
+  </div>
+  <div class="field">
+    <%= f.label :free_comment %><br>
+    <%= f.text_area :free_comment %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  <% end %>
+<% end %>
+</div>

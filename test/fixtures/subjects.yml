@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  japanese: false
+  old_japanese: false
+  old_chinese: false
+  english: false
+  math: false
+  physics: false
+  chemistry: false
+  biology: false
+  geology: false
+  world_history: false
+  japanese_history: false
+  politics_and_economics: false
+  modern_society: false
+  ethics: false
+  geography: false
+
+two:
+  japanese: false
+  old_japanese: false
+  old_chinese: false
+  english: false
+  math: false
+  physics: false
+  chemistry: false
+  biology: false
+  geology: false
+  world_history: false
+  japanese_history: false
+  politics_and_economics: false
+  modern_society: false
+  ethics: false
+  geography: false

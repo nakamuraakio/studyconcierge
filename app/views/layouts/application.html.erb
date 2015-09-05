@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Studyconcierge</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header>
+      <nav>
+            <% if user_signed_in? %>
+                <strong><%= link_to current_user.name, home_index_path %></strong>
+                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+            <% elsif tutor_signed_in? %>
+                <strong><%= link_to current_tutor.name, tutor_home_index_path %></strong>
+                <%= link_to 'ログアウト', destroy_tutor_session_path, method: :delete %>
+            <% end %>
+      </nav>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+  </header>
+
+<%= yield %>
+
+</body>
+</html>

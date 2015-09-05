@@ -1,0 +1,123 @@
+<div class="container-fluid">
+<h1>Listing Reports</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>報告NO.</th>
+      <th>コメント数</th>
+      <% if current_user.subject.japanese %>
+        <th>Japanese percentage</th>
+        <th>Japanese comment</th>
+      <% end %>
+      <% if current_user.subject.old_japanese %>
+        <th>Old japanese percentage</th>
+        <th>Old japanese comment</th>
+      <% end %>
+      <% if current_user.subject.old_chinese %>
+        <th>Old chinese percentage</th>
+        <th>Old chinese comment</th>
+      <% end %>
+      <% if current_user.subject.english %>
+        <th>English percentage</th>
+        <th>English comment</th>
+      <% end %>
+      <% if current_user.subject.math %>
+        <th>Math percentage</th>
+        <th>Math comment</th>
+      <% end %>
+      <% if current_user.subject.physics %>
+        <th>Physics percentage</th>
+        <th>Physics comment</th>
+      <% end %>
+      <% if current_user.subject.chemistry %>
+        <th>Chemistry percentage</th>
+        <th>Chemistry comment</th>
+      <% end %>
+      <% if current_user.subject.biology %>
+        <th>Biology percentage</th>
+        <th>Biology comment</th>
+      <% end %>
+      <% if current_user.subject.geology %>
+        <th>Geology percentage</th>
+        <th>Geology comment</th>
+      <% end %>
+      <% if current_user.subject.world_history %>
+        <th>World history percentage</th>
+        <th>World history comment</th>
+      <% end %>
+      <% if current_user.subject.japanese_history %>
+        <th>Japanese history percentage</th>
+        <th>Japanese history comment</th>
+      <% end %>
+      <% if current_user.subject.politics_and_economics %>
+        <th>Politics and economics percentage</th>
+        <th>Politics and economics comment</th>
+      <% end %>
+      <% if current_user.subject.modern_society %>
+        <th>Modern society percentage</th>
+        <th>Modern society comment</th>
+      <% end %>
+      <% if current_user.subject.ethics %>
+        <th>Ethics percentage</th>
+        <th>Ethics comment</th>
+      <% end %>
+      <% if current_user.subject.geography %>
+        <th>Geography percentage</th>
+        <th>Geography comment</th>
+      <% end %>
+      <th>Average studytime</th>
+      <th>Free comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% id = 1 %>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= id %></td><% id = id + 1 %>
+        <td><%= report.comments.count %>件のコメント</td>
+        <% if current_user.subject.japanese %><td><%= report.japanese_percentage %>%</td>
+        <td><%= report.japanese_comment %></td><% end %>
+        <% if current_user.subject.old_japanese %><td><%= report.old_japanese_percentage %>%</td>
+        <td><%= report.old_japanese_comment %></td><% end %>
+        <% if current_user.subject.old_chinese %><td><%= report.old_chinese_percentage %>%</td>
+        <td><%= report.old_chinese_comment %></td><% end %>
+        <% if current_user.subject.english %><td><%= report.english_percentage %>%</td>
+        <td><%= report.english_comment %></td><% end %>
+        <% if current_user.subject.math %><td><%= report.math_percentage %>%</td>
+        <td><%= report.math_comment %></td><% end %>
+        <% if current_user.subject.physics %><td><%= report.physics_percentage %>%</td>
+        <td><%= report.physics_comment %></td><% end %>
+        <% if current_user.subject.chemistry %><td><%= report.chemistry_percentage %>%</td>
+        <td><%= report.chemistry_comment %></td><% end %>
+        <% if current_user.subject.biology %><td><%= report.biology_percentage %>%</td>
+        <td><%= report.biology_comment %></td><% end %>
+        <% if current_user.subject.geology %><td><%= report.geology_percentage %>%</td>
+        <td><%= report.geology_comment %></td><% end %>
+        <% if current_user.subject.world_history %><td><%= report.world_history_percentage %>%</td>
+        <td><%= report.world_history_comment %></td><% end %>
+        <% if current_user.subject.japanese_history %><td><%= report.japanese_history_percentage %>%</td>
+        <td><%= report.japanese_history_comment %></td><% end %>
+        <% if current_user.subject.politics_and_economics %><td><%= report.politics_and_economics_percentage %>%</td>
+        <td><%= report.politics_and_economics_comment %></td><% end %>
+        <% if current_user.subject.modern_society %><td><%= report.modern_society_percentage %>%</td>
+        <td><%= report.modern_society_comment %></td><% end %>
+        <% if current_user.subject.ethics %><td><%= report.ethics_percentage %>%</td>
+        <td><%= report.ethics_comment %></td><% end %>
+        <% if current_user.subject.geography %><td><%= report.geography_percentage %>%</td>
+        <td><%= report.geography_comment %></td><% end %>
+        <td><%= report.average_studytime %>時間</td>
+        <td><%= report.free_comment %></td>
+        <td><%= link_to 'Show', report %></td>
+        <td><%= link_to 'Edit', edit_report_path(report) %></td>
+        <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Report', new_report_path %>
+</div>

@@ -1,0 +1,27 @@
+<h3>チューター一覧</h3>
+
+<div class="container-fluid">
+<%= form_for(@user, url: select_tutor_update_path) do |f| %>
+  <table class="table">
+    <tr>
+      <th>名前</th>
+      <th>プロフィール画像</th>
+      <th>大学・学部・学年</th>
+      <th>選択</th>
+    </tr>
+    <% @tutors.each do |tutor| %>
+    <tr>
+      <td><%= tutor.name %></td>
+      <td><%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id), :height => '64', :width => '64', :class => 'img-circle' %></td>
+      <td><%= tutor.university %></td>
+      <td><label><%= f.radio_button :tutor_id, tutor.id %></label></td>
+    </tr>
+    <% end %>
+  </table>
+
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+</div>
+
