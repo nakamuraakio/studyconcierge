@@ -1,7 +1,7 @@
 class TutorSeeReportsController < ApplicationController
   before_action :authenticate_tutor!
   def index
-    @users = User.where(tutor_id: current_tutor.id)
+    @users = User.includes(:reports).where(tutor_id: current_tutor.id).references(:posts)
   end
 
   def show

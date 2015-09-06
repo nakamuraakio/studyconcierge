@@ -7,6 +7,7 @@
       <th>名前</th>
       <th>プロフィール画像</th>
       <th>大学・学部・学年</th>
+      <th></th>
       <th>選択</th>
     </tr>
     <% @tutors.each do |tutor| %>
@@ -14,6 +15,7 @@
       <td><%= tutor.name %></td>
       <td><%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id), :height => '64', :width => '64', :class => 'img-circle' %></td>
       <td><%= tutor.university %></td>
+      <td><%= link_to '詳細を見る', url_for(:controller => 'select_tutor', :action => 'show', :id => tutor.id) %></td>
       <td><label><%= f.radio_button :tutor_id, tutor.id %></label></td>
     </tr>
     <% end %>

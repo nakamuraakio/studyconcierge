@@ -1,0 +1,68 @@
+<div class="container-fluid">
+<h3>チュータープロフィール</h3>
+<table class="table">
+<tr>
+  <td>メールアドレス</td>
+  <td><%= @tutor.email %></td>
+</tr>
+<tr>
+  <td>名前</td>
+  <td><%= @tutor.name %></td>
+</tr>
+<tr>
+  <td>プロフィール画像</td>
+  <td>
+    <% if @tutor.photo == "" %>
+      <%= image_tag '1310.png', :height => '64', :width => '64', :class=> 'img-circle' %>
+    <% else %>
+      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => @tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td>誕生日</td>
+  <td><%= @tutor.birth %></td>
+</tr>
+<tr>
+  <td>大学・学年・学部</td>
+  <td><%= @tutor.university %></td>
+</tr>
+<tr>
+  <td>出身地</td>
+  <td><%= @tutor.is_from %></td>
+</tr>
+<tr>
+  <td>出身高校</td>
+  <td><%= @tutor.highschool %></td>
+</tr>
+<tr>
+  <td>最近こんなことしてます</td>
+  <td><%= @tutor.nowadays %></td>
+</tr>
+<tr>
+  <td>夢</td>
+  <td><%= @tutor.dream %></td>
+</tr>
+<tr>
+  <td>運営からの紹介</td>
+  <td><%= @tutor.intro %></td>
+</tr>
+<tr>
+  <td>担当曜日</td>
+  <td><%= @tutor.available_day %></td>
+</tr>
+<tr>
+  <td>受験で使った科目</td>
+  <td>
+    <ul>
+      <% @subjects.each do |subject| %>
+        <li><%= subject %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>
+</table>
+</div>
+<hr>
+
+<%= link_to 'Back', select_tutor_index_path %>

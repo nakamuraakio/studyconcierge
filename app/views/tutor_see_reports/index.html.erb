@@ -7,12 +7,20 @@
         <tr>
           <th>報告日時</th>
           <th>報告週の平均学習時間</th>
+          <th>コメントの状態</th>
           <th></th>
         </tr>
         <% user.reports.each do |report| %>
         <tr>
           <td><%= report.created_at %></td>
           <td><%= report.average_studytime %></td>
+          <% if report.comments.count > 7 %>
+            <td>コメント数の上限に到達しました</td>
+          <% elsif report.comments.count % 2 == 0 %>
+            <td><strong>未返信</strong></td>
+          <% else %>
+            <td>返信済み</td>
+          <% end %>
           <td><%= link_to '詳細を見る', url_for(:controller => 'tutor_see_reports', :action => 'show', :id => report.id) %></td>
         </tr>
         <% end %>

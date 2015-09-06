@@ -78,4 +78,30 @@
     <li>お問い合わせ</li>
   </ul>
 </div>
+<hr>
+
+<div class="container-fluid">
+  <h3>タイムライン</h3>
+  <ul>
+    <% @timelines.each do |timeline| %>
+      <% if timeline.class.name == "Report" %>
+        <li>
+          <%= timeline.created_at %>：勉強内容を送信しました。　　/<%= link_to '詳細を見る', timeline %>
+        </li>
+      <% elsif timeline.class.name == "Comment" %>
+        <li>
+          <% if timeline.created_by_user %>
+            <%= timeline.created_at %>：コメントを送信しました。　　/<%= link_to '詳細を見る', timeline.report %>
+          <% else %>
+            <%= timeline.created_at %>：チューターからコメントが届いています。　　/<%= link_to '詳細を見る', timeline.report %>
+          <% end %>
+        </li>
+      <% else %>
+        <li>
+          <%= timeline.created_at %>：お知らせがあります。　　/詳細を見る
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
 

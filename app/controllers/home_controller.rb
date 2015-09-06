@@ -24,6 +24,13 @@ class HomeController < ApplicationController
       flash[:notice] = "プロフィールを全て埋めて下さい"
       redirect_to users_edit_profile_path
     end
+
+    @reports = Report.where(user_id: current_user)
+    @comments = Comment.includes(:report).where(user_id: current_user.id)
+    @timelines = @reports + @comments
+    @timelines.sort! do |a, b|
+      a[:created_at] <=> b[:created_at]
+    end
   end
 
   private

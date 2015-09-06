@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :comments, :only => [:create, :destroy]
   resources :reports
   get 'select_tutor/index'
+  get 'select_tutor/show/:id' => 'select_tutor#show'
 
   patch 'select_tutor/update'
 
