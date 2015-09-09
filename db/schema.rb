@@ -26,41 +26,41 @@ ActiveRecord::Schema.define(version: 20150905044604) do
   end
 
   create_table "reports", force: :cascade do |t|
-    t.decimal  "japanese_percentage",               default: 0.0, null: false
-    t.string   "japanese_comment",                  default: "",  null: false
-    t.decimal  "old_japanese_percentage",           default: 0.0, null: false
-    t.string   "old_japanese_comment",              default: "",  null: false
-    t.decimal  "old_chinese_percentage",            default: 0.0, null: false
-    t.string   "old_chinese_comment",               default: "",  null: false
-    t.decimal  "english_percentage",                default: 0.0, null: false
-    t.string   "english_comment",                   default: "",  null: false
-    t.decimal  "math_percentage",                   default: 0.0, null: false
-    t.string   "math_comment",                      default: "",  null: false
-    t.decimal  "physics_percentage",                default: 0.0, null: false
-    t.string   "physics_comment",                   default: "",  null: false
-    t.decimal  "chemistry_percentage",              default: 0.0, null: false
-    t.string   "chemistry_comment",                 default: "",  null: false
-    t.decimal  "biology_percentage",                default: 0.0, null: false
-    t.string   "biology_comment",                   default: "",  null: false
-    t.decimal  "geology_percentage",                default: 0.0, null: false
-    t.string   "geology_comment",                   default: "",  null: false
-    t.decimal  "world_history_percentage",          default: 0.0, null: false
-    t.string   "world_history_comment",             default: "",  null: false
-    t.decimal  "japanese_history_percentage",       default: 0.0, null: false
-    t.string   "japanese_history_comment",          default: "",  null: false
-    t.decimal  "politics_and_economics_percentage", default: 0.0, null: false
-    t.string   "politics_and_economics_comment",    default: "",  null: false
-    t.decimal  "modern_society_percentage",         default: 0.0, null: false
-    t.string   "modern_society_comment",            default: "",  null: false
-    t.decimal  "ethics_percentage",                 default: 0.0, null: false
-    t.string   "ethics_comment",                    default: "",  null: false
-    t.decimal  "geography_percentage",              default: 0.0, null: false
-    t.string   "geography_comment",                 default: "",  null: false
-    t.decimal  "average_studytime",                 default: 0.0, null: false
-    t.string   "free_comment",                      default: "",  null: false
-    t.decimal  "user_id"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.integer  "japanese_percentage",               default: 0,  null: false
+    t.string   "japanese_comment",                  default: "", null: false
+    t.integer  "old_japanese_percentage",           default: 0,  null: false
+    t.string   "old_japanese_comment",              default: "", null: false
+    t.integer  "old_chinese_percentage",            default: 0,  null: false
+    t.string   "old_chinese_comment",               default: "", null: false
+    t.integer  "english_percentage",                default: 0,  null: false
+    t.string   "english_comment",                   default: "", null: false
+    t.integer  "math_percentage",                   default: 0,  null: false
+    t.string   "math_comment",                      default: "", null: false
+    t.integer  "physics_percentage",                default: 0,  null: false
+    t.string   "physics_comment",                   default: "", null: false
+    t.integer  "chemistry_percentage",              default: 0,  null: false
+    t.string   "chemistry_comment",                 default: "", null: false
+    t.integer  "biology_percentage",                default: 0,  null: false
+    t.string   "biology_comment",                   default: "", null: false
+    t.integer  "geology_percentage",                default: 0,  null: false
+    t.string   "geology_comment",                   default: "", null: false
+    t.integer  "world_history_percentage",          default: 0,  null: false
+    t.string   "world_history_comment",             default: "", null: false
+    t.integer  "japanese_history_percentage",       default: 0,  null: false
+    t.string   "japanese_history_comment",          default: "", null: false
+    t.integer  "politics_and_economics_percentage", default: 0,  null: false
+    t.string   "politics_and_economics_comment",    default: "", null: false
+    t.integer  "modern_society_percentage",         default: 0,  null: false
+    t.string   "modern_society_comment",            default: "", null: false
+    t.integer  "ethics_percentage",                 default: 0,  null: false
+    t.string   "ethics_comment",                    default: "", null: false
+    t.integer  "geography_percentage",              default: 0,  null: false
+    t.string   "geography_comment",                 default: "", null: false
+    t.integer  "average_studytime",                 default: 0,  null: false
+    t.string   "free_comment",                      default: "", null: false
+    t.integer  "user_id"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
   create_table "subjects", force: :cascade do |t|

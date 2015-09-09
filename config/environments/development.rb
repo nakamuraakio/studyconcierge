@@ -36,6 +36,9 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
+  Encoding.default_external = Encoding::UTF_8
+  Encoding.default_internal = Encoding::UTF_8
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   config.after_initialize do

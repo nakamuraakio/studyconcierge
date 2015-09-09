@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/app_admin', as: 'rails_admin'
   resources :comments, :only => [:create, :destroy]
   resources :reports
   get 'select_tutor/index'

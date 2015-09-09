@@ -5,6 +5,9 @@ class CommentsController < ApplicationController
     end
   end
 
+  def new
+  end
+
   def create
   	@comment = Comment.new(comment_params)
     @report = Report.find(@comment.report_id)

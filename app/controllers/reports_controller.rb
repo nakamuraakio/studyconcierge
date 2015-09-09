@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
   before_action do
     if !user_signed_in? && !tutor_signed_in?
@@ -16,11 +16,12 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
+    @report = Report.find(params[:id])
     if @report.comments.any?
-      @comments = Comment.where(report_id: @report.id)
+      @comments = Comment.includes(:tutor).includes(:user).where(report_id: @report.id)
       @comments.each do |comment|
         if !comment.read_flag && !comment.created_by_user
-          comment.read_flag == true
+          comment.read_flag = true
           comment.save
         end
       end

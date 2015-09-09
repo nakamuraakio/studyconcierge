@@ -180,7 +180,7 @@
 <% end %>
 
 <p>
-  <strong>Average studytime:</strong>
+  <strong>今週の勉強時間:</strong>
   <%= @report.average_studytime %>
 </p>
 
@@ -197,13 +197,16 @@
     <p><%= comment.comment_count %></p>
     <p><%= comment.created_at %></p>
     <% if comment.created_by_user %>
-      <p>ユーザーID：<%= comment.user_id %></p>
+      <p>FROM：<%= comment.user.name %></p>
     <% else %>
-      <p>チューターID：<%= comment.tutor_id %></p>
+      <p>FROM：<%= comment.tutor.name %></p>
     <% end %>
     <p><%= comment.content %></p>
     <% if comment.created_by_user %>
       <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
+      <% if comment.read_flag %>
+        <p>既読</p>
+      <% end %>
     <% end %>
   </div>
   <% end %>

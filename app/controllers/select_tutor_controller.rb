@@ -3,7 +3,7 @@ class SelectTutorController < ApplicationController
   def index
     @tutors = Array.new()
   	Tutor.all.each do |tutor|
-      if (tutor.users.count < tutor.capacity) && tutor != current_user.tutor
+      if tutor != current_user.tutor
         @tutors.push(tutor)
       end
     end

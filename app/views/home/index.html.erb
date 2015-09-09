@@ -45,8 +45,10 @@
     <% if current_user.tutor.nil? %>
       <%= '選択されていません' %>
     <% else %>
-      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
-      <%= current_user.tutor.name %>
+      <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
+        <%= current_user.tutor.name %>
+      <% end %>
     <% end %>
   </td>
 </tr>
@@ -58,10 +60,25 @@
   <td>報告したい科目</td>
   <td>
     <ul>
-      <% @subjects.each do |subject| %>
+      <% @subjects.each do |subject, studytime| %>
         <li><%= subject %></li>
       <% end %>
     </ul>
+  </td>
+</tr>
+<tr>
+  <td>合計勉強時間</td>
+  <td><%= @total_studytime %>時間</td>
+</tr>
+<tr>
+  <td>科目別勉強時間</td>
+  <td>
+    <ul>
+      <% @subjects.each do |subject, studytime| %>
+        <li><%= subject %>：　<%= studytime %>時間</li>
+      <% end %>
+    </ul>
+    合計が上と等しくない場合があります
   </td>
 </tr>
 </table>
