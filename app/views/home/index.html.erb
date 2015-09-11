@@ -1,16 +1,48 @@
 <div class="container-fluid">
+<div class="row">
+
+<div class="menu col-md-3">
+  <h3>メニュー</h3>
+  <ul class="list-group">
+    <li class="list-group-item"><%= link_to '勉強を報告する', new_report_path %></li>
+    <li class="list-group-item"><%= link_to 'コメントに返信する', reports_path %></li>
+    <li class="list-group-item"><%= link_to 'チューターを選択/変更する', select_tutor_index_path %></li>
+    <li class="list-group-item"><%= link_to '設定', users_edit_profile_path %></li>
+    <li class="list-group-item">お問い合わせ</li>
+  </ul>
+</div>
+
+<div class="timeline col-md-5">
+  <h3>タイムライン</h3>
+  <div>
+    <table class="table table-bordered">
+    <tbody>
+    <% @user_events.each do |user_event| %>      
+      <tr>
+        <th><%= time_ago_in_words(user_event.created_at) %>前</th>
+        <td class="table-color-<%= user_event.event_type %>"><%= user_event.status %></td>
+        <td><%= link_to '詳細', user_event.link %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sidebar col-md-4">
 <h3>ユーザープロフィール</h3>
-<table class="table">
+<table class="table table-bordered">
+<tbody>
 <tr>
-  <td>メールアドレス</td>
+  <th>メールアドレス</th>
   <td><%= current_user.email %></td>
 </tr>
 <tr>
-  <td>名前</td>
+  <th>名前</th>
   <td><%= current_user.name %></td>
 </tr>
 <tr>
-  <td>プロフィール画像</td>
+  <th>プロフィール画像</th>
   <td>
     <% if current_user.photo == "" %>
       <%= image_tag '1310.png', :height => '64', :width => '64', :class=> 'img-circle' %>
@@ -20,27 +52,27 @@
   </td>
 </tr>
 <tr>
-  <td>誕生日</td>
+  <th>誕生日</th>
   <td><%= current_user.birth %></td>
 </tr>
 <tr>
-  <td>学年</td>
+  <th>学年</th>
   <td><%= current_user.year %></td>
 </tr>
 <tr>
-  <td>学校名</td>
+  <th>学校名</th>
   <td><%= current_user.school %></td>
 </tr>
 <tr>
-  <td>住所</td>
+  <th>住所</th>
   <td><%= current_user.lives_in %></td>
 </tr>
 <tr>
-  <td>志望校</td>
+  <th>志望校</th>
   <td><%= current_user.school_desire %></td>
 </tr>
 <tr>
-  <td>選択中のチューター</td>
+  <th>選択中のチューター</th>
   <td>
     <% if current_user.tutor.nil? %>
       <%= '選択されていません' %>
@@ -53,11 +85,11 @@
   </td>
 </tr>
 <tr>
-  <td>報告回数</td>
+  <th>報告回数</th>
   <td><%= current_user.reports.count %></td>
 </tr>
 <tr>
-  <td>報告したい科目</td>
+  <th>報告したい科目</th>
   <td>
     <ul>
       <% @subjects.each do |subject, studytime| %>
@@ -67,11 +99,11 @@
   </td>
 </tr>
 <tr>
-  <td>合計勉強時間</td>
+  <th>合計勉強時間</th>
   <td><%= @total_studytime %>時間</td>
 </tr>
 <tr>
-  <td>科目別勉強時間</td>
+  <th>科目別勉強時間</th>
   <td>
     <ul>
       <% @subjects.each do |subject, studytime| %>
@@ -81,44 +113,15 @@
     合計が上と等しくない場合があります
   </td>
 </tr>
+</tbody>
 </table>
 </div>
-<hr>
 
-<div class="container-fluid">
-  <h3>メニュー</h3>
-  <ul>
-    <li><%= link_to '勉強を報告する', reports_path %></li>
-    <li>コメントに返信する</li>
-    <li><%= link_to 'チューターを選択/変更する', select_tutor_index_path %></li>
-    <li><%= link_to '設定', users_edit_profile_path %></li>
-    <li>お問い合わせ</li>
-  </ul>
 </div>
-<hr>
+</div>
 
-<div class="container-fluid">
-  <h3>タイムライン</h3>
-  <ul>
-    <% @timelines.each do |timeline| %>
-      <% if timeline.class.name == "Report" %>
-        <li>
-          <%= timeline.created_at %>：勉強内容を送信しました。　　/<%= link_to '詳細を見る', timeline %>
-        </li>
-      <% elsif timeline.class.name == "Comment" %>
-        <li>
-          <% if timeline.created_by_user %>
-            <%= timeline.created_at %>：コメントを送信しました。　　/<%= link_to '詳細を見る', timeline.report %>
-          <% else %>
-            <%= timeline.created_at %>：チューターからコメントが届いています。　　/<%= link_to '詳細を見る', timeline.report %>
-          <% end %>
-        </li>
-      <% else %>
-        <li>
-          <%= timeline.created_at %>：お知らせがあります。　　/詳細を見る
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
-</div>
+
+
+
+
 

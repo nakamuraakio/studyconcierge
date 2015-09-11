@@ -20,6 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.find(current_user.id)
     respond_to do |format|
       if @user.update(user_params)
+        UserEvent.new(status: 'プロフィールを変更しました。', event_type: 5, user_id: @user.id, link: "/").save
         format.html { redirect_to home_index_path, notice: 'プロフィールを更新しました' }
         format.json { render :show, status: :ok, location: @user }
       else

@@ -2,7 +2,12 @@
 
 <div class="container-fluid">
 <%= form_for(@user, url: select_tutor_update_path) do |f| %>
+  <p>
+    選択しない
+    <%= f.radio_button :tutor_id, 0 %>
+  </p>
   <table class="table">
+    <thead>
     <tr>
       <th>名前</th>
       <th>プロフィール画像</th>
@@ -11,9 +16,11 @@
       <th></th>
       <th>選択</th>
     </tr>
+    </thead>
+    <tbody>
     <% @tutors.each do |tutor| %>
     <tr>
-      <td><%= tutor.name %></td>
+      <th><%= tutor.name %></th>
       <td><%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id), :height => '64', :width => '64', :class => 'img-circle' %></td>
       <td><%= tutor.university %></td>
       <td><%= link_to '詳細を見る', url_for(:controller => 'select_tutor', :action => 'show', :id => tutor.id) %></td>
@@ -29,6 +36,7 @@
       </label></td>
     </tr>
     <% end %>
+    </tbody>
   </table>
 
   <div class="actions">

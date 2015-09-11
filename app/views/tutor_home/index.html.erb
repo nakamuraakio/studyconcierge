@@ -1,16 +1,48 @@
 <div class="container-fluid">
+<div class="row">
+
+<div class="col-md-3">
+  <h3>メニュー</h3>
+  <ul class="list-group">
+    <li class="list-group-item"><%= link_to '現在指導中の学生の詳細', tutor_home_user_index_path %></li>
+    <li class="list-group-item">コメントに返信する</li>
+    <li class="list-group-item"><%= link_to "報告の一覧を見る", tutor_see_reports_index_path %></li>
+    <li class="list-group-item"><%= link_to '設定', tutors_edit_profile_path %></li>
+    <li class="list-group-item">お問い合わせ</li>
+  </ul>
+</div>
+
+<div class="timeline col-md-5">
+  <h3>タイムライン</h3>
+  <div>
+    <table class="table table-bordered">
+    <tbody>
+    <% @tutor_events.each do |tutor_event| %>      
+      <tr>
+        <th><%= time_ago_in_words(tutor_event.created_at) %>前</th>
+        <td><%= tutor_event.status %></td>
+        <td><%= link_to '詳細', tutor_event.link %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="col-md-4">
 <h3>チュータープロフィール</h3>
-<table class="table">
+<table class="table table-bordered">
+<tbody>
 <tr>
-  <td>メールアドレス</td>
+  <th>メールアドレス</th>
   <td><%= current_tutor.email %></td>
 </tr>
 <tr>
-  <td>名前</td>
+  <th>名前</th>
   <td><%= current_tutor.name %></td>
 </tr>
 <tr>
-  <td>プロフィール画像</td>
+  <th>プロフィール画像</th>
   <td>
     <% if current_tutor.photo == "" %>
       <%= image_tag '1310.png', :height => '64', :width => '64', :class=> 'img-circle' %>
@@ -20,39 +52,39 @@
   </td>
 </tr>
 <tr>
-  <td>誕生日</td>
+  <th>誕生日</th>
   <td><%= current_tutor.birth %></td>
 </tr>
 <tr>
-  <td>大学・学年・学部</td>
+  <th>大学・学年・学部</th>
   <td><%= current_tutor.university %></td>
 </tr>
 <tr>
-  <td>出身地</td>
+  <th>出身地</th>
   <td><%= current_tutor.is_from %></td>
 </tr>
 <tr>
-  <td>出身高校</td>
+  <th>出身高校</th>
   <td><%= current_tutor.highschool %></td>
 </tr>
 <tr>
-  <td>最近こんなことしてます</td>
+  <th>最近こんなことしてます</th>
   <td><%= current_tutor.nowadays %></td>
 </tr>
 <tr>
-  <td>夢</td>
+  <th>夢</th>
   <td><%= current_tutor.dream %></td>
 </tr>
 <tr>
-  <td>運営からの紹介</td>
+  <th>運営からの紹介</th>
   <td><%= current_tutor.intro %></td>
 </tr>
 <tr>
-  <td>担当曜日</td>
+  <th>担当曜日</th>
   <td><%= current_tutor.available_day %></td>
 </tr>
 <tr>
-  <td>指導中の学生</td>
+  <th>指導中の学生</th>
   <td>
     <% if current_tutor.users.nil? %>
       <%= '指導している学生はいません' %>
@@ -60,8 +92,10 @@
       <ul>
       <% current_tutor.users.each do |user| %>
         <li>
+          <%= link_to "/tutor_home/user_show/#{user.id}" do %>
           <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => user.id), :height => '64', :width => '64', :class => 'img-circle' %>
           <%= user.name %>
+          <% end %>
         </li>
       <% end %>
       </ul>
@@ -69,32 +103,26 @@
   </td>
 </tr>
 <tr>
-  <td>最大指導人数</td>
+  <th>最大指導人数</th>
   <td><%= current_tutor.capacity %></td>
 </tr>
 <tr>
-  <td>受験で使った科目</td>
+  <th>受験で使った科目</th>
   <td>
     <ul>
-      <% @subjects.each do |subject| %>
+      <% @subjects.each do |subject, studytime| %>
         <li><%= subject %></li>
       <% end %>
     </ul>
   </td>
 </tr>
+</tbody>
 </table>
 </div>
-<hr>
 
-<div class="container-fluid">
-  <h3>メニュー</h3>
-  <ul>
-    <li><%= link_to '現在指導中の学生の詳細', tutor_home_show_user_path %></li>
-    <li>コメントに返信する</li>
-    <li><%= link_to "報告の一覧を見る", tutor_see_reports_index_path %></li>
-    <li><%= link_to '設定', tutors_edit_profile_path %></li>
-    <li>お問い合わせ</li>
-  </ul>
 </div>
+</div>
+
+
 
 

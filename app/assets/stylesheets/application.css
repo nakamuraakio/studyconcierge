@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+.table-color-1{
+  background-color: #f39c12;
+  color: white;
+}
+
+.table-color-2{
+  background-color: #3498db;
+  color: white;
+}
+
+.table-color-3{
+  background-color: #bdc3c7;
+  color: white;
+}
+
+.table-color-4{
+  background-color: #9b59b6;
+  color: white;
+}
+
+.table-color-5{
+  background-color: #1abc9c;
+  color: white;
+}

@@ -9,8 +9,8 @@ class TutorSeeReportsController < ApplicationController
     if @report.comments.any?
       @comments = Comment.where(report_id: @report.id)
       @comments.each do |comment|
-        if !comment.read_flag && !comment.created_by_user
-          comment.read_flag == true
+        if !comment.read_flag && comment.created_by_user
+          comment.read_flag = true
           comment.save
         end
       end

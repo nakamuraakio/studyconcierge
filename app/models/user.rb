@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_one :subject, dependent: :destroy
   belongs_to :tutor
   has_many :comments, dependent: :destroy
+  has_many :user_events, dependent: :destroy
   accepts_nested_attributes_for :subject, allow_destroy: true
   has_many :reports, dependent: :destroy
 

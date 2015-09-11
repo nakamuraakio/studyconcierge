@@ -211,7 +211,9 @@
   </div>
   <% end %>
 
-  <% if @comments.count > 7 %>
+  <% if @report.user.tutor_id == 0 %>
+    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
+  <% elsif @comments.count > 7 %>
     <p>コメント数の上限に到達しました</p>
   <% elsif @comments.count % 2 == 0 %>
     <p>チューターからの返信待ちです</p>
@@ -219,7 +221,11 @@
     <%= render 'comments/form' %>
   <% end %>
 <% else %>
-  <p>チューターからの返信待ちです</p>
+  <% if @report.user.tutor_id == 0 %>
+    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
+  <% else %>
+    <p>チューターからの返信待ちです</p>
+  <% end %>
 <% end %>
 
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905044604) do
+ActiveRecord::Schema.define(version: 20150909120139) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "content",         default: "",    null: false
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 20150905044604) do
     t.datetime "updated_at",                             null: false
   end
 
+  create_table "tutor_events", force: :cascade do |t|
+    t.string   "status",     default: "", null: false
+    t.integer  "tutor_id",   default: 0,  null: false
+    t.integer  "event_type", default: 0,  null: false
+    t.string   "link",       default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "tutors", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -114,6 +123,15 @@ ActiveRecord::Schema.define(version: 20150905044604) do
 
   add_index "tutors", ["email"], name: "index_tutors_on_email", unique: true
   add_index "tutors", ["reset_password_token"], name: "index_tutors_on_reset_password_token", unique: true
+
+  create_table "user_events", force: :cascade do |t|
+    t.string   "status",     default: "", null: false
+    t.integer  "user_id",    default: 0,  null: false
+    t.integer  "event_type", default: 0,  null: false
+    t.string   "link",       default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

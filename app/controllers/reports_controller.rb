@@ -17,8 +17,15 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @report = Report.find(params[:id])
+    if @report.user != current_user
+      render 403
+    end
     if @report.comments.any?
-      @comments = Comment.includes(:tutor).includes(:user).where(report_id: @report.id)
+      if @report.comments.count == 1
+        @comments = Comment.includes(:tutor).where(report_id: @report.id)
+      else
+        @comments = Comment.includes(:tutor).includes(:user).where(report_id: @report.id)
+      end
       @comments.each do |comment|
         if !comment.read_flag && !comment.created_by_user
           comment.read_flag = true
@@ -44,9 +51,19 @@ class ReportsController < ApplicationController
   def create
     @report = Report.new(report_params)
     @report.user_id = current_user.id
+    @user_event = UserEvent.new(status: '勉強内容を送信しました。', user_id: current_user.id, event_type: 1)
+    if current_user.tutor
+      @tutor_event = TutorEvent.new(status: "#{current_user.name}さんが勉強内容を送信しました。", tutor_id: current_user.tutor.id, event_type: 1)
+    end
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
+        @user_event.link = "/reports/#{@report.id}"
+        @user_event.save
+        if current_user.tutor
+          @tutor_event.link = "/reports/#{@report.id}"
+          @tutor_event.save
+        end
+        format.html { redirect_to @report, notice: '報告を作成しました。' }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }

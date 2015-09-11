@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<h3>現在指導中の学生の詳細</h3>
+<h3>現在指導中の学生の一覧</h3>
 <% @users.each do |user| %>
   <div class="panel panel-default">
     <p>
@@ -21,7 +21,7 @@
       志望校：<%= user.school_desire %>
     </p>
     <p>
-
+      <%= link_to '詳細を見る', "/tutor_home/user_show/#{user.id}" %>
     </p>
   </div>
 <% end %>

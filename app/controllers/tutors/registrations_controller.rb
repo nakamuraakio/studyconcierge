@@ -20,6 +20,7 @@ class Tutors::RegistrationsController < Devise::RegistrationsController
     @tutor = Tutor.find(current_tutor.id)
     respond_to do |format|
       if @tutor.update(tutor_params)
+        TutorEvent.new(status: 'プロフィールを変更しました。', event_type: 5, tutor_id: @tutor.id, link: "/").save
         format.html { redirect_to tutor_home_index_path, notice: 'プロフィールを更新しました' }
         format.json { render :show, status: :ok, location: @tutor }
       else

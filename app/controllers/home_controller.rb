@@ -61,11 +61,8 @@ class HomeController < ApplicationController
     end
 
     
-    @comments = Comment.includes(:report).where(user_id: current_user.id)
-    @timelines = @reports + @comments
-    @timelines.sort! do |a, b|
-      a[:created_at] <=> b[:created_at]
-    end
+    @comments = Comment.where(user_id: current_user.id)
+    @user_events = UserEvent.where(user_id: current_user.id)
     @unread_messages = 0
     @comments.each do |comment|
       if !comment.read_flag && !comment.created_by_user
@@ -74,10 +71,8 @@ class HomeController < ApplicationController
     end
 
     if @unread_messages != 0
-      flash.now[:notice] = "#{@unread_messages} 件の未読メッセージがあります。"
-    end
-    
-    
+      flash.now[:notice] = "#{@unread_messages}件の未読メッセージがあります。"
+    end    
   end
 
   private

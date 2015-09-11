@@ -1,0 +1,56 @@
+<h3>ユーザー情報</h3>
+<table class="table">
+<tr>
+  <td>名前</td>
+  <td><%= @user.name %></td>
+</tr>
+<tr>
+  <td>プロフィール画像</td>
+  <td>
+    <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => @user.id), :height => '64', :width => '64', :class => 'img-circle' %>
+  </td>
+</tr>
+<tr>
+  <td>生年月日</td>
+  <td><%= @user.birth %></td>
+</tr>
+<tr>
+  <td>高校名、学年</td>
+  <td><%= @user.school %>・<%= @user.year %>年生</td>
+</tr>
+<tr>
+  <td>現住地</td>
+  <td><%= @user.lives_in %></td>
+</tr>
+<tr>
+  <td>志望校</td>
+  <td><%= @user.school_desire %></td>
+</tr>
+<tr>
+  <td>報告したい科目</td>
+  <td>
+    <ul>
+      <% @subjects.each do |subject, studytime| %>
+        <li><%= subject %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>
+<tr>
+  <td>合計勉強時間</td>
+  <td><%= @total_studytime %>時間</td>
+</tr>
+<tr>
+  <td>科目別勉強時間</td>
+  <td>
+    <ul>
+      <% @subjects.each do |subject, studytime| %>
+        <li><%= subject %>：　<%= studytime %>時間</li>
+      <% end %>
+    </ul>
+    （合計が上と等しくない場合があります）
+  </td>
+</tr>
+</table>
+
+<%= link_to '戻る', :back %>

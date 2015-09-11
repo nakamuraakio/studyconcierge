@@ -35,10 +35,25 @@ class SelectTutorController < ApplicationController
 
   def update
   	@user = current_user
+    former_tutor = @user.tutor
+    @user_event = UserEvent.new
+    @user_event.user_id = @user.id
+    @user_event.event_type = 4
   	respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to home_index_path, notice: 'チューターを選択しました' }
-        format.json { render :show, status: :ok, location: @user }
+        if params[:user][:tutor_id] == "0"
+          @user_event.status = "チューターを選択解除しました。"
+          @user_event.link = "/"
+          @user_event.save
+          format.html { redirect_to home_index_path, notice: 'チューターを選択解除しました' }
+        else
+          @user_event.status = "チューターに#{@user.tutor.name}さんを選択しました。"
+          @user_event.link = "/select_tutor/show/#{@user.tutor.id}"
+          @user_event.save
+          TutorEvent.new(status: "#{@user.name}さんのチューターに選ばれました。", tutor_id: @user.tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save
+          format.html { redirect_to home_index_path, notice: 'チューターを選択しました' }
+          format.json { render :show, status: :ok, location: @user }
+        end
       else
         format.html { render :index }
         format.json { render json: @user.errors, status: :unprocessable_entity }
