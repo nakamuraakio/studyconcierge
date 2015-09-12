@@ -75,7 +75,7 @@
 
   <div class="field">
     <%= f.label "担当曜日" %><br>
-    <%= f.text_field :available_day %>
+    <%= f.select :available_day, {'日曜日' => 0, '月曜日' => 1, '火曜日' => 2, '水曜日' => 3, '木曜日' => 4, '金曜日' => 5, '土曜日' => 6}, { include_blank: '選択して下さい' } %>
   </div>
 
   <div class="field">

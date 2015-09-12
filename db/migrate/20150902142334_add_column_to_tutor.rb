@@ -9,7 +9,7 @@ class AddColumnToTutor < ActiveRecord::Migration
     add_column :tutors, :nowadays, :string, null: false, default: ""
     add_column :tutors, :dream, :string, null: false, default: ""
     add_column :tutors, :intro, :string, null: false, default: ""
-    add_column :tutors, :available_day, :string, null: false, default: ""
+    add_column :tutors, :available_day, :integer, null: false, default: 0
     add_column :tutors, :capacity, :integer, null: false, default: 5
     add_column :tutors, :subjects, :text, null: false, default: ""
   end

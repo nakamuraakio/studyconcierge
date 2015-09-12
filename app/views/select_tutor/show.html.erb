@@ -49,7 +49,24 @@
 </tr>
 <tr>
   <td>担当曜日</td>
-  <td><%= @tutor.available_day %></td>
+  <td>
+    <% case @tutor.available_day %>
+      <% when 0 then %>
+        <%= 日曜日 %>
+      <% when 1 then %>
+        <%= 月曜日 %>
+      <% when 2 then %>
+        <%= 火曜日 %>
+      <% when 3 then %>
+        <%= 水曜日 %>
+      <% when 4 then %>
+        <%= 木曜日 %>
+      <% when 5 then %>
+        <%= 金曜日 %>
+      <% when 6 then %>
+        <%= 土曜日 %>
+    <% end %>
+  </td>
 </tr>
 <tr>
   <td>受験で使った科目</td>
