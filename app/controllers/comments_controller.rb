@@ -23,7 +23,8 @@ class CommentsController < ApplicationController
       @user_event.link = "/reports/#{@report.id}"
       @tutor_event.status = "指導中の#{@report.user.name}さんにコメントを送信しました。"
       @tutor_event.tutor_id = @report.user.tutor.id
-      @tutor_event_type = 2
+      @tutor_event.event_type = 2
+      @tutor_event.link = "/tutor_see_reports/show/#{@report.id}"
     elsif user_signed_in?
       @user_event.status = "チューターの#{@reprot.user.tutor.name}さんにコメントを送信しました。"
       @user_event.user_id = current_user.id
@@ -31,7 +32,8 @@ class CommentsController < ApplicationController
       @user_event.link = "/reports/#{@report.id}"
       @tutor_event.status = "指導中の#{@report.user.name}さんからコメントが届いています。"
       @tutor_event.tutor_id = @report.user.tutor.id
-      @tutor_event_type = 3
+      @tutor_event.event_type = 3
+      @tutor_event.link = "/tutor_see_reports/show/#{@report.id}"
     end
     respond_to do |format|
       if @comment.save
@@ -41,7 +43,7 @@ class CommentsController < ApplicationController
           format.html { redirect_to @report, notice: 'コメントを作成しました' }
           #format.json { render :show, status: :created, location: @report }
         else
-          format.html { redirect_to url_for(:controller => 'tutor_see_reports', :action => 'show', :id => @report.id), notice: 'Comment was successfully created.' }
+          format.html { redirect_to url_for(:controller => 'tutor_see_reports', :action => 'show', :id => @report.id), notice: 'コメントを作成しました' }
           #format.json { render :show, status: :created, location: @report }
         end
       else

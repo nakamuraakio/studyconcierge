@@ -11,11 +11,11 @@ class TutorHomeController < ApplicationController
       redirect_to tutors_edit_profile_path
     end
 
-    @comments = Comment.where(tutor_id: current_tutor.id)
+    @comments = Comment.includes(:user).where(tutor_id: current_tutor.id)
     @tutor_events = TutorEvent.where(tutor_id: current_tutor.id)
     @unread_messages = 0
     @comments.each do |comment|
-      if !comment.read_flag && comment.created_by_user
+      if !comment.read_flag && comment.created_by_user && comment.user.tutor_id == current_tutor.id
         @unread_messages += 1
       end
     end
