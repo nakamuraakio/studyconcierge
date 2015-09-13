@@ -9,6 +9,6 @@ class AddColumnToUser < ActiveRecord::Migration
     add_column :users, :school_desire, :string, null: false, default: ""
     add_column :users, :report_count, :integer, null: false, default: "0"
     add_column :users, :tutor_id, :integer
-    add_column :users, :tutor_request_exists, null: false, default: false
+    add_column :users, :tutor_request_exists, :boolean, null: false, default: false
   end
 end

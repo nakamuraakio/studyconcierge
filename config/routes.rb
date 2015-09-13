@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/app_admin', as: 'rails_admin'
+  resources :summaries, :only => [:create, :index, :show]
   resources :comments, :only => [:create, :destroy]
   resources :reports
   get 'select_tutor/index'
@@ -31,8 +32,8 @@ Rails.application.routes.draw do
   get 'tutor_home/index'
   get 'tutor_home/user_index'
   get 'tutor_home/user_show/:id' => 'tutor_home#user_show'
-  get 'tutor_see_reports/index'
-  get 'tutor_see_reports/show/:id' => 'tutor_see_reports#show'
+  get 'tutor_see_summary/index'
+  get 'tutor_see_summary/show/:id' => 'tutor_see_summary#show'
   root to: 'landing#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

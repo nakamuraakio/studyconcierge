@@ -5,7 +5,7 @@ class CreateComments < ActiveRecord::Migration
       t.boolean :read_flag, null: false, default: false
       t.integer :comment_count, null: false, default: 0
       t.boolean :created_by_user, null: false, default: true
-      t.integer :report_id, null: false, default: 0
+      t.integer :summary_id, null: false, default: 0
       t.integer :user_id, null: false, default: 0
       t.integer :tutor_id, null: false, default: 0
 

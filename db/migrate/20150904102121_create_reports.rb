@@ -34,6 +34,7 @@ class CreateReports < ActiveRecord::Migration
       t.integer :average_studytime, null: false, default: 0
       t.string :free_comment, null: false, default: ""
       t.integer :user_id
+      t.integer :summary_id
 
       t.timestamps null: false
     end

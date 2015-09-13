@@ -1,197 +1,206 @@
 <div class="container-fluid">
-<h3><%= @report.user.name %>さんの報告</h3>
+<div class="row">
+<% @reports.each do |report| %>
+<div class="col-md-4">
+<div class="panel panel-default">
+<p><%= report.created_at %></p>
 
-<% if @report.user.subject.japanese %>
+<% if report.user.subject.japanese %>
 <p>
   <strong>Japanese percentage:</strong>
-  <%= @report.japanese_percentage %>
+  <%= report.japanese_percentage %>
 </p>
 
 <p>
   <strong>Japanese comment:</strong>
-  <%= @report.japanese_comment %>
+  <%= report.japanese_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.old_japanese %>
+<% if report.user.subject.old_japanese %>
 <p>
   <strong>Old japanese percentage:</strong>
-  <%= @report.old_japanese_percentage %>
+  <%= report.old_japanese_percentage %>
 </p>
 
 <p>
   <strong>Old japanese comment:</strong>
-  <%= @report.old_japanese_comment %>
+  <%= report.old_japanese_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.old_chinese %>
+<% if report.user.subject.old_chinese %>
 <p>
   <strong>Old chinese percentage:</strong>
-  <%= @report.old_chinese_percentage %>
+  <%= report.old_chinese_percentage %>
 </p>
 
 <p>
   <strong>Old chinese comment:</strong>
-  <%= @report.old_chinese_comment %>
+  <%= report.old_chinese_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.english %>
+<% if report.user.subject.english %>
 <p>
   <strong>English percentage:</strong>
-  <%= @report.english_percentage %>
+  <%= report.english_percentage %>
 </p>
 
 <p>
   <strong>English comment:</strong>
-  <%= @report.english_comment %>
+  <%= report.english_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.math %>
+<% if report.user.subject.math %>
 <p>
   <strong>Math percentage:</strong>
-  <%= @report.math_percentage %>
+  <%= report.math_percentage %>
 </p>
 
 <p>
   <strong>Math comment:</strong>
-  <%= @report.math_comment %>
+  <%= report.math_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.physics %>
+<% if report.user.subject.physics %>
 <p>
   <strong>Physics percentage:</strong>
-  <%= @report.physics_percentage %>
+  <%= report.physics_percentage %>
 </p>
 
 <p>
   <strong>Physics comment:</strong>
-  <%= @report.physics_comment %>
+  <%= report.physics_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.chemistry %>
+<% if report.user.subject.chemistry %>
 <p>
   <strong>Chemistry percentage:</strong>
-  <%= @report.chemistry_percentage %>
+  <%= report.chemistry_percentage %>
 </p>
 
 <p>
   <strong>Chemistry comment:</strong>
-  <%= @report.chemistry_comment %>
+  <%= report.chemistry_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.biology %>
+<% if report.user.subject.biology %>
 <p>
   <strong>Biology percentage:</strong>
-  <%= @report.biology_percentage %>
+  <%= report.biology_percentage %>
 </p>
 
 <p>
   <strong>Biology comment:</strong>
-  <%= @report.biology_comment %>
+  <%= report.biology_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.geology %>
+<% if report.user.subject.geology %>
 <p>
   <strong>Geology percentage:</strong>
-  <%= @report.geology_percentage %>
+  <%= report.geology_percentage %>
 </p>
 
 <p>
   <strong>Geology comment:</strong>
-  <%= @report.geology_comment %>
+  <%= report.geology_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.world_history %>
+<% if report.user.subject.world_history %>
 <p>
   <strong>World history percentage:</strong>
-  <%= @report.world_history_percentage %>
+  <%= report.world_history_percentage %>
 </p>
 
 <p>
   <strong>World history comment:</strong>
-  <%= @report.world_history_comment %>
+  <%= report.world_history_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.japanese_history %>
+<% if report.user.subject.japanese_history %>
 <p>
   <strong>Japanese history percentage:</strong>
-  <%= @report.japanese_history_percentage %>
+  <%= report.japanese_history_percentage %>
 </p>
 
 <p>
   <strong>Japanese history comment:</strong>
-  <%= @report.japanese_history_comment %>
+  <%= report.japanese_history_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.politics_and_economics %>
+<% if report.user.subject.politics_and_economics %>
 <p>
   <strong>Politics and economics percentage:</strong>
-  <%= @report.politics_and_economics_percentage %>
+  <%= report.politics_and_economics_percentage %>
 </p>
 
 <p>
   <strong>Politics and economics comment:</strong>
-  <%= @report.politics_and_economics_comment %>
+  <%= report.politics_and_economics_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.modern_society %>
+<% if report.user.subject.modern_society %>
 <p>
   <strong>Modern society percentage:</strong>
-  <%= @report.modern_society_percentage %>
+  <%= report.modern_society_percentage %>
 </p>
 
 <p>
   <strong>Modern society comment:</strong>
-  <%= @report.modern_society_comment %>
+  <%= report.modern_society_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.ethics %>
+<% if report.user.subject.ethics %>
 <p>
   <strong>Ethics percentage:</strong>
-  <%= @report.ethics_percentage %>
+  <%= report.ethics_percentage %>
 </p>
 
 <p>
   <strong>Ethics comment:</strong>
-  <%= @report.ethics_comment %>
+  <%= report.ethics_comment %>
 </p>
 <% end %>
 
-<% if @report.user.subject.geography %>
+<% if report.user.subject.geography %>
 <p>
   <strong>Geography percentage:</strong>
-  <%= @report.geography_percentage %>
+  <%= report.geography_percentage %>
 </p>
 
 <p>
   <strong>Geography comment:</strong>
-  <%= @report.geography_comment %>
+  <%= report.geography_comment %>
 </p>
 <% end %>
 
 <p>
   <strong>Average studytime:</strong>
-  <%= @report.average_studytime %>
+  <%= report.average_studytime %>
 </p>
 
 <p>
   <strong>Free comment:</strong>
-  <%= @report.free_comment %>
+  <%= report.free_comment %>
 </p>
-<hr>
+</div>
+</div>
+<% end %>
+</div>
 
+<div class="row">
+<div class="col-md-12">
 <h3>コメント</h3>
 <% if @comments %>
   <% @comments.each do |comment| %>
@@ -220,4 +229,7 @@
 <% end %>
 
 <%= link_to '戻る', :back %>
+</div>
+</div>
+
 </div>

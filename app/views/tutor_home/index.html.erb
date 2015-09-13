@@ -6,7 +6,7 @@
   <ul class="list-group">
     <li class="list-group-item"><%= link_to '現在指導中の学生の詳細', tutor_home_user_index_path %></li>
     <li class="list-group-item">コメントに返信する</li>
-    <li class="list-group-item"><%= link_to "報告の一覧を見る", tutor_see_reports_index_path %></li>
+    <li class="list-group-item"><%= link_to "報告の一覧を見る", tutor_see_summary_index_path %></li>
     <li class="list-group-item"><%= link_to '設定', tutors_edit_profile_path %></li>
     <li class="list-group-item">お問い合わせ</li>
   </ul>
@@ -81,7 +81,24 @@
 </tr>
 <tr>
   <th>担当曜日</th>
-  <td><%= current_tutor.available_day %></td>
+  <td>
+    <% case current_tutor.available_day %>
+      <% when 0 then %>
+        日曜日
+      <% when 1 then %>
+        月曜日
+      <% when 2 then %>
+        火曜日
+      <% when 3 then %>
+        水曜日
+      <% when 4 then %>
+        木曜日
+      <% when 5 then %>
+        金曜日
+      <% when 6 then %>
+        土曜日
+    <% end %>
+  </td>
 </tr>
 <tr>
   <th>指導中の学生</th>

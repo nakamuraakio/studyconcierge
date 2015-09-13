@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :user_events, dependent: :destroy
   accepts_nested_attributes_for :subject, allow_destroy: true
   has_many :reports, dependent: :destroy
+  has_many :summaries, dependent: :destroy
 
   def photo_file= (p)
     if p

@@ -1,0 +1,14 @@
+<div class="container-fluid">
+<% if @summaries %>
+  <table class="table table-bordered">
+  <tbody>
+  <% @summaries.each do |summary| %>
+  <tr>
+    <td><%= summary.name %></td>
+    <td><%= link_to '詳細', summary %></td>
+  </tr>
+  <% end %>
+  </tbody>
+  </table>
+<% end %>
+</div>

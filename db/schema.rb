@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909120139) do
+ActiveRecord::Schema.define(version: 20150912151611) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "content",         default: "",    null: false
     t.boolean  "read_flag",       default: false, null: false
     t.integer  "comment_count",   default: 0,     null: false
     t.boolean  "created_by_user", default: true,  null: false
-    t.integer  "report_id",       default: 0,     null: false
+    t.integer  "summary_id",      default: 0,     null: false
     t.integer  "user_id",         default: 0,     null: false
     t.integer  "tutor_id",        default: 0,     null: false
     t.datetime "created_at",                      null: false
@@ -59,9 +59,18 @@ ActiveRecord::Schema.define(version: 20150909120139) do
     t.integer  "average_studytime",                 default: 0,  null: false
     t.string   "free_comment",                      default: "", null: false
     t.integer  "user_id"
+    t.integer  "summary_id"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
   end
+
+  create_table "reports_summaries", id: false, force: :cascade do |t|
+    t.integer "report_id",  null: false
+    t.integer "summary_id", null: false
+  end
+
+  add_index "reports_summaries", ["report_id"], name: "index_reports_summaries_on_report_id"
+  add_index "reports_summaries", ["summary_id"], name: "index_reports_summaries_on_summary_id"
 
   create_table "subjects", force: :cascade do |t|
     t.boolean  "japanese",               default: false, null: false
@@ -83,6 +92,13 @@ ActiveRecord::Schema.define(version: 20150909120139) do
     t.integer  "tutor_id",               default: 0,     null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+  end
+
+  create_table "summaries", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "tutor_events", force: :cascade do |t|
@@ -116,7 +132,7 @@ ActiveRecord::Schema.define(version: 20150909120139) do
     t.string   "nowadays",               default: "",    null: false
     t.string   "dream",                  default: "",    null: false
     t.string   "intro",                  default: "",    null: false
-    t.string   "available_day",          default: "",    null: false
+    t.integer  "available_day",          default: 0,     null: false
     t.integer  "capacity",               default: 5,     null: false
     t.text     "subjects",               default: "",    null: false
   end
@@ -155,6 +171,7 @@ ActiveRecord::Schema.define(version: 20150909120139) do
     t.string   "school_desire",          default: "",    null: false
     t.integer  "report_count",           default: 0,     null: false
     t.integer  "tutor_id"
+    t.boolean  "tutor_request_exists",   default: false, null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

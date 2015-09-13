@@ -1,6 +1,7 @@
 class Report < ActiveRecord::Base
   belongs_to :user
-  has_many :comments, dependent: :destroy
+  #summaryモデルの導入に伴い関連を削除　has_many :comments, dependent: :destroy
+  has_and_belongs_to_many :summaries
   delegate :tutor, to: :user
   validates :free_comment, length: { maximum: 500 }
 

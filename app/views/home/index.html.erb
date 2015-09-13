@@ -4,8 +4,9 @@
 <div class="menu col-md-3">
   <h3>メニュー</h3>
   <ul class="list-group">
-    <li class="list-group-item"><%= link_to '勉強を報告する', new_report_path %></li>
-    <li class="list-group-item"><%= link_to 'コメントに返信する', reports_path %></li>
+    <li class="list-group-item"><%= link_to '勉強を記録する', new_report_path %></li>
+    <li class="list-group-item"><%= link_to '記録の一覧を見る', reports_path %></li>
+    <li class="list-group-item"><%= link_to 'チューターへの報告の一覧を見る', summaries_path %></li>
     <li class="list-group-item"><%= link_to 'チューターを選択/変更する', select_tutor_index_path %></li>
     <li class="list-group-item"><%= link_to '設定', users_edit_profile_path %></li>
     <li class="list-group-item">お問い合わせ</li>
@@ -85,7 +86,7 @@
   </td>
 </tr>
 <tr>
-  <th>報告回数</th>
+  <th>記録回数</th>
   <td><%= current_user.reports.count %></td>
 </tr>
 <tr>

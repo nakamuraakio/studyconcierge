@@ -1,0 +1,242 @@
+<div class="container-fluid">
+<div class="row">
+<% @summary.reports.each do |report| %>
+<div class="col-md-4">
+<div class="panel panel-default">
+<p><%= report.created_at %></p>
+
+<% if current_user.subject.japanese %>
+<p>
+  <strong>Japanese percentage:</strong>
+  <%= report.japanese_percentage %>
+</p>
+
+<p>
+  <strong>Japanese comment:</strong>
+  <%= report.japanese_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.old_japanese %>
+<p>
+  <strong>Old japanese percentage:</strong>
+  <%= report.old_japanese_percentage %>
+</p>
+
+<p>
+  <strong>Old japanese comment:</strong>
+  <%= report.old_japanese_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.old_chinese %>
+<p>
+  <strong>Old chinese percentage:</strong>
+  <%= report.old_chinese_percentage %>
+</p>
+
+<p>
+  <strong>Old chinese comment:</strong>
+  <%= report.old_chinese_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.english %>
+<p>
+  <strong>English percentage:</strong>
+  <%= report.english_percentage %>
+</p>
+
+<p>
+  <strong>English comment:</strong>
+  <%= report.english_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.math %>
+<p>
+  <strong>Math percentage:</strong>
+  <%= report.math_percentage %>
+</p>
+
+<p>
+  <strong>Math comment:</strong>
+  <%= report.math_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.physics %>
+<p>
+  <strong>Physics percentage:</strong>
+  <%= report.physics_percentage %>
+</p>
+
+<p>
+  <strong>Physics comment:</strong>
+  <%= report.physics_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.chemistry %>
+<p>
+  <strong>Chemistry percentage:</strong>
+  <%= report.chemistry_percentage %>
+</p>
+
+<p>
+  <strong>Chemistry comment:</strong>
+  <%= report.chemistry_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.biology %>
+<p>
+  <strong>Biology percentage:</strong>
+  <%= report.biology_percentage %>
+</p>
+
+<p>
+  <strong>Biology comment:</strong>
+  <%= report.biology_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.geology %>
+<p>
+  <strong>Geology percentage:</strong>
+  <%= report.geology_percentage %>
+</p>
+
+<p>
+  <strong>Geology comment:</strong>
+  <%= report.geology_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.world_history %>
+<p>
+  <strong>World history percentage:</strong>
+  <%= report.world_history_percentage %>
+</p>
+
+<p>
+  <strong>World history comment:</strong>
+  <%= report.world_history_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.japanese_history %>
+<p>
+  <strong>Japanese history percentage:</strong>
+  <%= report.japanese_history_percentage %>
+</p>
+
+<p>
+  <strong>Japanese history comment:</strong>
+  <%= report.japanese_history_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.politics_and_economics %>
+<p>
+  <strong>Politics and economics percentage:</strong>
+  <%= report.politics_and_economics_percentage %>
+</p>
+
+<p>
+  <strong>Politics and economics comment:</strong>
+  <%= report.politics_and_economics_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.modern_society %>
+<p>
+  <strong>Modern society percentage:</strong>
+  <%= report.modern_society_percentage %>
+</p>
+
+<p>
+  <strong>Modern society comment:</strong>
+  <%= report.modern_society_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.ethics %>
+<p>
+  <strong>Ethics percentage:</strong>
+  <%= report.ethics_percentage %>
+</p>
+
+<p>
+  <strong>Ethics comment:</strong>
+  <%= report.ethics_comment %>
+</p>
+<% end %>
+
+<% if current_user.subject.geography %>
+<p>
+  <strong>Geography percentage:</strong>
+  <%= report.geography_percentage %>
+</p>
+
+<p>
+  <strong>Geography comment:</strong>
+  <%= report.geography_comment %>
+</p>
+<% end %>
+
+<p>
+  <strong>今週の勉強時間:</strong>
+  <%= report.average_studytime %>
+</p>
+
+<p>
+  <strong>Free comment:</strong>
+  <%= report.free_comment %>
+</p>
+</div>
+</div>
+<% end %>
+</div>
+
+<div class="row">
+<% if @summary.comments %>
+  <% @summary.comments.each do |comment| %>
+  <div class="panel panel-default col-md-4">
+    <p><%= comment.comment_count %></p>
+    <p><%= comment.created_at %></p>
+    <% if comment.created_by_user %>
+      <p>FROM：<%= comment.user.name %></p>
+    <% else %>
+      <p>FROM：<%= comment.tutor.name %></p>
+    <% end %>
+    <p><%= comment.content %></p>
+    <% if comment.created_by_user %>
+      <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
+      <% if comment.read_flag %>
+        <p>既読</p>
+      <% end %>
+    <% end %>
+  </div>
+  <% end %>
+
+  <% if @summary.user.tutor_id == 0 %>
+    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
+  <% elsif @summary.comments.count > 7 %>
+    <p>コメント数の上限に到達しました</p>
+  <% elsif @summary.comments.count % 2 == 0 %>
+    <p>チューターからの返信待ちです</p>
+  <% else %>
+    <%= render 'comments/form' %>
+  <% end %>
+<% else %>
+  <% if @summary.user.tutor_id == 0 %>
+    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
+  <% else %>
+    <p>チューターからの返信待ちです</p>
+  <% end %>
+<% end %>
+</div>
+
+<% link_to '一覧に戻る', summaries_path %>
+</div>

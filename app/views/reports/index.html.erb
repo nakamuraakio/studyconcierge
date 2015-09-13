@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>報告NO.</th>
-      <th>コメント数</th>
+      
       <% if current_user.subject.japanese %>
         <th>Japanese percentage</th>
         <th>Japanese comment</th>
@@ -76,7 +76,7 @@
     <% @reports.each do |report| %>
       <tr>
         <td><%= id %></td><% id = id + 1 %>
-        <td><%= report.comments.count %>件のコメント</td>
+        
         <% if current_user.subject.japanese %><td><%= report.japanese_percentage %>%</td>
         <td><%= report.japanese_comment %></td><% end %>
         <% if current_user.subject.old_japanese %><td><%= report.old_japanese_percentage %>%</td>

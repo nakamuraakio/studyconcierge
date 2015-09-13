@@ -190,46 +190,6 @@
 </p>
 <hr>
 
-<h3>コメント</h3>
-<% if @comments %>
-  <% @comments.each do |comment| %>
-  <div class="panel panel-default">
-    <p><%= comment.comment_count %></p>
-    <p><%= comment.created_at %></p>
-    <% if comment.created_by_user %>
-      <p>FROM：<%= comment.user.name %></p>
-    <% else %>
-      <p>FROM：<%= comment.tutor.name %></p>
-    <% end %>
-    <p><%= comment.content %></p>
-    <% if comment.created_by_user %>
-      <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
-      <% if comment.read_flag %>
-        <p>既読</p>
-      <% end %>
-    <% end %>
-  </div>
-  <% end %>
-
-  <% if @report.user.tutor_id == 0 %>
-    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  <% elsif @comments.count > 7 %>
-    <p>コメント数の上限に到達しました</p>
-  <% elsif @comments.count % 2 == 0 %>
-    <p>チューターからの返信待ちです</p>
-  <% else %>
-    <%= render 'comments/form' %>
-  <% end %>
-<% else %>
-  <% if @report.user.tutor_id == 0 %>
-    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  <% else %>
-    <p>チューターからの返信待ちです</p>
-  <% end %>
-<% end %>
-
-
-
 <%= link_to 'Edit', edit_report_path(@report) %> |
 <%= link_to 'Back', reports_path %>
 </div>

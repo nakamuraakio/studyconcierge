@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_user!
+
   def index
     @reports = Report.where(user_id: current_user)
     @total_studytime = 0
@@ -73,6 +74,27 @@ class HomeController < ApplicationController
     if @unread_messages != 0
       flash.now[:notice] = "#{@unread_messages}件の未読メッセージがあります。"
     end    
+
+    if current_user.tutor && current_user.tutor.available_day == Date.today.wday && !Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id).exists?
+      @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
+        
+      @reports = Report.where('user_id = ? AND created_at >= ?', current_user.id, Date.today - 7.days).order("created_at DESC")
+      @summary.reports << @reports
+      @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: current_user.id, event_type: 1)
+      @tutor_event = TutorEvent.new(status: "#{current_user.name}さんが勉強記録を報告しました。", tutor_id: current_user.tutor.id, event_type: 1)
+      if @summary.save
+        @reports.each do |report| report.save end
+        @user_event.link = "/summaries/#{@summary.id}"
+        @user_event.save
+        @tutor_event.link = "/tutor_see_summary/show/#{@summary.id}"
+        @tutor_event.save
+        flash[:notice] = 'チューターへの報告を作成しました。'
+      else
+        #render :index
+      end           
+    else
+      #render :index
+    end
   end
 
   private
