@@ -1,6 +1,17 @@
 <div class="container-fluid">
 <div class="row">
 
+<% @new_users.each do |new_user| %>
+<div class="col-md-12">
+  <p><%= new_user.name %>さんがあなたをチューターに指名しようとしています。承認して下さい。</p>
+  <%= link_to '承認する', url_for(:controller => 'tutor_home', :action => 'user_confirm', :id => new_user.id), method: :patch %>
+</div>
+<% end %>
+
+</div>
+
+<div class="row">
+
 <div class="col-md-3">
   <h3>メニュー</h3>
   <ul class="list-group">
@@ -111,7 +122,7 @@
         <li>
           <%= link_to "/tutor_home/user_show/#{user.id}" do %>
           <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => user.id), :height => '64', :width => '64', :class => 'img-circle' %>
-          <%= user.name %>
+          <%= user.name %><%= （未承認） if user.tutor_request_exists %>
           <% end %>
         </li>
       <% end %>

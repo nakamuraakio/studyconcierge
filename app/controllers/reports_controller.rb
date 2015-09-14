@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
   def show
     @report = Report.find(params[:id])
     if @report.user != current_user
-      render '403'
+      render '404'
     end
   end
 

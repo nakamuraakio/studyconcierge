@@ -23,6 +23,41 @@ class TutorHomeController < ApplicationController
     if @unread_messages != 0
       flash.now[:notice] = "#{@unread_messages} 件の未読メッセージがあります。"
     end
+    
+    @users = current_tutor.users
+    @users.each do |user|
+      if !user.tutor_request_exists && current_tutor.available_day == Date.today.wday && !Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: user.id).exists?
+        flash.now[:info] ||= ["今日はあなたの担当日です。"]
+        @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => user.id)
+        @reports = Report.where('user_id = ? AND created_at >= ?', user.id, Date.today - 7.days).order("created_at DESC")
+        @summary.reports << @reports
+        @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: user.id, event_type: 1)
+        @tutor_event = TutorEvent.new(status: "#{user.name}さんが勉強記録を報告しました。", tutor_id: current_tutor.id, event_type: 1)
+        flash.now[:info] << "#{user.name}さんが勉強記録を報告しました。"
+        if @summary.save
+          @reports.each do |report| report.save end
+          @user_event.link = "/summaries/#{@summary.id}"
+          @user_event.save
+          @tutor_event.link = "/tutor_see_summary/show/#{@summary.id}"
+          @tutor_event.save
+        else
+          #render :index
+        end           
+      else
+        #render :index
+      end
+    end
+
+    @new_users = User.where(tutor_id: current_tutor.id, tutor_request_exists: true)
+  end
+
+  def user_confirm
+    @new_user = User.find(params[:id])
+    #@new_user.tutor_request_exists = false
+    @new_user.update(:tutor_request_exists => false)
+    TutorEvent.new(status: "#{@new_user.name}さんを承認しました。", tutor_id: current_tutor.id, event_type: 6, link: "/tutor_home/user_show/#{@new_user.id}").save
+    UserEvent.new(status: "#{current_tutor.name}さんがあなたのリクエストを承認しました。", user_id: @new_user.id, event_type: 6, link: "/select_tutor/show/#{current_tutor.id}").save
+    redirect_to tutor_home_index_path
   end
 
   def user_index

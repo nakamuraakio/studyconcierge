@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
       @user_event.status = "チューターの#{@summary.user.tutor.name}さんからコメントが届いています。"
       @user_event.user_id = @summary.user.id
       @user_event.event_type = 2
-      @user_event.link = "/summary/#{@summary.id}"
+      @user_event.link = "/summaries/#{@summary.id}"
       @tutor_event.status = "指導中の#{@summary.user.name}さんにコメントを送信しました。"
       @tutor_event.tutor_id = @summary.user.tutor.id
       @tutor_event.event_type = 2

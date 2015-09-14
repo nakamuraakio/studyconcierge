@@ -11,8 +11,7 @@ class TutorSeeSummaryController < ApplicationController
       @comments = @summary.comments
       @comments.each do |comment|
         if !comment.read_flag && comment.created_by_user
-          comment.read_flag = true
-          comment.save
+          comment.update(:read_flag => true)
         end
       end
     end

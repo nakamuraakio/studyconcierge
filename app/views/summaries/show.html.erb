@@ -200,9 +200,10 @@
 </div>
 
 <div class="row">
-<% if @summary.comments %>
-  <% @summary.comments.each do |comment| %>
-  <div class="panel panel-default col-md-4">
+<div class="col-md-12">
+<% if @comments %>
+  <% @comments.each do |comment| %>
+  <div class="panel panel-default">
     <p><%= comment.comment_count %></p>
     <p><%= comment.created_at %></p>
     <% if comment.created_by_user %>
@@ -236,6 +237,7 @@
     <p>チューターからの返信待ちです</p>
   <% end %>
 <% end %>
+</div>
 </div>
 
 <% link_to '一覧に戻る', summaries_path %>

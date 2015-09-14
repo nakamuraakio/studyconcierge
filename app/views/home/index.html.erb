@@ -78,6 +78,9 @@
     <% if current_user.tutor.nil? %>
       <%= '選択されていません' %>
     <% else %>
+      <% if current_user.tutor_request_exists %>
+        現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。
+      <% end %>
       <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
         <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
         <%= current_user.tutor.name %>

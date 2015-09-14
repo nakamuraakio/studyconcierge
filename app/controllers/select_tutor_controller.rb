@@ -39,19 +39,28 @@ class SelectTutorController < ApplicationController
     @user_event = UserEvent.new
     @user_event.user_id = @user.id
     @user_event.event_type = 4
+    
+    if params[:user][:tutor_id] == "0"
+      @user.tutor_request_exists = false
+    else
+      @user.tutor_request_exists = true
+    end
+
   	respond_to do |format|
       if @user.update(user_params)
         if params[:user][:tutor_id] == "0"
           @user_event.status = "チューターを選択解除しました。"
           @user_event.link = "/"
           @user_event.save
+          TutorEvent.new(status: "#{@user.name}さんが選択を解除しました。", tutor_id: former_tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save if former_tutor
           format.html { redirect_to home_index_path, notice: 'チューターを選択解除しました' }
         else
           @user_event.status = "チューターに#{@user.tutor.name}さんを選択しました。"
           @user_event.link = "/select_tutor/show/#{@user.tutor.id}"
           @user_event.save
-          TutorEvent.new(status: "#{@user.name}さんのチューターに選ばれました。", tutor_id: @user.tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save
-          format.html { redirect_to home_index_path, notice: 'チューターを選択しました' }
+          TutorEvent.new(status: "#{@user.name}さんからチューターに選択されました。", tutor_id: @user.tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save
+          TutorEvent.new(status: "#{@user.name}さんが選択を解除しました。", tutor_id: former_tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save if former_tutor
+          format.html { redirect_to home_index_path, notice: 'チューターを選択しました。チューターからの承認をお待ち下さい。' }
           format.json { render :show, status: :ok, location: @user }
         end
       else

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'tutor_home/index'
   get 'tutor_home/user_index'
   get 'tutor_home/user_show/:id' => 'tutor_home#user_show'
+  patch 'tutor_home/user_confirm'
   get 'tutor_see_summary/index'
   get 'tutor_see_summary/show/:id' => 'tutor_see_summary#show'
   root to: 'landing#index'
