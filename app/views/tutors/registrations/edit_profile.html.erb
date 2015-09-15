@@ -84,6 +84,11 @@
   </div>
 
   <div class="field">
+    <%= f.label "ウェルカムメッセージ（生徒のリクエストを承認した際に送信されます）" %><br>
+    <%= f.text_area :welcome_message, :value => "こんにちは！よろしくお願いします！(^^)/" %>
+  </div>
+
+  <div class="field">
     <%= f.label "最近こんなことしてます" %><br>
     <%= f.text_area :nowadays %>
   </div>

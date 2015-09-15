@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150912151611) do
+ActiveRecord::Schema.define(version: 20150914061304) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "content",         default: "",    null: false
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150912151611) do
     t.integer  "available_day",          default: 0,     null: false
     t.integer  "capacity",               default: 5,     null: false
     t.text     "subjects",               default: "",    null: false
+    t.string   "welcome_message"
   end
 
   add_index "tutors", ["email"], name: "index_tutors_on_email", unique: true
