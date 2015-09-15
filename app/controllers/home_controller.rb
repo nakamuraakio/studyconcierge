@@ -78,7 +78,7 @@ class HomeController < ApplicationController
     if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id).exists?
       @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
         
-      @reports = Report.where('user_id = ? AND created_at >= ?', current_user.id, Date.today - 7.days).order("created_at DESC")
+      @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
       @summary.reports << @reports
       @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: current_user.id, event_type: 1)
       @tutor_event = TutorEvent.new(status: "#{current_user.name}さんが勉強記録を報告しました。", tutor_id: current_user.tutor.id, event_type: 1)

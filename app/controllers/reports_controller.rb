@@ -43,7 +43,7 @@ class ReportsController < ApplicationController
         @user_event.link = "/reports/#{@report.id}"
         @user_event.save
         
-        format.html { redirect_to @report, notice: '報告を作成しました。' }
+        format.html { redirect_to @report, notice: '勉強内容を記録しました。' }
         format.json { render :show, status: :created, location: @report }
       else
         format.html { render :new }
