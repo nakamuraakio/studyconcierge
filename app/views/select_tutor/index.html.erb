@@ -18,6 +18,8 @@
       <th>名前</th>
       <th>プロフィール画像</th>
       <th>大学・学部・学年</th>
+      <th>出身地</th>
+      <th>出身高校</th>
       <th></th>
       <th></th>
       <th>選択</th>
@@ -29,6 +31,8 @@
       <th><%= tutor.name %></th>
       <td><%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id), :height => '64', :width => '64', :class => 'img-circle' %></td>
       <td><%= tutor.university %></td>
+      <td><%= tutor.is_from %></td>
+      <td><%= tutor.highschool %></td>
       <td><%= link_to '詳細を見る', url_for(:controller => 'select_tutor', :action => 'show', :id => tutor.id) %></td>
       <td>
         あと<%= tutor.capacity - tutor.users.count %>人の指導ができます。

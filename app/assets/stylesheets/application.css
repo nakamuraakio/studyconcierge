@@ -13,6 +13,10 @@
  *= require_tree .
  *= require_self
  */
+body {
+  font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+}
+
 .table-color-1{
   background-color: #f39c12;
   color: white;

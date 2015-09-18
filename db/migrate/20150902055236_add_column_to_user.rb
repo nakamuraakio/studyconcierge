@@ -1,7 +1,7 @@
 class AddColumnToUser < ActiveRecord::Migration
   def change
     add_column :users, :name, :string, null: false, default: ""
-    add_column :users, :photo, :binary, null: false, default: ""
+    add_column :users, :photo, :binary
     add_column :users, :birth, :date, null: false, default: ""
     add_column :users, :year, :integer, null: false, default: "3"
     add_column :users, :school, :string, null: false, default: ""

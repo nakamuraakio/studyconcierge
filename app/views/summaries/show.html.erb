@@ -3,6 +3,7 @@
 <% @summary.reports.each do |report| %>
 <div class="col-md-4">
 <div class="panel panel-default">
+<div class="container-fluid">
 <p><%= report.created_at %></p>
 
 <% if current_user.subject.japanese %>
@@ -194,6 +195,7 @@
   <strong>Free comment:</strong>
   <%= report.free_comment %>
 </p>
+</div>
 </div>
 </div>
 <% end %>
