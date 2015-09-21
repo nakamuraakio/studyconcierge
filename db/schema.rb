@@ -111,30 +111,30 @@ ActiveRecord::Schema.define(version: 20150914061304) do
   end
 
   create_table "tutors", force: :cascade do |t|
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",                   default: "",    null: false
-    t.binary   "photo",                  default: "x''", null: false
-    t.date     "birth",                                  null: false
-    t.string   "university",             default: "",    null: false
-    t.string   "is_from",                default: "",    null: false
-    t.string   "highschool",             default: "",    null: false
-    t.string   "nowadays",               default: "",    null: false
-    t.string   "dream",                  default: "",    null: false
-    t.string   "intro",                  default: "",    null: false
-    t.integer  "available_day",          default: 0,     null: false
-    t.integer  "capacity",               default: 5,     null: false
-    t.text     "subjects",               default: "",    null: false
+    t.string   "name",                   default: "", null: false
+    t.binary   "photo"
+    t.date     "birth",                               null: false
+    t.string   "university",             default: "", null: false
+    t.string   "is_from",                default: "", null: false
+    t.string   "highschool",             default: "", null: false
+    t.string   "nowadays",               default: "", null: false
+    t.string   "dream",                  default: "", null: false
+    t.string   "intro",                  default: "", null: false
+    t.integer  "available_day",          default: 0,  null: false
+    t.integer  "capacity",               default: 5,  null: false
+    t.text     "subjects",               default: "", null: false
     t.string   "welcome_message"
   end
 
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20150914061304) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",                   default: "",    null: false
-    t.binary   "photo",                  default: "x''", null: false
+    t.binary   "photo"
     t.date     "birth",                                  null: false
     t.integer  "year",                   default: 3,     null: false
     t.string   "school",                 default: "",    null: false
