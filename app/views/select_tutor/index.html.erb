@@ -3,6 +3,17 @@
 <div class="container-fluid">
 <%= form_for(@user, url: select_tutor_update_path) do |f| %>
 
+<p>
+<% if current_user.tutor_request_exists %>
+  申請を撤回する
+<% elsif current_user.tutor_id == 0 %>
+  選択しない
+<% else %>
+  現在選択中のチューターを解除する（担当チューターがいない間は報告・コメント機能がオフになります）
+<% end %>
+<%= f.radio_button :tutor_id, 0 %>
+</p>
+
 <% @tutors.each do |tutor| %>
 <table id="mentor_table" name="mentor_table">
     <tr>
@@ -41,7 +52,7 @@
     </tr>
     <tr>
       <td><label>
-        <% if tutor.capacity - tutor.users.count == 0 %>
+        <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists %>
           <%= f.radio_button :tutor_id, tutor.id, { :disabled => true } %>
         <% else %>
           <%= f.radio_button :tutor_id, tutor.id %>
