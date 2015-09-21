@@ -105,10 +105,13 @@
     <div class="cd-timeline-block">
       <div class="cd-timeline-content">
         <% @user_events.each do |user_event| %>
-        <td class="table-color-<%= user_event.event_type %>"><%= user_event.status %></td>
-        <h2><%= user_event.status %></h2>
-        <a href="" class="cd-read-more">詳細</a>
-        <span class="cd-date"><%= time_ago_in_words(user_event.created_at) %>前</span>
+          <td class="table-color-<%= user_event.event_type %>"><%= user_event.status %></td>
+          <h2><%= user_event.status %></h2>
+          <% if user_event.link == '/' %>
+          <% else %>
+            <a href="<%= user_event.link %>" class="cd-read-more">詳細</a>
+            <span class="cd-date"><%= time_ago_in_words(user_event.created_at) %>前</span>
+          <% end %>
         <% end %>
       </div>
     </div>
