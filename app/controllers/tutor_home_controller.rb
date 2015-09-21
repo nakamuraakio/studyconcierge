@@ -2,15 +2,19 @@ class TutorHomeController < ApplicationController
   before_action :authenticate_tutor!
   def index
   	@subjects = {}
+
+    #受験で使った科目の配列を作成
     unless current_tutor.subject.nil?
       create_subject_array(@subjects, current_tutor)
     end
-
+    
+    #プロフィールに不備があった場合画面移動を許さない
     if current_tutor.name == "" || current_tutor.birth == "" || current_tutor.university == "" || current_tutor.is_from == "" || current_tutor.highschool == "" || current_tutor.nowadays == "" || current_tutor.dream == "" || current_tutor.available_day == "" || @subjects.empty?
       flash[:notice] = "プロフィールを全て埋めて下さい"
       redirect_to tutors_edit_profile_path
     end
-
+    
+    #未読メッセージの件数を取得
     @comments = Comment.includes(:user).where(tutor_id: current_tutor.id)
     @tutor_events = TutorEvent.where(tutor_id: current_tutor.id)
     @unread_messages = 0
@@ -19,11 +23,13 @@ class TutorHomeController < ApplicationController
         @unread_messages += 1
       end
     end
-
+    
+    #未読メッセージの件数を表示
     if @unread_messages != 0
       flash.now[:notice] = "#{@unread_messages} 件の未読メッセージがあります。"
     end
     
+    #もし担当日だった場合、指導中の学生の報告が自動的に送られてくる
     @users = current_tutor.users
     @users.each do |user|
       if !user.tutor_request_exists && current_tutor.available_day == Date.today.wday && !Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: user.id).exists?
@@ -48,9 +54,11 @@ class TutorHomeController < ApplicationController
       end
     end
 
+    #新しく申請してきたユーザーの一覧を取得
     @new_users = User.where(tutor_id: current_tutor.id, tutor_request_exists: true)
   end
-
+  
+  #「承認する」をクリックした時のアクション
   def user_confirm
     @new_user = User.find(params[:id])
     @new_user.update(:tutor_request_exists => false)
@@ -58,12 +66,15 @@ class TutorHomeController < ApplicationController
     UserEvent.new(status: "#{current_tutor.name}さんがあなたのリクエストを承認しました。", user_id: @new_user.id, event_type: 6, link: "/select_tutor/show/#{current_tutor.id}").save
     redirect_to tutor_home_index_path
   end
-
+  
+  #指導中の学生の一覧を取得
   def user_index
     @users = current_tutor.users
   end
+  
 
   def user_show
+    #指導中の特定の学生の情報を取得
     @user = User.find(params[:id])
     @reports = Report.where(user_id: @user.id)
     @total_studytime = 0
@@ -101,6 +112,8 @@ class TutorHomeController < ApplicationController
       geography_studytime += get_studytime(report, report.geography_percentage)
     end
     @subjects = {}
+    
+    #勉強時間を自動計算
     check_subjects(@subjects, @user.subject.japanese, '現代文', japanese_studytime)
     check_subjects(@subjects, @user.subject.old_japanese, '古文', old_japanese_studytime)
     check_subjects(@subjects, @user.subject.old_chinese, '漢文', old_chinese_studytime)
@@ -124,7 +137,7 @@ class TutorHomeController < ApplicationController
         return array[subject_name] = studytime
       end
     end
-
+  #
     def create_subject_array(subjects, person)
       check_subjects(subjects, person.subject.japanese, '現代文', 0)
       check_subjects(subjects, person.subject.old_japanese, '古文', 0)
