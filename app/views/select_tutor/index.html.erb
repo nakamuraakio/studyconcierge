@@ -2,49 +2,53 @@
 
 <div class="container-fluid">
 <%= form_for(@user, url: select_tutor_update_path) do |f| %>
-  <p>
-    <% if current_user.tutor_request_exists %>
-      申請を撤回する
-    <% elsif current_user.tutor_id == 0 %>
-      選択しない
-    <% else %>
-      現在選択中のチューターを解除する（担当チューターがいない間は報告・コメント機能がオフになります）
-    <% end %>
-    <%= f.radio_button :tutor_id, 0 %>
-  </p>
-  <table class="table">
-    <thead>
+
+<% @tutors.each do |tutor| %>
+<table id="mentor_table" name="mentor_table">
     <tr>
-      <th>名前</th>
-      <th>プロフィール画像</th>
-      <th>大学・学部・学年</th>
-      <th>出身地</th>
-      <th>出身高校</th>
-      <th></th>
-      <th></th>
-      <th>選択</th>
+        <td style="width:250px;">
+            <div class="mentor_img_2">
+                <a href="show/<%= tutor.id %>">
+                 <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id)%>
+                 </a>
+            </div>
+        </td>
     </tr>
-    </thead>
-    <tbody>
-    <% @tutors.each do |tutor| %>
     <tr>
-      <th><%= tutor.name %></th>
-      <td><%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id), :height => '64', :width => '64', :class => 'img-circle' %></td>
-      <td><%= tutor.university %></td>
-      <td><%= tutor.is_from %></td>
-      <td><%= tutor.highschool %></td>
-      <td><%= link_to '詳細を見る', url_for(:controller => 'select_tutor', :action => 'show', :id => tutor.id) %></td>
-      <td>
-        あと<%= tutor.capacity - tutor.users.count %>人の指導ができます。
-      </td>
+        <td id="mentor_profile">
+        <h5><%= tutor.name %></h5>
+        </td>
+    </tr>
+    <tr>
+        <td id="mentor_profile">
+            <h5><%= tutor.university %></h5>
+        </td>
+    </tr>
+    <tr>
+        <td id="mentor_profile">
+            <h5><%= tutor.is_from %></h5>
+        </td>
+    </tr>
+    <tr>
+        <td id="mentor_profile">
+            <h5><%= tutor.highschool %></h5>
+        </td>
+    </tr>
+    <tr>
+        <td class="exist_free_time" id="mentor_profile">
+          あと<%= tutor.capacity - tutor.users.count %>人
+        </td>
+    </tr>
+    <tr>
       <td><label>
-        <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists %>
+        <% if tutor.capacity - tutor.users.count == 0 %>
           <%= f.radio_button :tutor_id, tutor.id, { :disabled => true } %>
         <% else %>
           <%= f.radio_button :tutor_id, tutor.id %>
         <% end %>
       </label></td>
     </tr>
+
     <% end %>
     </tbody>
   </table>
