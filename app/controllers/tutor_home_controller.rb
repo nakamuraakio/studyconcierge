@@ -1,5 +1,7 @@
 class TutorHomeController < ApplicationController
   before_action :authenticate_tutor!
+  #current_tutorのidと、userテーブルのカラムが一致して初めて見られる
+  
   def index
   	@subjects = {}
 
@@ -112,7 +114,7 @@ class TutorHomeController < ApplicationController
       geography_studytime += get_studytime(report, report.geography_percentage)
     end
     @subjects = {}
-    
+
     #勉強時間を自動計算
     check_subjects(@subjects, @user.subject.japanese, '現代文', japanese_studytime)
     check_subjects(@subjects, @user.subject.old_japanese, '古文', old_japanese_studytime)
