@@ -1,7 +1,7 @@
 class TutorHomeController < ApplicationController
   before_action :authenticate_tutor!
   #current_tutorのidと、userテーブルのカラムが一致して初めて見られる
-  
+
   def index
   	@subjects = {}
 
@@ -63,7 +63,7 @@ class TutorHomeController < ApplicationController
   #「承認する」をクリックした時のアクション
   def user_confirm
     @new_user = User.find(params[:id])
-    @new_user.update(:tutor_request_exists => false)
+    @new_user.update(:tutor_request_exists => false, :last_tutor_change => Date.today)
     TutorEvent.new(status: "#{@new_user.name}さんを承認しました。", tutor_id: current_tutor.id, event_type: 6, link: "/tutor_home/user_show/#{@new_user.id}").save
     UserEvent.new(status: "#{current_tutor.name}さんがあなたのリクエストを承認しました。", user_id: @new_user.id, event_type: 6, link: "/select_tutor/show/#{current_tutor.id}").save
     redirect_to tutor_home_index_path

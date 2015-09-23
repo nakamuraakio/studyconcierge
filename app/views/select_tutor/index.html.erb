@@ -52,7 +52,7 @@
     </tr>
     <tr>
       <td><label>
-        <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists %>
+        <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists || tutor == current_user.tutor %>
           <%= f.radio_button :tutor_id, tutor.id, { :disabled => true } %>
         <% else %>
           <%= f.radio_button :tutor_id, tutor.id %>
