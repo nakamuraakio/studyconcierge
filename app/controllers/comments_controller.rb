@@ -59,8 +59,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  
-
   def destroy
   	@comment = Comment.find(params[:id])
   	@summary = Summary.find(@comment.summary_id)

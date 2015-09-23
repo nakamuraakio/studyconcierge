@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
   before_action do
     if !user_signed_in? && !tutor_signed_in?
+      flash[:notice] = 'ログインして下さい'
       redirect_to root_path
     end
   end
@@ -17,8 +18,26 @@ class ReportsController < ApplicationController
   # GET /reports/1.json
   def show
     @report = Report.find(params[:id])
-    if @report.user != current_user
-      render '404'
+
+    #関係ない人のレポートを勝手に見られないようにするコード
+    if user_signed_in?
+      if @report.user != current_user
+        render '/public/404.html'
+      end
+    elsif tutor_signed_in?
+      count = 0
+      current_tutor.users.each do |user|
+        if @report.user == user
+          break
+        else
+          count += 1
+        end
+      end
+      if count == current_tutor.users.count
+        render '/public/404.html'
+      end
+    else
+      render '/public/404.html'
     end
   end
 
