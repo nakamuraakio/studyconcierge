@@ -26,7 +26,7 @@
 お問い合わせ</li>
   </ul>
 
-  <h3>ユーザープロフィール</h3>
+<h3></h3>
 <table class="table table-bordered table-striped">
 <tbody>
 <div style="text-align:center; margin-bottom: 20px;">
@@ -156,7 +156,7 @@
               <h4 class="timeline-title"><%= user_event.status %></h4>
               <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
             </div>
-            <% if user_event.event_type == 1 %>
+            <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
               <div class="timeline-body">
                 <p><a href = "<%= user_event.link %>">詳細</a></p>
               </div>
@@ -183,7 +183,7 @@
               <h4 class="timeline-title"><%= user_event.status %></h4>
               <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
             </div>
-            <% if user_event.event_type == 1 %>
+            <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
               <div class="timeline-body">
                 <p><a href = "<%= user_event.link %>">詳細</a></p>
               </div>
