@@ -15,3 +15,40 @@
 //= require turbolinks
 //= require_tree .
 
+<script type = "text/javascript">
+
+// var pink = document.getElementById("bar_pink");
+// var japanese = pink.getAttribute('data-pink');
+
+var japanese = $("#bar_pink").data("japanese");
+var math = $("#bar_blue").data("math");
+var english = $("#bar_yellow").data("english");
+var social = $("#bar_purple").data("social");
+var science = $("#bar_green").data("science");
+var doughnutData = [
+　　{
+　　　value: japanese,
+     color:"#ff0000"
+　　},
+　　{
+　　　value: math,
+　　　color: "#3300FF"
+　　},
+　　{
+　　　value: english,
+　　　color: "#FFFF00"
+　　},
+   {
+　　　value: social,
+　　　color: "#CC00FF"
+　　},
+   {
+　　　value: science,
+　　　color: "#33FF00"
+　　},
+];
+ 
+var myDoughnut = new Chart(document.getElementById("bar").
+getContext("2d")).Doughnut(doughnutData);
+ 
+</script>

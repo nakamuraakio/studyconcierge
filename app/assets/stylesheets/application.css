@@ -176,6 +176,10 @@ men/*
   margin-top: 5px;
 }
 
+.report_menu{
+  z-index: 100;
+}
+
 .report_timeline{
   margin-left: -30%;
   z-index: 0;
@@ -250,5 +254,15 @@ men/*
   color: #8d8d8d;
   font-size: 12px;
 }
+
+.panel-comment-tutor{
+  width: 80%;
+  float: right;
+}
+.panel-comment-user{
+  width: 80%;
+  float: left;
+}
+
 
 
