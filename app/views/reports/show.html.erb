@@ -1,195 +1,215 @@
 <div class="container-fluid">
-<% if current_user.subject.japanese %>
-<p>
-  <strong>Japanese percentage:</strong>
-  <%= @report.japanese_percentage %>
-</p>
+<div class = "row">
 
-<p>
-  <strong>Japanese comment:</strong>
-  <%= @report.japanese_comment %>
-</p>
+<div class="menu col-md-3">
+<h3>メニュー</h3>
+  <ul class="list-group">
+  <%= link_to(home_index_path, :class => "list-group-item") do %>
+    <i class="fa fa-home fa-fw"></i>ホーム
+  <% end %>
+  <%= link_to(new_report_path, :class => "list-group-item") do %>
+    <i class="fa fa-pencil fa-fw"></i>勉強を記録する
+  <% end %>
+  <%= link_to(reports_path, :class => "list-group-item active") do %>
+    <i class="fa fa-bar-chart fa-fw"></i>記録の一覧を見る
+  <% end %>
+  <%= link_to(summaries_path , :class => "list-group-item") do %>
+    <i class="fa fa-file-text-o fa-fw"></i>先生からのコメントを見る
+  <% end %>
+  <%= link_to(select_tutor_index_path , :class => "list-group-item") do %>
+    <i class="fa fa-group fa-fw"></i>チューターを変更する
+  <% end %>
+  <%= link_to(users_edit_profile_path , :class => "list-group-item") do %>
+    <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+  <% end %>
+    <li class="list-group-item"><i class="fa fa-envelope-o fa-fw"></i>
+お問い合わせ</li>
+  </ul>
+ </div>
+
+<div class = "col-md-9">
+
+<canvas id="bar" height="300" width="300"></canvas>
+<div id="bar_pink" data-japanese="<%= (@report.japanese_percentage+@report.old_japanese_percentage+@report.old_chinese_percentage) %>"></div>
+<div id="bar_blue" data-math="<%= (@report.math_percentage) %>"></div>
+<div id="bar_yellow" data-english="<%= (@report.english_percentage) %>"></div>
+<div id="bar_purple" data-social="<%= (@report.world_history_percentage+@report.japanese_history_percentage+@report.geography_percentage+@report.politics_and_economics_percentage+@report.ethics_percentage+@report.modern_society_percentage) %>"></div>
+<div id="bar_green" data-science="<%= (@report.chemistry_percentage+@report.physics_percentage+@report.biology_percentage+@report.geology_percentage) %>"></div>
+
+<table class = "table">
+<% if current_user.subject.japanese %>
+  <tr>
+    <th>現代文</th>
+    <td><%= @report.japanese_percentage %></td>
+    <td><%= @report.japanese_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.old_japanese %>
-<p>
-  <strong>Old japanese percentage:</strong>
-  <%= @report.old_japanese_percentage %>
-</p>
-
-<p>
-  <strong>Old japanese comment:</strong>
-  <%= @report.old_japanese_comment %>
-</p>
+  <tr>
+    <th>古文</th>
+    <td><%= @report.old_japanese_percentage %></td>
+    <td><%= @report.old_japanese_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.old_chinese %>
-<p>
-  <strong>Old chinese percentage:</strong>
-  <%= @report.old_chinese_percentage %>
-</p>
-
-<p>
-  <strong>Old chinese comment:</strong>
-  <%= @report.old_chinese_comment %>
-</p>
+  <tr>
+    <th>漢文</th>
+    <td><%= @report.old_chinese_percentage %></td>
+    <td><%= @report.old_chinese_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.english %>
-<p>
-  <strong>English percentage:</strong>
-  <%= @report.english_percentage %>
-</p>
-
-<p>
-  <strong>English comment:</strong>
-  <%= @report.english_comment %>
-</p>
+  <tr>
+    <th>英語</th>
+    <td><%= @report.english_percentage %></td>
+    <td><%= @report.english_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.math %>
-<p>
-  <strong>Math percentage:</strong>
-  <%= @report.math_percentage %>
-</p>
-
-<p>
-  <strong>Math comment:</strong>
-  <%= @report.math_comment %>
-</p>
+  <tr>
+    <th>数学</th>
+    <td><%= @report.math_percentage %></td>
+    <td><%= @report.math_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.physics %>
-<p>
-  <strong>Physics percentage:</strong>
-  <%= @report.physics_percentage %>
-</p>
-
-<p>
-  <strong>Physics comment:</strong>
-  <%= @report.physics_comment %>
-</p>
+  <tr>
+    <th>物理</th>
+    <td><%= @report.physics_percentage %></td>
+    <td><%= @report.physics_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.chemistry %>
-<p>
-  <strong>Chemistry percentage:</strong>
-  <%= @report.chemistry_percentage %>
-</p>
-
-<p>
-  <strong>Chemistry comment:</strong>
-  <%= @report.chemistry_comment %>
-</p>
+  <tr>
+    <th>化学</th>
+    <td><%= @report.chemistry_percentage %></td>
+    <td><%= @report.chemistry_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.biology %>
-<p>
-  <strong>Biology percentage:</strong>
-  <%= @report.biology_percentage %>
-</p>
-
-<p>
-  <strong>Biology comment:</strong>
-  <%= @report.biology_comment %>
-</p>
+  <tr>
+    <th>生物</th>
+    <td><%= @report.biology_percentage %></td>
+    <td><%= @report.biology_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.geology %>
-<p>
-  <strong>Geology percentage:</strong>
-  <%= @report.geology_percentage %>
-</p>
-
-<p>
-  <strong>Geology comment:</strong>
-  <%= @report.geology_comment %>
-</p>
+  <tr>
+    <th>地学</th>
+    <td><%= @report.geology_percentage %></td>
+    <td><%= @report.geology_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.world_history %>
-<p>
-  <strong>World history percentage:</strong>
-  <%= @report.world_history_percentage %>
-</p>
-
-<p>
-  <strong>World history comment:</strong>
-  <%= @report.world_history_comment %>
-</p>
+  <tr>
+    <th>世界史</th>
+    <td><%= @report.world_history_percentage %></td>
+    <td><%= @report.world_history_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.japanese_history %>
-<p>
-  <strong>Japanese history percentage:</strong>
-  <%= @report.japanese_history_percentage %>
-</p>
-
-<p>
-  <strong>Japanese history comment:</strong>
-  <%= @report.japanese_history_comment %>
-</p>
+  <tr>
+    <th>日本史</th>
+    <td><%= @report.japanese_history_percentage %></td>
+    <td><%= @report.japanese_history_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.politics_and_economics %>
-<p>
-  <strong>Politics and economics percentage:</strong>
-  <%= @report.politics_and_economics_percentage %>
-</p>
-
-<p>
-  <strong>Politics and economics comment:</strong>
-  <%= @report.politics_and_economics_comment %>
-</p>
+  <tr>
+    <th>政治経済</th>
+    <td><%= @report.politics_and_economics_percentage %></td>
+    <td><%= @report.politics_and_economics_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.modern_society %>
-<p>
-  <strong>Modern society percentage:</strong>
-  <%= @report.modern_society_percentage %>
-</p>
-
-<p>
-  <strong>Modern society comment:</strong>
-  <%= @report.modern_society_comment %>
-</p>
+  <tr>
+    <th>現代社会</th>
+    <td><%= @report.modern_society_percentage %></td>
+    <td><%= @report.modern_society_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.ethics %>
-<p>
-  <strong>Ethics percentage:</strong>
-  <%= @report.ethics_percentage %>
-</p>
-
-<p>
-  <strong>Ethics comment:</strong>
-  <%= @report.ethics_comment %>
-</p>
+  <tr>
+    <th>倫理</th>
+    <td><%= @report.ethics_percentage %></td>
+    <td><%= @report.ethics_comment %></td>
+  </tr>
 <% end %>
 
 <% if current_user.subject.geography %>
-<p>
-  <strong>Geography percentage:</strong>
-  <%= @report.geography_percentage %>
-</p>
-
-<p>
-  <strong>Geography comment:</strong>
-  <%= @report.geography_comment %>
-</p>
+  <tr>
+    <th>地理</th>
+    <td><%= @report.geography_percentage %></td>
+    <td><%= @report.geography_comment %></td>
+  </tr>
 <% end %>
+<tr>
+  <th>今日の勉強時間:</th>
+  <td><%= @report.average_studytime %></td>
+  <td></td>
+</tr>
 
-<p>
-  <strong>今日の勉強時間:</strong>
-  <%= @report.average_studytime %>
-</p>
+<tr>
+  <th>Free comment:</th>
+  <td><%= @report.free_comment %></td>
+  <td></td>
+</tr>
+</table>
 
-<p>
-  <strong>Free comment:</strong>
-  <%= @report.free_comment %>
-</p>
-<hr>
 
 <%= link_to 'Edit', edit_report_path(@report) %> |
 <%= link_to 'Back', reports_path %>
 </div>
+
+</div>
+
+<script type = "text/javascript">
+
+// var pink = document.getElementById("bar_pink");
+// var japanese = pink.getAttribute('data-pink');
+
+var japanese = $("#bar_pink").data("japanese");
+var math = $("#bar_blue").data("math");
+var english = $("#bar_yellow").data("english");
+var social = $("#bar_purple").data("social");
+var science = $("#bar_green").data("science");
+var doughnutData = [
+　　{
+　　　value: japanese,
+     color:"#ff0000"
+　　},
+　　{
+　　　value: math,
+　　　color: "#3300FF"
+　　},
+　　{
+　　　value: english,
+　　　color: "#FFFF00"
+　　},
+   {
+　　　value: social,
+　　　color: "#CC00FF"
+　　},
+   {
+　　　value: science,
+　　　color: "#33FF00"
+　　},
+];
+ 
+var myDoughnut = new Chart(document.getElementById("bar").
+getContext("2d")).Doughnut(doughnutData);
+ 
+</script>
