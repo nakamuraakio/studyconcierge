@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action do
     if !user_signed_in? && !tutor_signed_in?
+      flash[:notice] = 'ログインして下さい'
       redirect_to root_path
     end
   end
@@ -57,8 +58,6 @@ class CommentsController < ApplicationController
       end
     end
   end
-
-  
 
   def destroy
   	@comment = Comment.find(params[:id])

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   mount RailsAdmin::Engine => '/app_admin', as: 'rails_admin'
   resources :summaries, :only => [:create, :index, :show]
   resources :comments, :only => [:create, :destroy]

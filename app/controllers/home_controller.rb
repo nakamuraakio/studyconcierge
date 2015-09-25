@@ -2,6 +2,8 @@ class HomeController < ApplicationController
   before_action :authenticate_user!
 
   def index
+
+    #各科目の勉強時間の取得
     @reports = Report.where(user_id: current_user)
     @total_studytime = 0
     japanese_studytime = 0
@@ -38,6 +40,8 @@ class HomeController < ApplicationController
       geography_studytime += get_studytime(report, report.geography_percentage)
     end
     @subjects = {}
+
+    #科目ごとの「科目　=>　時間」なる連想配列を作成
     unless current_user.subject.nil?
       check_subjects(@subjects, current_user.subject.japanese, '現代文', japanese_studytime)
       check_subjects(@subjects, current_user.subject.old_japanese, '古文', old_japanese_studytime)
@@ -56,12 +60,13 @@ class HomeController < ApplicationController
       check_subjects(@subjects, current_user.subject.geography, '地理', geography_studytime)
     end
 
+    #もしプロフィールに不備があったら訂正を求める
     if current_user.name == "" || current_user.birth == "" || current_user.school == "" || current_user.lives_in == "" || current_user.school_desire == "" || @subjects.empty?
       flash[:notice] = "プロフィールを全て埋めて下さい"
       redirect_to users_edit_profile_path
     end
 
-    
+    #未読メッセージの件数を取得
     @comments = Comment.where(user_id: current_user.id)
     @user_events = UserEvent.where(user_id: current_user.id).order('created_at DESC')
     @unread_messages = 0
@@ -70,14 +75,15 @@ class HomeController < ApplicationController
         @unread_messages += 1
       end
     end
-
+    
+    #未読メッセージの件数をflashを用いて表示
     if @unread_messages != 0
       flash.now[:notice] = "#{@unread_messages}件の未読メッセージがあります。"
     end    
-
+    
+    #指導中の学生が存在し、もし今日が指導日だったら、学生の報告を自動作成し、両者のタイムラインに表示
     if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id).exists?
       @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
-        
       @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
       @summary.reports << @reports
       @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: current_user.id, event_type: 1)
@@ -98,12 +104,13 @@ class HomeController < ApplicationController
   end
 
   private
+  #報告する科目について、「科目=>時間」の連想配列を作成
     def check_subjects(array, element, subject_name, studytime)
       if element == true
       	return array[subject_name] = studytime
       end
     end
-
+  #合計勉強時間とその科目の％を渡すと、何時間勉強したかを自動的に計算
     def get_studytime(report, subject_percentage)
       (report.average_studytime.to_f) * (subject_percentage.to_f) / 100
     end

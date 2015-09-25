@@ -1,5 +1,9 @@
 class SelectTutorController < ApplicationController
   before_action :authenticate_user!
+  
+  #開発終了時にコメントアウトを解除
+  #before_action :change_tutor_too_often, only: :update
+
   def index
     @tutors = Array.new()
   	Tutor.all.each do |tutor|
@@ -35,6 +39,7 @@ class SelectTutorController < ApplicationController
 
   def update
   	@user = current_user
+
     former_tutor = @user.tutor
     @user_event = UserEvent.new
     @user_event.user_id = @user.id
@@ -78,6 +83,16 @@ class SelectTutorController < ApplicationController
     def check_subjects(array, element, subject_name)
       if element == true
         return array.push(subject_name)
+      end
+    end
+
+    def change_tutor_too_often
+      #もし2週間以内の変更だったならリジェクト
+      if current_user.last_tutor_change
+        if current_user.last_tutor_change + 2.week > Date.today
+          flash[:notice] = 'チューターの変更は前回の変更より２週間が経過すると可能になります'
+          redirect_to select_tutor_index_path
+        end
       end
     end
 end

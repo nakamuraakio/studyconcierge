@@ -5,8 +5,10 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if current_user
       home_index_path
-    else
+    elsif current_tutor
       tutor_home_index_path
+    else
+      dashboard_path
     end
   end
 
