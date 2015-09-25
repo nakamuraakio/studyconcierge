@@ -87,10 +87,10 @@ class SelectTutorController < ApplicationController
     end
 
     def change_tutor_too_often
-      #もし一週間以内の変更だったならリジェクト
+      #もし2週間以内の変更だったならリジェクト
       if current_user.last_tutor_change
-        if current_user.last_tutor_change + 1.week > Date.today
-          flash[:notice] = 'チューターの変更は前回の変更より１週間が経過すると可能になります'
+        if current_user.last_tutor_change + 2.week > Date.today
+          flash[:notice] = 'チューターの変更は前回の変更より２週間が経過すると可能になります'
           redirect_to select_tutor_index_path
         end
       end

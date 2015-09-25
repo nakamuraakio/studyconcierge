@@ -58,6 +58,9 @@ class TutorHomeController < ApplicationController
 
     #新しく申請してきたユーザーの一覧を取得
     @new_users = User.where(tutor_id: current_tutor.id, tutor_request_exists: true)
+
+    #現時点での今月のお給料の額
+    
   end
   
   #「承認する」をクリックした時のアクション

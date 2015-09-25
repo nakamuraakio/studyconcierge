@@ -3,7 +3,25 @@ class Report < ActiveRecord::Base
   #summaryモデルの導入に伴い関連を削除　has_many :comments, dependent: :destroy
   has_and_belongs_to_many :summaries
   delegate :tutor, to: :user
+=begin
+開発終了時にコメントアウトを解除
+  validates :japanese_comment, length: { maximum: 140 }
+  validates :old_japanese_comment, length: { maximum: 140 }
+  validates :old_chinese_comment, length: { maximum: 140 }
+  validates :english_comment, length: { maximum: 140 }
+  validates :math_comment, length: { maximum: 140 }
+  validates :physics_comment, length: { maximum: 140 }
+  validates :chemistry_comment, length: { maximum: 140 }
+  validates :biology_comment, length: { maximum: 140 }
+  validates :geology_comment, length: { maximum: 140 }
+  validates :world_history_comment, length: { maximum: 140 }
+  validates :japanese_history_comment, length: { maximum: 140 }
+  validates :politics_and_economics_comment, length: { maximum: 140 }
+  validates :modern_society_comment, length: { maximum: 140 }
+  validates :ethics_comment, length: { maximum: 140 }
+  validates :geography_comment, length: { maximum: 140 }
   validates :free_comment, length: { maximum: 500 }
+=end
 
   
   validate :sum_equals_100
