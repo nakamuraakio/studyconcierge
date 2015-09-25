@@ -2,7 +2,7 @@ class AddColumnToTutor < ActiveRecord::Migration
   def change
     add_column :tutors, :name, :string, null: false, default: ""
     add_column :tutors, :photo, :binary
-    add_column :tutors, :birth, :date, null: false, default: ""
+    add_column :tutors, :birth, :date
     add_column :tutors, :university, :string, null: false, default: ""
     add_column :tutors, :is_from, :string, null: false, default: ""
     add_column :tutors, :highschool, :string, null: false, default: ""
