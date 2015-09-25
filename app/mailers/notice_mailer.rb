@@ -8,7 +8,7 @@ class NoticeMailer < ApplicationMailer
   def register_confirm(user)
     @user = user
 
-    mail(to: user.email, subject: '【Study Concierge】登録完了のお知らせ'
+    mail(to: user.email, subject: '【Study Concierge】登録完了のお知らせ')
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
