@@ -4,8 +4,8 @@
   <title>Studyconcierge</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -14,38 +14,53 @@
 </head>
 <body>
 	<header>
-      <nav>
-            <% if user_signed_in? %>
-                <strong><%= link_to current_user.name, home_index_path %></strong>
-                <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
-            <% elsif tutor_signed_in? %>
-                <strong><%= link_to current_tutor.name, tutor_home_index_path %></strong>
-                <%= link_to 'ログアウト', destroy_tutor_session_path, method: :delete %>
-            <% end %>
-      </nav>
-      <div class="container-fluid">
-      <% if alert %>
-        <div class="alert alert-danger alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
-          <%= alert %>
-        </div>
-      <% end %>
-      <% if notice %>
-        <div class="alert alert-info alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
-          <%= notice %>
-        </div>
-      <% end %>
-      <% if flash[:info] %>
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
-          <%= flash[:info].join("<br>").html_safe %>
-        </div>
-      <% end %>
+    <nav class = "navbar navbar-default">
+      <div class = "navbar-header">
+        <% if user_signed_in? or tutor_signed_in? %>
+          <a class = "navbar-brand" href = "home/index">StudyConcierge</a>
+        <% else %>
+          <a class = "navbar-brand" href = "/">StudyConcierge</a>
+        <% end %>
       </div>
+      <ul class = "nav navbar-nav">
+        <% if user_signed_in? %>
+        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+        <% elsif tutor_signed_in? %>
+        <li><%= link_to 'ログアウト', destroy_tutor_session_path, method: :delete %></li>
+        <% else %>
+        <li><%= link_to '高校生ログイン', new_user_session_path  %></li>
+        <li><%= link_to '大学生ログイン', new_tutor_session_path %></li>
+        <% end %>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+    <% if alert %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+        <%= alert %>
+      </div>
+    <% end %>
+    <% if notice %>
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if flash[:info] %>
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+        <%= flash[:info].join("<br>").html_safe %>
+      </div>
+    <% end %>
+    </div>
   </header>
 
+<div class = "layout">
+
 <%= yield %>
+
+</div>
+
 
 <script>
   $('img').error(function() {

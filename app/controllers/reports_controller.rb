@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.where(user_id: current_user.id)
+    @reports = Report.where(user_id: current_user.id).order('created_at DESC')
   end
 
   # GET /reports/1

@@ -1,149 +1,207 @@
 <div class="container-fluid">
 <div class="row">
 
-<div class="menu col-md-4">
-<h3>ユーザープロフィール</h3>
-<div class="mentor_top_left" id="mentor_left">
-  <div class="mentor_top_container_left">
-      <table class="mentor_account_table">
-        <tr>
-          <div class="mentor_img_2">
-            <% if current_user.photo == "" %>
-              <%= image_tag '1310.png', :height => '140', :width => '140', :class=> 'img-circle' %>
-            <% else %>
-              <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '140', :width => '140', :class => 'img-circle' %>
-            <% end %>
-          </div>
-        </tr>
-        <tr class="tr_boarder">
-          <th>名前</th>
-          <td class="indent"><%= current_user.name %></td> 
-        </tr>
-        <tr class="tr_boarder">
-          <th>メールアドレス</th>
-          <td class="indent"><%= current_user.email %></td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>誕生日</th>
-          <td class="indent"><%= current_user.birth %></td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>学年</th>
-          <td class="indent"><%= current_user.year %>年</td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>学校名</th>
-          <td class="indent"><%= current_user.school %></td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>住所</th>
-          <td class="indent"><%= current_user.lives_in %></td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>志望校</th>
-          <td class="indent"><%= current_user.school_desire %></td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>選択中のチューター</th>
-          <td class="indent">
-            <% if current_user.tutor.nil? %>
-              <%= '選択されていません' %>
-            <% else %>
-            <% if current_user.tutor_request_exists %>
-              現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。
-            <% end %>
-            <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
-            <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
+<div class="menu col-md-3">
+<h3>メニュー</h3>
+  <ul class="list-group">
+  <%= link_to(home_index_path, :class => "list-group-item active") do %>
+    <i class="fa fa-home fa-fw"></i>ホーム
+  <% end %>
+  <%= link_to(new_report_path, :class => "list-group-item") do %>
+    <i class="fa fa-pencil fa-fw"></i>勉強を記録する
+  <% end %>
+  <%= link_to(reports_path, :class => "list-group-item") do %>
+    <i class="fa fa-bar-chart fa-fw"></i>記録の一覧を見る
+  <% end %>
+  <%= link_to(summaries_path , :class => "list-group-item") do %>
+    <i class="fa fa-file-text-o fa-fw"></i>先生からのコメントを見る
+  <% end %>
+  <%= link_to(select_tutor_index_path , :class => "list-group-item") do %>
+    <i class="fa fa-group fa-fw"></i>チューターを変更する
+  <% end %>
+  <%= link_to(users_edit_profile_path , :class => "list-group-item") do %>
+    <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+  <% end %>
+    <li class="list-group-item"><i class="fa fa-envelope-o fa-fw"></i>
+お問い合わせ</li>
+  </ul>
+
+<h3></h3>
+<table class="table table-bordered table-striped">
+<tbody>
+<div style="text-align:center; margin-bottom: 20px;">
+<% if current_user.photo == "" %>
+  <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+<% else %>
+  <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
+<% end %>
+</div>
+<tr>
+  <th>メールアドレス</th>
+  <td><%= current_user.email %></td>
+</tr>
+<tr>
+  <th>名前</th>
+  <td><%= current_user.name %></td>
+</tr>
+<tr>
+  <th>誕生日</th>
+  <td><%= current_user.birth %></td>
+</tr>
+<tr>
+  <th>学年</th>
+  <td><%= current_user.year %></td>
+</tr>
+<tr>
+  <th>学校名</th>
+  <td><%= current_user.school %></td>
+</tr>
+<tr>
+  <th>住所</th>
+  <td><%= current_user.lives_in %></td>
+</tr>
+<tr>
+  <th>志望校</th>
+  <td><%= current_user.school_desire %></td>
+</tr>
+<tr>
+  <th>チューター</th>
+  <td>
+    <% if current_user.tutor.nil? %>
+      <%= '選択されていません' %>
+    <% else %>
+      <% if current_user.tutor_request_exists %>
+        現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。
+      <% end %>
+      <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
         <%= current_user.tutor.name %>
       <% end %>
     <% end %>
-          </td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>記録回数</th>
-          <td class="indent"><%= current_user.reports.count %></td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>報告したい科目</th>
-          <td class="indent">
-            <ul>
-              <% @subjects.each do |subject, studytime| %>
-              <li><%= subject %></li>
-              <% end %>
-            </ul>
-          </td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>合計勉強時間</th>
-          <td class="indent"><%= @total_studytime %>時間</td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>科目別勉強時間</th>
-          <td class="indent"><%= @total_studytime %>時間</td>
-        </tr>
-        <tr class="tr_boarder">
-          <th>合計勉強時間</th>
-          <td class="indent">
-            <ul>
-              <% @subjects.each do |subject, studytime| %>
-              <li><%= subject %>：　<%= studytime %>時間</li>
-              <% end %>
-            </ul>
-            合計が上と等しくない場合があります
-          </td>
-        </tr>
-    </table>
-    </div>
-    </div>
-
-
+  </td>
+</tr>
+<tr>
+  <th>記録回数</th>
+  <td><%= current_user.reports.count %></td>
+</tr>
+<tr>
+  <th>報告科目</th>
+  <td>
+    <% @subjects.each do |subject, studytime| %>
+      <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+        <span class = "label label-danger"><%= subject %></span>
+      <% elsif subject == '英語' %>
+        <span class = "label label-warning"><%= subject %></span>
+      <% elsif subject == '数学' %>
+        <span class = "label label-info"><%= subject %></span>
+      <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+        <span class = "label label-success"><%= subject %></span>
+      <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+        <span class = "label label-default"><%= subject %></span>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <th>合計勉強時間</th>
+  <td><%= @total_studytime %>時間</td>
+</tr>
+<tr>
+  <th>科目別勉強時間</th>
+  <td>
+    <% @subjects.each do |subject, studytime| %>
+      <p>
+      <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+        <span class = "label label-danger"><%= subject %></span>
+      <% elsif subject == '英語' %>
+        <span class = "label label-warning"><%= subject %></span>
+      <% elsif subject == '数学' %>
+        <span class = "label label-info"><%= subject %></span>
+      <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+        <span class = "label label-success"><%= subject %></span>
+      <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+        <span class = "label label-default"><%= subject %></span>
+      <% end %>
+      <%= studytime %>時間
+      </p>
+    <% end %>
+    合計が上と等しくない場合があります
+  </td>
+</tr>
+</tbody>
+</table>
 </div>
 
-<div class="timeline col-md-8 ">
-  <h3>タイムライン</h3>
-  <section id="cd-timeline" class="cd-container">
-    <div class="cd-timeline-block">
-      <div class="cd-timeline-content">
-        <% @user_events.each do |user_event| %>
-          <td class="table-color-<%= user_event.event_type %>"><%= user_event.status %></td>
-          <h2><%= user_event.status %></h2>
-          <% if user_event.link == '/' %>
-          <% else %>
-            <a href="<%= user_event.link %>" class="cd-read-more">詳細</a>
-            <span class="cd-date"><%= time_ago_in_words(user_event.created_at) %>前</span>
-          <% end %>
+  <div class="timeline col-md-9">
+    <h3>タイムライン</h3>
+    <ul class="timeline">
+        <% @user_events.each_with_index do |user_event, i| %>
+        <% if i.even? %>
+        <li>
+          <% if user_event.event_type == 1 %>
+            <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
+          <% elsif user_event.event_type == 2 %>
+            <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
+          <% elsif user_event.event_type == 3 %>
+            <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
+          <% elsif user_event.event_type == 4 %>
+            <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
+          <% elsif user_event.event_type == 5 %>
+            <div class="timeline-badge success"><i class="fa fa-user"></i></div>
+          <% elsif user_event.event_type == 6 %>
+            <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
+          <% end  %>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title"><%= user_event.status %></h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+            </div>
+            <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
+              <div class="timeline-body">
+                <p><a href = "<%= user_event.link %>">詳細</a></p>
+              </div>
+            <% end %>
+          </div> 
+        </li>
+        <% else %>
+        <li class="timeline-inverted">
+          <% if user_event.event_type == 1 %>
+            <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
+          <% elsif user_event.event_type == 2 %>
+            <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
+          <% elsif user_event.event_type == 3 %>
+            <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
+          <% elsif user_event.event_type == 4 %>
+            <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
+          <% elsif user_event.event_type == 5 %>
+            <div class="timeline-badge success"><i class="fa fa-user"></i></div>
+          <% elsif user_event.event_type == 6 %>
+            <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
+          <% end  %>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title"><%= user_event.status %></h4>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+            </div>
+            <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
+              <div class="timeline-body">
+                <p><a href = "<%= user_event.link %>">詳細</a></p>
+              </div>
+            <% end %>
+          </div> 
+        </li>
         <% end %>
-      </div>
-    </div>
-
-    <div class="cd-timeline-block">
-      <div class="cd-timeline-content">
-        <% @user_events.each do |user_event| %>
-        <td class="table-color-<%= user_event.event_type %>"><%= user_event.status %></td>
-        <h2><%= user_event.status %></h2>
-        <a href="" class="cd-read-more">詳細</a>
-        <span class="cd-date"><%= time_ago_in_words(user_event.created_at) %>前</span>
         <% end %>
-      </div>
-    </div>
-  </section>
-</div>
+    </ul>
+  </div>
 
-<div class="sidebar col-md-4">
-<h3>メニュー</h3>
-  <ul class="list-group">
-    <li class="list-group-item"><%= link_to '勉強を記録する', new_report_path %></li>
-    <li class="list-group-item"><%= link_to '記録の一覧を見る', reports_path %></li>
-    <li class="list-group-item"><%= link_to 'チューターへの報告の一覧を見る', summaries_path %></li>
-    <li class="list-group-item"><%= link_to 'チューターを選択/変更する', select_tutor_index_path %></li>
-    <li class="list-group-item"><%= link_to '設定', users_edit_profile_path %></li>
-    <li class="list-group-item">お問い合わせ</li>
-  </ul>
+
+</div>
+</div>
 </div>
 
 </div>
 </div>
-
 
 
 

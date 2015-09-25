@@ -11,9 +11,9 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :content, 'コメントを送信する' %><br>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <%= f.label :content, 'コメントを送信する',:style => "display: block; width:80%; margin: 0 auto; text-align:center;"  %><br>
+    <%= f.text_area :content, :class => "form-control", :row => "5", :style => "width:80%; margin: 0 auto;" %>
   </div>
   <%= f.hidden_field :summary_id, :value => @summary.id %>
 
@@ -24,7 +24,7 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit '送信', data: { confirm: '送信しますか？' } %>
+    <%= f.submit '送信', data: { confirm: '送信しますか？' }, :class => 'btn btn-primary',:style => "display: block; width:60%; margin: 0 auto;" %>
   </div>
 
 <% end %>
