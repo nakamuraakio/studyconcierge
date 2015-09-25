@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get 'tutors/edit_profile' => 'tutors/registrations#edit_profile'
     put 'tutors/update_profile' => 'tutors/registrations#update_profile'
     get 'tutors/:id/photo' => 'tutors/registrations#photo'
+    get '/tutors/sign_out' => "devise/sessions#destroy"
   end
   
   devise_for :users, :controllers => {
@@ -27,6 +28,7 @@ Rails.application.routes.draw do
     get 'users/edit_profile' => 'users/registrations#edit_profile'
     put 'users/update_profile' => 'users/registrations#update_profile'
     get 'users/:id/photo' => 'users/registrations#photo'
+    get '/users/sign_out' => "devise/sessions#destroy"
   end
   
   get 'home/index'

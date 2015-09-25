@@ -70,6 +70,7 @@ GEM
     execjs (2.6.0)
     font-awesome-rails (4.2.0.0)
       railties (>= 3.2, < 5.0)
+    git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.6)
@@ -102,6 +103,9 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.3)
     rack (1.6.4)
+    rack-contrib (1.4.0)
+      git-version-bump (~> 0.15)
+      rack (~> 1.4)
     rack-pjax (0.8.0)
       nokogiri (~> 1.5)
       rack (~> 1.1)
@@ -214,6 +218,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   pg
+  rack-contrib
   rails (= 4.2.1)
   rails-erd
   rails_12factor

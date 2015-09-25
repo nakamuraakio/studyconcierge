@@ -36,6 +36,7 @@ gem 'devise'
 gem 'rails_admin'
 
 gem "font-awesome-rails"
+gem "rack-contrib", require: "rack/contrib"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

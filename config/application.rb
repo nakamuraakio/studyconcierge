@@ -26,5 +26,10 @@ module Studyconcierge
     config.encoding = "utf-8"
 
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
+
+    config.middleware.use Rack::Access, {
+      "/tutors/sign_up" => ["119.104.147.193", "210.142.98.28"],
+      "/users/sign_up" => ["119.104.147.193", "210.142.98.28"],
+    }
   end
 end
