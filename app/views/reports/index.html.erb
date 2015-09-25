@@ -22,8 +22,9 @@
   <%= link_to(users_edit_profile_path , :class => "list-group-item") do %>
     <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
   <% end %>
-    <li class="list-group-item"><i class="fa fa-envelope-o fa-fw"></i>
-お問い合わせ</li>
+  <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+    <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+  </a>
   </ul>
  </div>
 
