@@ -38,6 +38,9 @@ Rails.application.routes.draw do
   patch 'tutor_home/user_confirm'
   get 'tutor_see_summary/index'
   get 'tutor_see_summary/show/:id' => 'tutor_see_summary#show'
+  
+  post 'inquiry/send_mail' => 'inquiry#send_mail'   # 確認画面
+  
   root to: 'landing#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
