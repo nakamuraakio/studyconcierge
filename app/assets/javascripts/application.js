@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require_tree .
 
-<script type = "text/javascript">
 
 // var pink = document.getElementById("bar_pink");
 // var japanese = pink.getAttribute('data-pink');
@@ -50,5 +49,3 @@ var doughnutData = [
  
 var myDoughnut = new Chart(document.getElementById("bar").
 getContext("2d")).Doughnut(doughnutData);
- 
-</script>
