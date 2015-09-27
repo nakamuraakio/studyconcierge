@@ -60,11 +60,7 @@ class HomeController < ApplicationController
       check_subjects(@subjects, current_user.subject.geography, '地理', geography_studytime)
     end
 
-    #もしプロフィールに不備があったら訂正を求める
-    if current_user.name == "" || current_user.birth == "" || current_user.school == "" || current_user.lives_in == "" || current_user.school_desire == "" || @subjects.empty?
-      flash[:notice] = "プロフィールを全て埋めて下さい"
-      redirect_to users_edit_profile_path
-    end
+    
 
     #未読メッセージの件数を取得
     @comments = Comment.where(user_id: current_user.id)

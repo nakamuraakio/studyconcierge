@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20150922093003) do
     t.datetime "updated_at"
     t.string   "name",                   default: "", null: false
     t.binary   "photo"
-    t.date     "birth",                               null: false
+    t.date     "birth"
     t.string   "university",             default: "", null: false
     t.string   "is_from",                default: "", null: false
     t.string   "highschool",             default: "", null: false
@@ -183,7 +183,7 @@ ActiveRecord::Schema.define(version: 20150922093003) do
     t.datetime "updated_at"
     t.string   "name",                   default: "",    null: false
     t.binary   "photo"
-    t.date     "birth",                                  null: false
+    t.date     "birth"
     t.integer  "year",                   default: 3,     null: false
     t.string   "school",                 default: "",    null: false
     t.string   "lives_in",               default: "",    null: false

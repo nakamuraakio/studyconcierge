@@ -10,11 +10,7 @@ class TutorHomeController < ApplicationController
       create_subject_array(@subjects, current_tutor)
     end
     
-    #プロフィールに不備があった場合画面移動を許さない
-    if current_tutor.name == "" || current_tutor.birth == "" || current_tutor.university == "" || current_tutor.is_from == "" || current_tutor.highschool == "" || current_tutor.nowadays == "" || current_tutor.dream == "" || current_tutor.available_day == "" || @subjects.empty?
-      flash[:notice] = "プロフィールを全て埋めて下さい"
-      redirect_to tutors_edit_profile_path
-    end
+    
     
     #未読メッセージの件数を取得
     @comments = Comment.includes(:user).where(tutor_id: current_tutor.id)
