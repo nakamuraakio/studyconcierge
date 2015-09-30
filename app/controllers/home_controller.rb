@@ -78,22 +78,28 @@ class HomeController < ApplicationController
     end    
     
     #指導中の学生が存在し、もし今日が指導日だったら、学生の報告を自動作成し、両者のタイムラインに表示
-    if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id).exists?
-      @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
-      @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
-      @summary.reports << @reports
-      @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: current_user.id, event_type: 1)
-      @tutor_event = TutorEvent.new(status: "#{current_user.name}さんが勉強記録を報告しました。", tutor_id: current_user.tutor.id, event_type: 1)
-      if @summary.save
-        @reports.each do |report| report.save end
-        @user_event.link = "/summaries/#{@summary.id}"
-        @user_event.save
-        @tutor_event.link = "/tutor_see_summary/show/#{@summary.id}"
-        @tutor_event.save
-        flash.now[:notice] = '今日はあなたのチューターの担当日です。チューターへの報告を作成しました。'
+    summary_already_made = Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id)
+    if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !summary_already_made.exists?
+      #もし前回の報告から7日経過してなければ自動作成しない
+      if summary_already_made.order('created_at').last.created_at + 7.days <= Date.today
+        @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
+        @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
+        @summary.reports << @reports
+        @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: current_user.id, event_type: 1)
+        @tutor_event = TutorEvent.new(status: "#{current_user.name}さんが勉強記録を報告しました。", tutor_id: current_user.tutor.id, event_type: 1)
+        if @summary.save
+          @reports.each do |report| report.save end
+          @user_event.link = "/summaries/#{@summary.id}"
+          @user_event.save
+          @tutor_event.link = "/tutor_see_summary/show/#{@summary.id}"
+          @tutor_event.save
+          flash.now[:notice] = '今日はあなたのチューターの担当日です。チューターへの報告を作成しました。'
+        else
+          #render :index
+        end           
       else
-        #render :index
-      end           
+        flash.now[:notice] = '次回の報告は、前回の報告から１週間を経過後に作成されます。'
+      end
     else
       #render :index
     end

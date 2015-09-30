@@ -43,9 +43,19 @@
   </div>
 
   <div class="field">
-    <%= f.label "出身地" %><br>
-    <%= f.text_field :is_from %>
+    <div><%= f.label "出身地" %></div>
+    <div>  
+      <div class="row address-field-row">
+        <div class="col-md-1 text-right"><%= f.label '郵便番号', :class => '' %></div>
+        <div class="col-md-3"><%= f.text_field :zipcode, :class => "form-control", :id => "address_zipcode" %></div>
+        <div class="col-md-1 text-right"><%= f.label "都道府県", :class => '' %></div>
+        <div class="col-md-3"><%= f.text_field :prefecture, :class => "form-control", :id => "address_prefecture_name" %></div>
+        <div class="col-md-1 text-right"><%= f.label "市区町村", :class => '' %></div>
+        <div class="col-md-3"><%= f.text_field :is_from, :class => "form-control", :id => "address_city" %></div>
+      </div>
+    </div>
   </div>
+
 
   <div class="field">
     <%= f.label "出身高校" %><br>

@@ -6,6 +6,8 @@ class AddColumnToUser < ActiveRecord::Migration
     add_column :users, :year, :integer, null: false, default: "3"
     add_column :users, :school, :string, null: false, default: ""
     add_column :users, :lives_in, :string, null: false, default: ""
+    add_column :users, :prefecture, :string
+    add_column :users, :zipcode, :string
     add_column :users, :school_desire, :string, null: false, default: ""
     add_column :users, :report_count, :integer, null: false, default: "0"
     add_column :users, :tutor_id, :integer

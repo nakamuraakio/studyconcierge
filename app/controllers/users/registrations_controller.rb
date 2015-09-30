@@ -59,7 +59,7 @@ http_basic_authenticate_with :name => "akio", :password => "111", only: :new
   protected
   
     def user_params
-      params.require(:user).permit(:email, :name, :photo_file, :birth, :year, :school, :lives_in, :school_desire, subject_attributes: [:id, :japanese, :old_japanese, :old_chinese, :english, :math, :physics, :chemistry, :biology, :geology, :world_history, :japanese_history, :politics_and_economics, :modern_society, :ethics, :geography])
+      params.require(:user).permit(:email, :name, :photo_file, :birth, :year, :school, :lives_in, :zipcode, :prefecture, :school_desire, subject_attributes: [:id, :japanese, :old_japanese, :old_chinese, :english, :math, :physics, :chemistry, :biology, :geology, :world_history, :japanese_history, :politics_and_economics, :modern_society, :ethics, :geography])
     end
 
     def after_update_path_for(resource)

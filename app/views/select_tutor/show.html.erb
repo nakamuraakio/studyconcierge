@@ -71,9 +71,9 @@
   <th>担当曜日</th>
   <td>
     <% case @tutor.available_day %>
-      <% when '0' then %>
+      <% when 0 then %>
         日曜日
-      <% when '1' then %>
+      <% when 1 then %>
         月曜日
       <% when 2 then %>
         火曜日

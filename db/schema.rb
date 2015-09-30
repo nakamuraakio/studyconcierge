@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 20150922093003) do
     t.date     "birth"
     t.string   "university",             default: "", null: false
     t.string   "is_from",                default: "", null: false
+    t.string   "zipcode"
+    t.string   "prefecture"
     t.string   "highschool",             default: "", null: false
     t.string   "nowadays",               default: "", null: false
     t.string   "dream",                  default: "", null: false
@@ -187,6 +189,8 @@ ActiveRecord::Schema.define(version: 20150922093003) do
     t.integer  "year",                   default: 3,     null: false
     t.string   "school",                 default: "",    null: false
     t.string   "lives_in",               default: "",    null: false
+    t.string   "prefecture"
+    t.string   "zipcode"
     t.string   "school_desire",          default: "",    null: false
     t.integer  "report_count",           default: 0,     null: false
     t.integer  "tutor_id"

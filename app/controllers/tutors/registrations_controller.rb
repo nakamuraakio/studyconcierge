@@ -57,7 +57,7 @@ http_basic_authenticate_with :name => "akio", :password => "111", only: :new
 
   protected
     def tutor_params
-      params.require(:tutor).permit(:email, :name, :photo_file, :birth, :university, :is_from, :highschool, :nowadays, :dream, :intro, :available_day, :capacity, :welcome_message, subject_attributes: [:id, :japanese, :old_japanese, :old_chinese, :english, :math, :physics, :chemistry, :biology, :geology, :world_history, :japanese_history, :politics_and_economics, :modern_society, :ethics, :geography])
+      params.require(:tutor).permit(:email, :name, :photo_file, :birth, :university, :is_from, :zipcode, :prefecture, :highschool, :nowadays, :dream, :intro, :available_day, :capacity, :welcome_message, subject_attributes: [:id, :japanese, :old_japanese, :old_chinese, :english, :math, :physics, :chemistry, :biology, :geology, :world_history, :japanese_history, :politics_and_economics, :modern_society, :ethics, :geography])
     end
 
     def after_update_path_for(resource)

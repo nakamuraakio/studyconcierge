@@ -5,6 +5,8 @@ class AddColumnToTutor < ActiveRecord::Migration
     add_column :tutors, :birth, :date
     add_column :tutors, :university, :string, null: false, default: ""
     add_column :tutors, :is_from, :string, null: false, default: ""
+    add_column :tutors, :zipcode, :string
+    add_column :tutors, :prefecture, :string
     add_column :tutors, :highschool, :string, null: false, default: ""
     add_column :tutors, :nowadays, :string, null: false, default: ""
     add_column :tutors, :dream, :string, null: false, default: ""
