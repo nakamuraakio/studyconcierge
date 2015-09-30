@@ -1,5 +1,5 @@
 class NoticeMailer < ApplicationMailer
-
+  default from: "studyconcierge@gmail.com"
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -42,5 +42,12 @@ class NoticeMailer < ApplicationMailer
     @greeting = "Hi"
 
     mail to: "to@example.org"
+  end
+
+  def inquiry_form(username, useremail, message)
+    @username = username
+    @useremail = useremail
+    @message = message
+    mail(to: useremail, bcc: 'studyconcierge@gmail.com', subject: "【お問い合わせフォーム】【#{username}】")
   end
 end

@@ -9,6 +9,10 @@ class SummariesController < ApplicationController
 
   def index
   	@summaries = Summary.where(user_id: current_user.id)
+    if @summaries.count == 0
+      flash[:notice] = 'チューターに送信された報告はまだありません'
+      redirect_to home_index_path
+    end
   end
 
   def show

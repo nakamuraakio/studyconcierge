@@ -6,6 +6,7 @@ class InquiryController < ApplicationController
       if @inquiry.valid?
       # OK
       #メールを送信
+        @mail = NoticeMailer.inquiry_form(params[:inquiry][:name], params[:inquiry][:email], params[:inquiry][:message]).deliver
         format.html { redirect_to :back, notice: 'お問い合わせフォームより送信しました' }
       else
       # NG。入力画面を再表示
