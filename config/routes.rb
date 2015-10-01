@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  resources :articles
+  devise_for :admins, controllers: {
+    :registrations => 'admins/registrations'
+  }
   mount RailsAdmin::Engine => '/app_admin', as: 'rails_admin'
   resources :summaries, :only => [:create, :index, :show]
   resources :comments, :only => [:create, :destroy]
@@ -40,6 +43,9 @@ Rails.application.routes.draw do
   get 'tutor_see_summary/show/:id' => 'tutor_see_summary#show'
   
   post 'inquiry/send_mail' => 'inquiry#send_mail'   # 確認画面
+
+  get 'landing/specified_commercial_transactions'
+  get 'landing/terms'
   
   root to: 'landing#index'
 

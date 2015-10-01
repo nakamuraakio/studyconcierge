@@ -18,7 +18,7 @@
     <nav class = "navbar navbar-default">
       <div class = "navbar-header">
         <% if user_signed_in? or tutor_signed_in? %>
-          <a class = "navbar-brand" href = "home/index">StudyConcierge</a>
+          <a class = "navbar-brand" href = "/">StudyConcierge</a>
         <% else %>
           <a class = "navbar-brand" href = "/">StudyConcierge</a>
         <% end %>
@@ -28,6 +28,8 @@
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
         <% elsif tutor_signed_in? %>
         <li><%= link_to 'ログアウト', destroy_tutor_session_path, method: :delete %></li>
+        <% elsif admin_signed_in? %>
+        <li><%= link_to 'Adminログアウト', destroy_admin_session_path, method: :delete %></li>
         <% else %>
         <li><%= link_to '高校生ログイン', new_user_session_path  %></li>
         <li><%= link_to '大学生ログイン', new_tutor_session_path %></li>

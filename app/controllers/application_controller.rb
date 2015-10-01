@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     elsif current_tutor
       tutor_home_index_path
     else
-      dashboard_path
+      '/app_admin'
     end
   end
 

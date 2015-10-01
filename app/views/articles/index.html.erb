@@ -1,0 +1,39 @@
+<h1>受験Tips一覧</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>作成日</th>
+      <th>作成者</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.title %></td>
+        <td><%= article.created_at %></td>
+        <td>
+          <% if article.tutor %>
+            <%= link_to "select_tutor/show/#{article.tutor.id}" do %>
+              <div class="btn btn-primary"><%= article.tutor.name %></div>
+            <% end %>
+          <% end %>
+        </td>
+        <td><%= link_to 'このTipを読む', article %></td>
+        <% if current_admin %>
+        <td><%= link_to '編集', edit_article_path(article) %></td>
+        <td><%= link_to '削除', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if current_admin %>
+<%= link_to 'New Article', new_article_path %>
+<% end %>
