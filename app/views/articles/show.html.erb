@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Title:</strong>
   <%= @article.title %>
@@ -14,6 +12,15 @@
   <strong>Tutor:</strong>
   <%= @article.tutor_id %>
 </p>
+
+<% if current_user %>
+	<% if current_user.tutor != @article.tutor %>
+	  <%= form_for(current_user, url: select_tutor_update_path) do |f| %>
+	    <%= f.hidden_field :tutor_id, :value => @article.tutor.id %>
+	    <%= f.submit "この記事を書いた#{@article.tutor.name}さんをチューターに選択する", :class => 'btn btn-primary' %>
+	  <% end %>
+	<% end %>
+<% end %>
 
 <%= link_to 'Edit', edit_article_path(@article) %> |
 <%= link_to 'Back', articles_path %>

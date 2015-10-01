@@ -16,6 +16,7 @@ class SelectTutorController < ApplicationController
   end
 
   def show
+    @user = current_user
     @tutor = Tutor.find(params[:id])
     @subjects = Array.new()
     unless @tutor.subject.nil?

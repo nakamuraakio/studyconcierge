@@ -109,6 +109,14 @@
 </tr>
 </tbody>
 </table>
+
+<% if @user.tutor != @tutor %>
+  <%= form_for(@user, url: select_tutor_update_path) do |f| %>
+    <%= f.hidden_field :tutor_id, :value => @tutor.id %>
+    <%= f.submit "#{@tutor.name}さんをチューターに選択する", :class => 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
 </div>
 </div>
 </div>
