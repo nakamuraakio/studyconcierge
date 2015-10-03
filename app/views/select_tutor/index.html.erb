@@ -68,7 +68,7 @@
           <p><%= tutor.is_from %></p>
           <p><%= tutor.highschool %></p>
           <p>あと<%= tutor.capacity - tutor.users.count %>人の指導ができます。</p>
-          <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists %>
+          <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists || tutor == current_user.tutor %>
             <p>
               <label>
                   <%= f.radio_button :tutor_id, tutor.id, { :disabled => true } %>
@@ -77,7 +77,7 @@
             </p>
             <tr>
                 <td class="exist_free_time" id="tutor_profile">
-                <small class='ftime ft_noteExist'><span class='fa fa-close'></span>空きなし</small>                    </td>
+                <small class='ftime ft_noteExist'><span class='fa fa-close'></span>選択できません</small>                    </td>
             </tr>
           <% else %>
             <p>
@@ -88,7 +88,7 @@
             </p>
             <tr>
                 <td class="exist_free_time" id="tutor_profile">
-                <small class='ftime ft_exist'><span class='fa fa-circle-o'></span>空きあり</small>                    </td>
+                <small class='ftime ft_exist'><span class='fa fa-circle-o'></span>選択できます</small>                    </td>
             </tr>
           <% end %>
       </td>

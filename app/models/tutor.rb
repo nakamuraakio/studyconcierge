@@ -12,9 +12,19 @@ class Tutor < ActiveRecord::Base
   has_many :articles
   accepts_nested_attributes_for :subject, allow_destroy: true
 
+  validate :under_capacity
+
   def photo_file= (p)
     if p
       self.photo = p.read
+    end
+  end
+
+  def under_capacity
+    if self.users.any?
+      if self.users.count > capacity
+        errors.add(:base, '現在指導中の人数が指導可能人数を超えています')
+      end
     end
   end
 end

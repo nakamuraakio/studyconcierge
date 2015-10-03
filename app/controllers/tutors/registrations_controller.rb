@@ -25,7 +25,7 @@ http_basic_authenticate_with :name => "akio", :password => "111", only: :new
         format.html { redirect_to tutor_home_index_path, notice: 'プロフィールを更新しました' }
         format.json { render :show, status: :ok, location: @tutor }
       else
-        format.html { render :edit }
+        format.html { render :edit_profile }
         format.json { render json: @tutor.errors, status: :unprocessable_entity }
       end
     end

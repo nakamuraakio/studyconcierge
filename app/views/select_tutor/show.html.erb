@@ -110,6 +110,15 @@
 </tbody>
 </table>
 
+<% if @tutor.articles.any? %>
+  <span><%= @tutor.name %>さんが書いた記事</span>
+  <ul>
+  <% @tutor.articles.each do |article| %>
+    <li><%= link_to article do %><%= article.title %><% end %></li>
+  <% end %>
+  </ul>
+<% end %>
+
 <% if @user.tutor != @tutor %>
   <%= form_for(@user, url: select_tutor_update_path) do |f| %>
     <%= f.hidden_field :tutor_id, :value => @tutor.id %>

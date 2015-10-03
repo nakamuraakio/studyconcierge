@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   resources :articles
   devise_for :admins, controllers: {
     :registrations => 'admins/registrations'

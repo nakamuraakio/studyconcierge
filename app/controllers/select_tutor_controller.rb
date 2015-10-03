@@ -1,16 +1,17 @@
 class SelectTutorController < ApplicationController
   before_action :authenticate_user!
+  before_action :check, only: :update
   
   #開発終了時にコメントアウトを解除
   #before_action :change_tutor_too_often, only: :update
 
   def index
-    @tutors = Array.new()
-  	Tutor.all.each do |tutor|
-      if tutor != current_user.tutor
-        @tutors.push(tutor)
-      end
-    end
+    @tutors = Tutor.all
+#  	Tutor.all.each do |tutor|
+#      if tutor != current_user.tutor
+#        @tutors.push(tutor)
+#      end
+#    end
   	@user = current_user
   	@tutor = @user.tutor || Tutor.new
   end
@@ -45,7 +46,7 @@ class SelectTutorController < ApplicationController
     @user_event = UserEvent.new
     @user_event.user_id = @user.id
     @user_event.event_type = 4
-    
+ 
     if params[:user][:tutor_id] == "0"
       @user.tutor_request_exists = false
     else
@@ -94,6 +95,13 @@ class SelectTutorController < ApplicationController
           flash[:notice] = 'チューターの変更は前回の変更より２週間が経過すると可能になります'
           redirect_to select_tutor_index_path
         end
+      end
+    end
+
+    def check
+      if params[:user].nil?
+        flash[:notice] = '申請を撤回する場合は「申請を撤回する」にチェックを入れて下さい'
+        redirect_to select_tutor_index_path
       end
     end
 end
