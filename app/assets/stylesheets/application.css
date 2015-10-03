@@ -269,5 +269,53 @@ men/*
   font-size: 10px
 }
 
+#user_table{
+  width: 250px;
+  height: 350px;
+  margin: 0px 0px 15px 15px;
+  display: inline-block;
+  border-top: solid 1px rgb(250,250,250);
+  border-right: solid 1px rgb(235,235,235);
+  border-left: solid 1px rgb(245,245,245);
+  border-bottom: solid 1px rgb(230,230,230);
+  background-color: #fff;
+  border-radius: 6px;
+  -moz-transition-property: box-shadow;
+  -webkit-transition-property: box-shadow;
+  -o-transition-property: box-shadow;
+  -ms-transition-property: box-shadow;
+}
+
+#user_table:hover{
+  box-shadow: 2px 5px 20px #dfdfdf;
+}
+.user_img{
+  width: 140px;
+  height: 140px;
+  margin: 15px auto 15px;
+  overflow: hidden;
+  border-radius: 100px;
+  background-color: rgba(32, 174, 229, 0.8);
+}
+
+.user_img img{
+  width: 100%;
+}
+
+.user_profile{
+  padding: 2px 15px 2px;
+}
+.user_profile a{
+  color: rgb(72,77,79);
+}
+.user_profile a:hover{
+}
+.user_profile p{
+  margin: 0px;
+  font-size: 13px;
+}
+
+
+
 
 

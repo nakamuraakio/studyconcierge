@@ -1,14 +1,43 @@
+<div class="container-fluid">
+<div class="row">
+
+<div class="col-md-3">
+  <h3>メニュー</h3>
+  <ul class="list-group">
+    <%= link_to(tutor_home_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-home fa-fw"></i>ホーム
+    <% end %>
+    <%= link_to(tutor_home_user_index_path, :class => "list-group-item active") do %>
+      <i class="fa fa-user fa-fw"></i>現在指導中の学生の詳細
+    <% end %>
+    <%= link_to(tutor_see_summary_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-bar-chart fa-fw"></i>報告の一覧を見る
+    <% end %>
+    <%= link_to(tutors_edit_profile_path , :class => "list-group-item") do %>
+      <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+    <% end %>
+    <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+      <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+    </a>
+  </ul>
+</div>
+
+
+<div class = "col-md-9">
 <h3>ユーザー情報</h3>
-<table class="table">
+<table class="table table-bordered table-striped">
+<tbody>
+<div style="text-align:center; margin-bottom: 20px;">
+<% if @user.photo == "" %>
+      <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+    <% else %>
+      <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => @user.id), :height => '120', :width => '120', :class => 'img-circle' %>
+    <% end %>
+</div>
+
 <tr>
   <td>名前</td>
   <td><%= @user.name %></td>
-</tr>
-<tr>
-  <td>プロフィール画像</td>
-  <td>
-    <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => @user.id), :height => '64', :width => '64', :class => 'img-circle' %>
-  </td>
 </tr>
 <tr>
   <td>生年月日</td>
@@ -31,7 +60,17 @@
   <td>
     <ul>
       <% @subjects.each do |subject, studytime| %>
-        <li><%= subject %></li>
+        <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+        <span class = "label label-danger"><%= subject %></span>
+        <% elsif subject == '英語' %>
+          <span class = "label label-warning"><%= subject %></span>
+        <% elsif subject == '数学' %>
+          <span class = "label label-info"><%= subject %></span>
+        <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+          <span class = "label label-success"><%= subject %></span>
+        <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+          <span class = "label label-default"><%= subject %></span>
+        <% end %>
       <% end %>
     </ul>
   </td>
@@ -43,14 +82,28 @@
 <tr>
   <td>科目別勉強時間</td>
   <td>
-    <ul>
-      <% @subjects.each do |subject, studytime| %>
-        <li><%= subject %>：　<%= studytime %>時間</li>
+    <% @subjects.each do |subject, studytime| %>
+      <p>
+      <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+        <span class = "label label-danger"><%= subject %></span>
+      <% elsif subject == '英語' %>
+        <span class = "label label-warning"><%= subject %></span>
+      <% elsif subject == '数学' %>
+        <span class = "label label-info"><%= subject %></span>
+      <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+        <span class = "label label-success"><%= subject %></span>
+      <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+        <span class = "label label-default"><%= subject %></span>
       <% end %>
-    </ul>
-    （合計が上と等しくない場合があります）
+      <%= studytime %>時間
+      </p>
+    <% end %>
+    合計が上と等しくない場合があります
   </td>
 </tr>
+</tbody>
 </table>
 
-<%= link_to '戻る', :back %>
+</div>
+</div>
+</div>

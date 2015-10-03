@@ -14,7 +14,8 @@ class TutorHomeController < ApplicationController
     
     #未読メッセージの件数を取得
     @comments = Comment.includes(:user).where(tutor_id: current_tutor.id)
-    @tutor_events = TutorEvent.where(tutor_id: current_tutor.id)
+    @tutor_events = TutorEvent.where(tutor_id: current_tutor.id).order('created_at DESC')
+
     @unread_messages = 0
     @comments.each do |comment|
       if !comment.read_flag && comment.created_by_user && comment.user.tutor_id == current_tutor.id
