@@ -1,28 +1,58 @@
 <div class="container-fluid">
+<div class="row">
+
+<div class="col-md-3">
+  <h3>メニュー</h3>
+  <ul class="list-group">
+    <%= link_to(tutor_home_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-home fa-fw"></i>ホーム
+    <% end %>
+    <%= link_to(tutor_home_user_index_path, :class => "list-group-item active") do %>
+      <i class="fa fa-user fa-fw"></i>現在指導中の学生の詳細
+    <% end %>
+    <%= link_to(tutor_see_summary_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-bar-chart fa-fw"></i>報告の一覧を見る
+    <% end %>
+    <%= link_to(tutors_edit_profile_path , :class => "list-group-item") do %>
+      <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+    <% end %>
+    <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+      <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+    </a>
+  </ul>
+</div>
+
+<div class = "col-md-9">
 <h3>現在指導中の学生の一覧</h3>
 <% @users.each do |user| %>
-  <div class="panel panel-default">
-    <p>
-      名前：<%= user.name %>
-    </p>
-    <p>
-      プロフィール画像：<%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => user.id), :height => '64', :width => '64', :class => 'img-circle' %>
-    </p>
-    <p>
-      生年月日：<%= user.birth %>
-    </p>
-    <p>
-      高校名、学年：<%= user.school %>・<%= user.year %>年生
-    </p>
-    <p>
-      現住地：<%= user.lives_in %>
-    </p>
-    <p>
-      志望校：<%= user.school_desire %>
-    </p>
-    <p>
-      <%= link_to '詳細を見る', "/tutor_home/user_show/#{user.id}" %>
-    </p>
-  </div>
+<table id="user_table" name="user_table">
+<tr>
+    <td style="width:250px;">
+        <div class="user_img">
+            <a href="show/<%= user.id %>">
+            <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => user.id)%>
+            </a>
+        </div>
+    </td>
+</tr>
+ <tr>
+    <td class="user_profile">
+    <h5><%= user.name %></h5>
+    </td>
+</tr>
+<tr>
+  <td class="user_profile">
+    <p><%= user.school %></p>
+    <p><%= user.year %>年生</p>
+    <p><%= user.lives_in %></p>
+    <p><%= user.school_desire %></p>
+    <p><%= link_to '詳細を見る', "/tutor_home/user_show/#{user.id}" %></p>
+  </td>
+</tr>
+</table>
+
 <% end %>
+</div>
+
+</div>
 </div>
