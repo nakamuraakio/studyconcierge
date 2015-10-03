@@ -14,38 +14,35 @@
 
 <div class="row">
 
-<div class="col-md-3">
+<div class="col-md-4">
   <h3>メニュー</h3>
   <ul class="list-group">
-    <li class="list-group-item"><%= link_to '現在指導中の学生の詳細', tutor_home_user_index_path %></li>
-    <li class="list-group-item">コメントに返信する</li>
-    <li class="list-group-item"><%= link_to "報告の一覧を見る", tutor_see_summary_index_path %></li>
-    <li class="list-group-item"><%= link_to '設定', tutors_edit_profile_path %></li>
-    <li class="list-group-item">お問い合わせ</li>
-  </ul>
-</div>
-
-<div class="timeline col-md-5">
-  <h3>タイムライン</h3>
-  <div>
-    <table class="table table-bordered">
-    <tbody>
-    <% @tutor_events.each do |tutor_event| %>      
-      <tr>
-        <th><%= time_ago_in_words(tutor_event.created_at) %>前</th>
-        <td><%= tutor_event.status %></td>
-        <td><%= link_to '詳細', tutor_event.link %></td>
-      </tr>
+    <%= link_to(tutor_home_index_path, :class => "list-group-item active") do %>
+      <i class="fa fa-home fa-fw"></i>ホーム
     <% end %>
-    </tbody>
-    </table>
-  </div>
-</div>
+    <%= link_to(tutor_home_user_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-user fa-fw"></i>現在指導中の学生の詳細
+    <% end %>
+    <%= link_to(tutor_see_summary_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-bar-chart fa-fw"></i>報告の一覧を見る
+    <% end %>
+    <%= link_to(tutors_edit_profile_path , :class => "list-group-item") do %>
+      <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+    <% end %>
+    <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+      <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+    </a>
+  </ul>
 
-<div class="col-md-4">
-<h3>チュータープロフィール</h3>
-<table class="table table-bordered">
+<h3></h3>
+<table class="table table-bordered table-striped">
 <tbody>
+<div style="text-align:center; margin-bottom: 20px;">
+<% if current_tutor.photo == "" %>
+  <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+<% else %>
+  <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_tutor.id), :height => '120', :width => '120', :class => 'img-circle' %>
+<% end %>
 <tr>
   <th>メールアドレス</th>
   <td><%= current_tutor.email %></td>
@@ -53,16 +50,6 @@
 <tr>
   <th>名前</th>
   <td><%= current_tutor.name %></td>
-</tr>
-<tr>
-  <th>プロフィール画像</th>
-  <td>
-    <% if current_tutor.photo == "" %>
-      <%= image_tag '1310.png', :height => '64', :width => '64', :class=> 'img-circle' %>
-    <% else %>
-      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
-    <% end %>
-  </td>
 </tr>
 <tr>
   <th>誕生日</th>
@@ -81,7 +68,7 @@
   <td><%= current_tutor.highschool %></td>
 </tr>
 <tr>
-  <th>ウェルカムメッセージ</th>
+  <th>メッセージ</th>
   <td><%= current_tutor.welcome_message %></td>
 </tr>
 <tr>
@@ -123,7 +110,7 @@
     <% if current_tutor.users.nil? %>
       <%= '指導している学生はいません' %>
     <% else %>
-      <ul>
+      <ul style="list-style:none;">
       <% current_tutor.users.each do |user| %>
         <li>
           <%= link_to "/tutor_home/user_show/#{user.id}" do %>
@@ -146,15 +133,38 @@
 <tr>
   <th>受験で使った科目</th>
   <td>
-    <ul>
-      <% @subjects.each do |subject, studytime| %>
-        <li><%= subject %></li>
+    <% @subjects.each do |subject, studytime| %>
+      <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+      <span class = "label label-danger"><%= subject %></span>
+      <% elsif subject == '英語' %>
+        <span class = "label label-warning"><%= subject %></span>
+      <% elsif subject == '数学' %>
+        <span class = "label label-info"><%= subject %></span>
+      <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+        <span class = "label label-success"><%= subject %></span>
+      <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+        <span class = "label label-default"><%= subject %></span>
       <% end %>
-    </ul>
-  </td>
+    <% end %>
+</td>
 </tr>
 </tbody>
 </table>
+</div>
+
+
+<div class="col-md-8">
+  <h3>タイムライン</h3>
+  <div class="list-group">
+    <% @tutor_events.each do |tutor_event| %> 
+      <%= link_to(tutor_event.link, :class => "list-group-item") do %>
+        <i class="fa fa-clock-o fa-fw"></i><span><%= time_ago_in_words(tutor_event.created_at) %>前</span>&emsp;<span><%= tutor_event.status %></span>
+      <% end %>
+      </a>
+    <% end %>
+    </tbody>
+    </table>
+  </div>
 </div>
 
 </div>

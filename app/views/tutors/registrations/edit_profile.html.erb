@@ -1,50 +1,87 @@
 <div class="container-fluid">
+<div class="row">
+
+<div class="col-md-3">
+  <h3>メニュー</h3>
+  <ul class="list-group">
+    <%= link_to(tutor_home_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-home fa-fw"></i>ホーム
+    <% end %>
+    <%= link_to(tutor_home_user_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-user fa-fw"></i>現在指導中の学生の詳細
+    <% end %>
+    <%= link_to(tutor_see_summary_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-bar-chart fa-fw"></i>報告の一覧を見る
+    <% end %>
+    <%= link_to(tutors_edit_profile_path , :class => "list-group-item active") do %>
+      <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+    <% end %>
+    <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+      <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+    </a>
+  </ul>
+</div>
+
+
+<div class = "col-md-9">
+
+ <div class = "col-md-9">
+
 <h2><%= resource_name.to_s.humanize %>を編集する</h2>
 
 <%= form_for(resource, as: resource_name, :url => url_for(:controller => 'tutors/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <%= link_to 'パスワードを変更する', edit_tutor_registration_path %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<table class="table table-bordered table-striped">
+<tbody>
+<tr>
+  <div class="field form-group row">
+    <th class="col-md-2"><%= f.label :email %></th>
+    <td class="col-md-10"><%= f.email_field :email, autofocus: true, :class => "form-control" %></td>
   </div>
-
+</tr>
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
-    <%= f.label "名前" %><br>
-    <%= f.text_field :name %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label '名前' %></th>
+    <td><%= f.text_field :name, :class => "col-md-12 form-control" %></td>
   </div>
-
-  <div class="field">
-    <%= f.label :photo_file, "プロフィール画像" %><br>
-    <%= f.file_field :photo_file %>
+</tr>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label :photo_file, "プロフィール画像" %></th>
+    <td><%= f.file_field :photo_file %></td>
   </div>
-
-  <div class="field">
-    <%= f.label "誕生年月日" %><br>
-    <%= f.date_select(
-          :birth,
+</tr>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "誕生日" %></th>
+    <td><%= f.date_select :birth,
           use_month_numbers: true,
           start_year:     1990,
           end_year:       (Time.now.year - 10),
           default:        Date.new(1999, 1, 1),
-          date_separator: '/') 
-    %>
+          date_separator: '/'
+        %>
+    </td>
   </div>
+</tr>
+<tr>
 
-  <div class="field">
-    <%= f.label "大学名・学部・学年" %><br>
-    <%= f.text_field :university %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "大学名・学部・学年" %></th>
+    <td><%= f.text_field :university, :class => "col-md-12 form-control" %></td>
   </div>
+</tr>
 
-  <div class="field">
-    <div><%= f.label "出身地" %></div>
-    <div>  
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "出身地" %></th>
+    <td>  
       <div class="row address-field-row">
         <div class="col-md-1 text-right"><%= f.label '郵便番号', :class => '' %></div>
         <div class="col-md-3"><%= f.text_field :zipcode, :class => "form-control", :id => "address_zipcode" %></div>
@@ -53,19 +90,22 @@
         <div class="col-md-1 text-right"><%= f.label "市区町村", :class => '' %></div>
         <div class="col-md-3"><%= f.text_field :is_from, :class => "form-control", :id => "address_city" %></div>
       </div>
-    </div>
+    </td>
   </div>
+</tr>
 
-
-  <div class="field">
-    <%= f.label "出身高校" %><br>
-    <%= f.text_field :highschool %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "出身高校" %></th>
+    <td><%= f.text_field :highschool, :class => "col-md-12 form-control" %></td>
   </div>
+</tr>
 
+<tr>
   <%= f.fields_for :subject, current_tutor.subject || Subject.new do |c| %>
-    <div class="field">
-      <%= c.label "受験で使った科目" %><br>
-      <label><%= c.check_box :japanese %> 現代文</label>
+    <div class="field form-group">
+      <th><%= c.label "受験で使った科目" %></th>
+      <td><label><%= c.check_box :japanese %> 現代文</label>
       <label><%= c.check_box :old_japanese %> 古文</label>
       <label><%= c.check_box :old_chinese %> 漢文</label>
       <label><%= c.check_box :english %> 英語</label>
@@ -79,48 +119,66 @@
       <label><%= c.check_box :politics_and_economics %> 政治経済</label>
       <label><%= c.check_box :modern_society %> 現代社会</label>
       <label><%= c.check_box :ethics %> 倫理</label>
-      <label><%= c.check_box :geography %> 地理</label>
+      <label><%= c.check_box :geography %> 地理</label></td>
     </div>
   <% end %>
+</tr>
 
   <div class="field">
-    <%= f.label "担当曜日" %><br>
-    <%= f.select :available_day, {'日曜日' => 0, '月曜日' => 1, '火曜日' => 2, '水曜日' => 3, '木曜日' => 4, '金曜日' => 5, '土曜日' => 6}, { include_blank: '選択して下さい' } %>
+    <th><%= f.label "担当曜日" %></th>
+    <td><%= f.select :available_day, {'日曜日' => 0, '月曜日' => 1, '火曜日' => 2, '水曜日' => 3, '木曜日' => 4, '金曜日' => 5, '土曜日' => 6}, { include_blank: '選択して下さい' } %>
+    </td>
   </div>
 
-  <div class="field">
-    <%= f.label "最大指導人数" %><br>
-    <%= f.number_field :capacity %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "最大指導人数" %></th>
+    <td><%= f.number_field :capacity, :class => "col-md-12 form-control" %></td>
   </div>
+</tr>
 
-  <div class="field">
-    <%= f.label "ウェルカムメッセージ（生徒のリクエストを承認した際に送信されます）" %><br>
-    <%= f.text_area :welcome_message, :value => "こんにちは！よろしくお願いします！(^^)/" %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "ウェルカムメッセージ（生徒のリクエストを承認した際に送信されます）" %></th>
+    <td><%= f.text_area :welcome_message, :value => "こんにちは！よろしくお願いします！(^^)/",:class => "col-md-12 form-control"%></td>
   </div>
+</tr>
 
-  <div class="field">
-    <%= f.label "最近こんなことしてます" %><br>
-    <%= f.text_area :nowadays %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "最近こんなことしてます" %></th>
+    <td><%= f.text_area :nowadays, :class => "col-md-12 form-control" %></td>
   </div>
+</tr>
 
-  <div class="field">
-    <%= f.label "夢" %><br>
-    <%= f.text_area :dream %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "夢" %></th>
+    <td><%= f.text_area :dream, :class => "col-md-12 form-control" %></td>
   </div>
+</tr>
 
-  <div class="field">
-    <%= f.label "運営からの紹介" %><br>
-    <%= f.text_area :intro %>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label "運営からの紹介" %></th>
+    <td><%= f.text_area :intro, :class => "col-md-12 form-control" %></td>
   </div>
+</tr> 
+</tbody>
+</table>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit "変更する", :class => 'btn btn-primary col-sm-2' %>
   </div>
 <% end %>
+
+  <%= link_to 'パスワードを変更する', edit_tutor_registration_path %>
 
 <h3>アカウントを削除する</h3>
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
+</div>
+
+</div>
 </div>
