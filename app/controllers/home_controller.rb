@@ -64,7 +64,7 @@ class HomeController < ApplicationController
 
     #未読メッセージの件数を取得
     @comments = Comment.where(user_id: current_user.id)
-    @user_events = UserEvent.where(user_id: current_user.id).paginate(:page => params[:page], :per_page => 5).order('created_at DESC')
+    @user_events = UserEvent.where(user_id: current_user.id).paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
     @unread_messages = 0
     @comments.each do |comment|
       if !comment.read_flag && !comment.created_by_user

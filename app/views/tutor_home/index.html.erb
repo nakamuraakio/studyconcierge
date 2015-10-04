@@ -165,8 +165,9 @@
       <% end %>
       </a>
     <% end %>
-    </tbody>
-    </table>
+  </div>
+  <div>
+    <%= will_paginate @tutor_events, :renderer => BootstrapPagination::Rails %>
   </div>
 </div>
 
