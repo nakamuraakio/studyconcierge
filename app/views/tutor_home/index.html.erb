@@ -155,6 +155,9 @@
 
 <div class="col-md-8">
   <h3>タイムライン</h3>
+  <div>
+    <%= will_paginate @tutor_events, :renderer => BootstrapPagination::Rails %>
+  </div>
   <div class="list-group">
     <% @tutor_events.each do |tutor_event| %> 
       <%= link_to(tutor_event.link, :class => "list-group-item") do %>
