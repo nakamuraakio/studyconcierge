@@ -24,6 +24,9 @@
 
 <div class = "col-md-9">
 <h3>レポート</h3>
+
+<div class = "panel panel-default" >
+<div class = "panel-body panel-scroll">
 <% @reports.each do |report| %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -31,15 +34,23 @@
   </div>
 
   <div class = "panel-body">
-    <div class = "col-md-4">
-      <canvas id="bar" height="200" width="200"></canvas>
-      <div id="bar_pink" data-japanese="<%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>"></div>
-      <div id="bar_blue" data-math="<%= (report.math_percentage) %>"></div>
-      <div id="bar_yellow" data-english="<%= (report.english_percentage) %>"></div>
-      <div id="bar_purple" data-social="<%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>"></div>
-      <div id="bar_green" data-science="<%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>"></div>
+    <div class="progress center-block" style="width: 80%">
+      <div class="progress-bar progress-bar-danger" style="width: <%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>%">
+        <%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>%
+      </div>
+      <div class="progress-bar progress-bar-info" style="width: <%= (report.math_percentage) %>%">
+        <%= (report.math_percentage) %>%
+      </div>
+      <div class="progress-bar progress-bar-warning" style="width: <%= (report.english_percentage) %>%">
+        <%= (report.english_percentage) %>%
+      </div>
+      <div class="progress-bar progress-bar-default" style="width: <%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>%">
+        <%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>%
+      </div>
+      <div class="progress-bar progress-bar-success" style="width: <%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>%">
+        <%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>%
+      </div>
     </div>
-
     <div class = "col-md-8">
 
       <table class = "table">
@@ -178,6 +189,8 @@
   </div>
 </div>
 <% end %>
+</div>
+</div>
 
 <div class = "comment">
 <% if @comments %>
@@ -276,5 +289,5 @@ var doughnutData = [
  
 var myDoughnut = new Chart(document.getElementById("bar").
 getContext("2d")).Doughnut(doughnutData);
- 
+
 </script>

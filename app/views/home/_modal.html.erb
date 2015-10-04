@@ -21,28 +21,28 @@
         <table class="table">
           <tr class="row">
             <div class="form-group">
-              <th class="col-md-3">名前<span class="text-danger">（必須）</span></th>
+              <th class="col-md-4">名前<span class="text-danger">（必須）</span></th>
               <% if current_user %>
-                <td class="col-md-9"><%= f.text_field :name, :value => "#{current_user.name}様", :class => 'form-control' %></td>
+                <td class="col-md-8"><%= f.text_field :name, :value => "#{current_user.name}様", :class => 'form-control' %></td>
               <% elsif current_tutor %>
-                <td class="col-md-9"><%= f.text_field :name, :value => "#{current_tutor.name}様", :class => 'form-control' %></td>
+                <td class="col-md-8"><%= f.text_field :name, :value => "#{current_tutor.name}様", :class => 'form-control' %></td>
               <% end %>
             </div>
           </tr>
           <tr class="row">
             <div class="form-group">
-              <th class="col-md-3">メールアドレス<span class="text-danger">（必須）</span></th>
+              <th class="col-md-4">メールアドレス<span class="text-danger">（必須）</span></th>
               <% if current_user %>
-                <td class="col-md-9"><%= f.text_field :email, :value => current_user.email, :class => 'form-control' %></td>
+                <td class="col-md-8"><%= f.text_field :email, :value => current_user.email, :class => 'form-control' %></td>
               <% elsif current_tutor %>
-                <td class="col-md-9"><%= f.text_field :email, :value => current_tutor.email, :class => 'form-control' %></td>
+                <td class="col-md-8"><%= f.text_field :email, :value => current_tutor.email, :class => 'form-control' %></td>
               <% end %>
             </div>
           </tr>
           <tr class="row">
             <div class="form-group">
-              <th class="col-md-3">お問い合わせ内容</th>
-              <td class="col-md-9"><%= f.text_area :message, :class => 'form-control input-lg' %></td>
+              <th class="col-md-4">お問い合わせ内容</th>
+              <td class="col-md-8"><%= f.text_area :message, :class => 'form-control input-lg', :rows => "8" %></td>
             </div>
           </tr>
         </table>

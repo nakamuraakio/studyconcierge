@@ -14,7 +14,7 @@ class TutorHomeController < ApplicationController
     
     #未読メッセージの件数を取得
     @comments = Comment.includes(:user).where(tutor_id: current_tutor.id)
-    @tutor_events = TutorEvent.where(tutor_id: current_tutor.id).paginate(:page => params[:page], :per_page => 5).order('created_at DESC')
+    @tutor_events = TutorEvent.where(tutor_id: current_tutor.id).paginate(:page => params[:page], :per_page => 15).order('created_at DESC')
 
     @unread_messages = 0
     @comments.each do |comment|

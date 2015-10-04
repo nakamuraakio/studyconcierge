@@ -27,7 +27,7 @@
   </a>
   </ul>
   <ul class="list-group">
-  <%= link_to articles_path, :class => "list-group-item" do %>
+  <%= link_to articles_path, :class => "list-group-item disabled" do %>
     受験Tips
   <% end %>
 
@@ -55,7 +55,7 @@
 </tr>
 <tr>
   <th>学年</th>
-  <td><%= current_user.year %></td>
+  <td><%= current_user.year %>年</td>
 </tr>
 <tr>
   <th>学校名</th>
@@ -137,11 +137,11 @@
 </table>
 </div>
 
-  <div class="timeline col-md-9">
-    <h3>タイムライン</h3>
-    <div>
+  <div class="col-md-9">
+    <div class = "">
       <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails %>
     </div>
+
     <ul class="timeline">
 
         <% @user_events.each_with_index do |user_event, i| %>
@@ -202,6 +202,11 @@
         <% end %>
         <% end %>
     </ul>
+
+    <div class = "">
+      <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails %>
+    </div>
+
   </div>
 
 
