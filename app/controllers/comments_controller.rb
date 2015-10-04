@@ -41,15 +41,17 @@ class CommentsController < ApplicationController
         @user_event.save
         @tutor_event.save
       	if user_signed_in?
+          NoticeMailer.comment_notice_to_tutor(current_user, current_user.tutor, @comment).deliver
           format.html { redirect_to @summary, notice: 'コメントを作成しました' }
           #format.json { render :show, status: :created, location: @report }
         else
+          NoticeMailer.comment_notice_to_user(@summary.user, current_tutor, @comment).deliver
           format.html { redirect_to url_for(:controller => 'tutor_see_summary', :action => 'show', :id => @summary.id), notice: 'コメントを作成しました' }
           #format.json { render :show, status: :created, location: @report }
         end
       else
       	if user_signed_in?
-          format.html { redirect_to @summary}
+          format.html { redirect_to @summary, notice: 'コメント作成に失敗しました' }
           format.json { render json: @summary.errors, status: :unprocessable_entity }
         else
           format.html { redirect_to url_for(:controller => 'tutor_see_summary', :action => 'show', :id => @summary.id), notice: 'コメント作成に失敗しました' }

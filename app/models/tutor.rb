@@ -12,6 +12,10 @@ class Tutor < ActiveRecord::Base
   has_many :articles
   accepts_nested_attributes_for :subject, allow_destroy: true
 
+  validates :name, length: { maximum: 10 }
+  validates :nowadays, length: { minimum: 200, maximum: 500 }
+  validates :dream, length: { minimum: 200, maximum: 500 }
+  validates :intro, length: { minimum: 200, maximum: 500 }
   validate :under_capacity
 
   def photo_file= (p)

@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :reports, dependent: :destroy
   has_many :summaries, dependent: :destroy
 
+  validates :name, length: { maximum: 10 }
+
   def photo_file= (p)
     if p
       self.photo = p.read

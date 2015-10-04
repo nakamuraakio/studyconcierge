@@ -3,9 +3,8 @@ class Comment < ActiveRecord::Base
   belongs_to :tutor
   belongs_to :user
   belongs_to :summary
-# 一時的にコメントアウト
-  #validates :content, length: { in: 200..500 }, if: :created_by_tutor?
-  #validates :content, length: { maximum: 500 }, if: :created_by_user?
+  validates :content, length: { in: 200..500 }, if: :created_by_tutor?
+  validates :content, length: { maximum: 500 }, if: :created_by_user?
 
   def created_by_tutor?
     !created_by_user

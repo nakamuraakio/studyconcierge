@@ -65,6 +65,7 @@ class SelectTutorController < ApplicationController
           @user_event.status = "チューターに#{@user.tutor.name}さんを選択しました。"
           @user_event.link = "/select_tutor/show/#{@user.tutor.id}"
           @user_event.save
+          NoticeMailer.designation_notice_to_tutor(@user, @user.tutor).deliver
           TutorEvent.new(status: "#{@user.name}さんがあなたをチューターに選択しようとしています。承認して下さい。", tutor_id: @user.tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save
           TutorEvent.new(status: "#{@user.name}さんが選択を解除しました。", tutor_id: former_tutor.id, event_type: 4, link: "/tutor_home/user_show/#{@user.id}").save if former_tutor
           format.html { redirect_to home_index_path, notice: 'チューターを選択しました。チューターからの承認をお待ち下さい。' }
