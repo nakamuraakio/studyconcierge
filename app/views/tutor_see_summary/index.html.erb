@@ -1,4 +1,29 @@
 <div class="container-fluid">
+<div class="row">
+
+<div class="col-md-3">
+  <h3>メニュー</h3>
+  <ul class="list-group">
+    <%= link_to(tutor_home_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-home fa-fw"></i>ホーム
+    <% end %>
+    <%= link_to(tutor_home_user_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-user fa-fw"></i>現在指導中の学生の詳細
+    <% end %>
+    <%= link_to(tutor_see_summary_index_path, :class => "list-group-item active") do %>
+      <i class="fa fa-bar-chart fa-fw"></i>報告の一覧を見る
+    <% end %>
+    <%= link_to(tutors_edit_profile_path , :class => "list-group-item") do %>
+      <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+    <% end %>
+    <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+      <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+    </a>
+  </ul>
+</div>
+
+<div class = "col-md-9">
+
   <% @users.each do |user| %>
   <div class="panel panel-default">
     <p class="panel-heading"><strong><%= user.name %>の報告</strong></p>
@@ -28,4 +53,7 @@
     </ul>
   </div>
   <% end %>
+</div>
+
+</div>
 </div>
