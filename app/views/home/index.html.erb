@@ -32,8 +32,8 @@
   <% end %>
 
 <h3></h3>
-<table class="table table-bordered table-striped">
-<tbody>
+<table class="table table-bordered table-striped" style="font-size: 9pt">
+<tbody class="row">
 <div style="text-align:center; margin-bottom: 20px;">
 <% if current_user.photo == "" %>
   <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
@@ -42,7 +42,7 @@
 <% end %>
 </div>
 <tr>
-  <th>メールアドレス</th>
+  <th class="col-md-4">メールアドレス</th>
   <td><%= current_user.email %></td>
 </tr>
 <tr>
@@ -76,7 +76,7 @@
       <%= '選択されていません' %>
     <% else %>
       <% if current_user.tutor_request_exists %>
-        現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。
+        現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。<br>
       <% end %>
       <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
         <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
@@ -139,7 +139,7 @@
 
   <div class="col-md-9">
     <div class = "">
-      <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails %>
+      <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
     </div>
 
     <ul class="timeline">
@@ -204,7 +204,7 @@
     </ul>
 
     <div class = "">
-      <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails %>
+      <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
     </div>
 
   </div>

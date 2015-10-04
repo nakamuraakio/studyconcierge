@@ -208,12 +208,12 @@
         </div>
         <div class = "panel-body">
           <p><%= comment.content %></p>
-          <% if comment.created_by_user %>
-            <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
-            <% if comment.read_flag %>
-              <p>既読</p>
-            <% end %>
-          <% end %>
+          <% #if comment.created_by_user %>
+            <%#= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
+            <% #if comment.read_flag %>
+              <!--<p>既読</p>-->
+            <% #end %>
+          <% #end %>
         </div>
       </div>
       <% if current_user.photo == "" %>

@@ -156,7 +156,7 @@
 <div class="col-md-8">
   <h3>タイムライン</h3>
   <div>
-    <%= will_paginate @tutor_events, :renderer => BootstrapPagination::Rails %>
+    <%= will_paginate @tutor_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
   </div>
   <div class="list-group">
     <% @tutor_events.each do |tutor_event| %> 
@@ -167,7 +167,7 @@
     <% end %>
   </div>
   <div>
-    <%= will_paginate @tutor_events, :renderer => BootstrapPagination::Rails %>
+    <%= will_paginate @tutor_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
   </div>
 </div>
 

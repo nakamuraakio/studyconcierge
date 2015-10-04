@@ -75,7 +75,7 @@
 <tr>
   <div class="field form-group">
     <th><%= f.label "学年" %></th>
-    <td><%= f.select :year,{'中学1年' => 1,'中学2年' => 2,'中学3年' => 3,'高校1年' => 1,'高校2年' => 2,'高校3年' => 3}, :selected => "高校3年", :class => "col-md-12 form-control" %></td>
+    <td><%= f.select :year, {'高校1年' => 1,'高校2年' => 2,'高校3年' => 3}, :selected => @user.year, :class => "col-md-12 form-control" %></td>
   </div>
 </tr>
 <tr>
