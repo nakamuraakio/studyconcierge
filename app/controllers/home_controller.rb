@@ -64,7 +64,7 @@ class HomeController < ApplicationController
 
     #未読メッセージの件数を取得
     @comments = Comment.where(user_id: current_user.id)
-    @user_events = UserEvent.where(user_id: current_user.id).order('created_at DESC')
+    @user_events = UserEvent.where(user_id: current_user.id).paginate(:page => params[:page], :per_page => 5).order('created_at DESC')
     @unread_messages = 0
     @comments.each do |comment|
       if !comment.read_flag && !comment.created_by_user
@@ -81,7 +81,7 @@ class HomeController < ApplicationController
     summary_already_made = Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id)
     if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !summary_already_made.exists?
       #もし前回の報告から7日経過してなければ自動作成しない
-      if summary_already_made.order('created_at').last.created_at + 7.days <= Date.today
+      if summary_already_made.last.nil? || summary_already_made.order('created_at').last.created_at + 7.days <= Date.today
         @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
         @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
         @summary.reports << @reports

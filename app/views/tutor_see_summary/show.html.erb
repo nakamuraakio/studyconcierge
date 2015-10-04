@@ -222,27 +222,18 @@
         </div>
       </div>
     <% end %>
+  <% end %>
 <% end %>
 </div>
 
 <div style="clear:both;">
-  <% if @summary.user.tutor_id == 0 %>
-    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  <% elsif @summary.comments.count > 7 %>
+  <% if @summary.comments.count > 7 %>
     <p>コメント数の上限に到達しました</p>
   <% elsif @summary.comments.count % 2 == 1 %>
     <p>ユーザーからの返信待ちです</p>
   <% else %>
     <%= render 'comments/form' %>
   <% end %>
-<% else %>
-  <% if @summary.user.tutor_id == 0 %>
-    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  <% else %>
-    <p>チューターからの返信待ちです</p>
-  <% end %>
-<% end %>
-
 </div>
 </div>
 </div>

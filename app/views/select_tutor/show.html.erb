@@ -30,7 +30,7 @@
 
 <div class = "col-md-9">
   <h3>チュータープロフィール</h3>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped row">
 <tbody>
 <div style="text-align:center; margin-bottom: 20px;">
 <% if @tutor.photo == "" %>
@@ -40,7 +40,7 @@
     <% end %>
 </div>
 <tr>
-  <th>名前</th>
+  <th class="col-md-3">名前</th>
   <td><%= @tutor.name %></td>
 </tr>
 <tr>

@@ -139,7 +139,11 @@
 
   <div class="timeline col-md-9">
     <h3>タイムライン</h3>
+    <div>
+      <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails %>
+    </div>
     <ul class="timeline">
+
         <% @user_events.each_with_index do |user_event, i| %>
         <% if i.even? %>
         <li>
