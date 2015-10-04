@@ -1,35 +1,64 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container-fluid">
+<div class = "row">
+
+<div class="menu col-md-3">
+ <h3>メニュー</h3>
+  <ul class="list-group">
+    <%= link_to(tutor_home_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-home fa-fw"></i>ホーム
+    <% end %>
+    <%= link_to(tutor_home_user_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-user fa-fw"></i>現在指導中の学生の詳細
+    <% end %>
+    <%= link_to(tutor_see_summary_index_path, :class => "list-group-item") do %>
+      <i class="fa fa-bar-chart fa-fw"></i>報告の一覧を見る
+    <% end %>
+    <%= link_to(tutors_edit_profile_path , :class => "list-group-item active") do %>
+      <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
+    <% end %>
+    <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+      <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
+    </a>
+  </ul>
+</div>
+
+ <div class = "col-md-9">
+
+<h2>パスワードを編集する</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+<table class="table table-bordered">
+<tbody>
+<tr>
+  <div class="field form-group row">
+    <th class="col-md-4"><%= f.label :password, '新しいパスワード' %></th>
+    <td class="col-md-8"><%= f.password_field :password, autocomplete: "off", :class => "form-control" %></td>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+</tr>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label :password_confirmation, '新しいパスワード確認' %></th>
+    <td><%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control" %></td>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+</tr>
+<tr>
+  <div class="field form-group">
+    <th><%= f.label :current_password, '現在のパスワード' %></th>
+    <td><%= f.password_field :current_password, autocomplete: "off", :class => "form-control" %></td>
   </div>
+</tr>
+</tbody>
+</table>
 
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <br><%= f.submit "変更する", :class => 'btn btn-primary col-sm-2' %>
   </div>
+
 <% end %>
 
-<%= link_to "Back", :back %>
+</div>
+</div>
+</div>

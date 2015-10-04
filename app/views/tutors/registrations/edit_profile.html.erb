@@ -27,7 +27,7 @@
 
  <div class = "col-md-9">
 
-<h2><%= resource_name.to_s.humanize %>を編集する</h2>
+<h2>プロフィールを編集する</h2>
 
 <%= form_for(resource, as: resource_name, :url => url_for(:controller => 'tutors/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
@@ -167,7 +167,7 @@
 </tbody>
 </table>
   
-  <div>
+  <div style="margin-bottom:10px;">
     <%= link_to 'パスワードを変更する', edit_tutor_registration_path %>
   </div>
 
