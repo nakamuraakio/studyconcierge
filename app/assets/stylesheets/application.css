@@ -315,6 +315,11 @@ men/*
   font-size: 13px;
 }
 
+.panel-scroll{
+  height: 420px;
+  overflow: scroll;
+}
+
 
 
 
