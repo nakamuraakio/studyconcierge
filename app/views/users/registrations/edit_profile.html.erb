@@ -22,20 +22,21 @@
   <%= link_to(users_edit_profile_path , :class => "list-group-item active") do %>
     <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
   <% end %>
-  <a class="list-group-item" data-toggle="modal" data-target="#sampleModal">
+  <a href="#" class="list-group-item" data-toggle="modal" data-target="#sampleModal">
     <i class="fa fa-envelope-o fa-fw"></i>お問い合わせ
   </a>
   </ul>
- </div>
+</div>
 
- <div class = "col-md-9">
+<div class="col-md-9">
 
 <h2>プロフィールを編集する</h2>
 
 <%= form_for(resource, as: resource_name, :url => url_for(:controller => 'users/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  
 
 <table class="table table-bordered table-striped">
+<%= devise_error_messages! %>
 <tbody>
 <tr>
   <div class="field form-group row">

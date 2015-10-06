@@ -114,7 +114,7 @@ class HomeController < ApplicationController
     end
   #合計勉強時間とその科目の％を渡すと、何時間勉強したかを自動的に計算
     def get_studytime(report, subject_percentage)
-      (report.average_studytime.to_f) * (subject_percentage.to_f) / 100
+      ((report.average_studytime.to_f) * (subject_percentage.to_f) / 100).round(2)
     end
 
   

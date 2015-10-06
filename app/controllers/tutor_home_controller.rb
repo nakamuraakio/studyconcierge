@@ -159,6 +159,6 @@ class TutorHomeController < ApplicationController
     end
 
     def get_studytime(report, subject_percentage)
-      (report.average_studytime.to_f) * (subject_percentage.to_f) / 100
+      ((report.average_studytime.to_f) * (subject_percentage.to_f) / 100).round(2)
     end
 end
