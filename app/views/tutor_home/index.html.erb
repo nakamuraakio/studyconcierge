@@ -36,7 +36,7 @@
 
 <h3></h3>
 <table class="table table-bordered table-striped">
-<tbody>
+<tbody class="row">
 <div style="text-align:center; margin-bottom: 20px;">
 <% if current_tutor.photo == "" %>
   <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
@@ -44,8 +44,8 @@
   <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_tutor.id), :height => '120', :width => '120', :class => 'img-circle' %>
 <% end %>
 <tr>
-  <th>メールアドレス</th>
-  <td><%= current_tutor.email %></td>
+  <th class="col-md-4">メールアドレス</th>
+  <td class="col-md-8"><%= current_tutor.email %></td>
 </tr>
 <tr>
   <th>名前</th>
