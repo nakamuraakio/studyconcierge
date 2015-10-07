@@ -1,6 +1,8 @@
 class SelectTutorController < ApplicationController
   before_action :authenticate_user!
   before_action :check, only: :update
+  before_action :check_profile
+
   
   #開発終了時にコメントアウトを解除
   #before_action :change_tutor_too_often, only: :update
@@ -72,7 +74,7 @@ class SelectTutorController < ApplicationController
           format.json { render :show, status: :ok, location: @user }
         end
       else
-        format.html { render :index }
+        format.html { redirect_to select_tutor_index_path, alert: 'エラーが起こりました' }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

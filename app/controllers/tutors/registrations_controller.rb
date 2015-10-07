@@ -64,6 +64,8 @@ http_basic_authenticate_with :name => "akio", :password => "111", only: :new
       tutor_home_index_path
     end
 
+
+
     
     
   

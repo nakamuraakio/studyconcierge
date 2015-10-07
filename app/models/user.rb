@@ -12,11 +12,18 @@ class User < ActiveRecord::Base
   has_many :reports, dependent: :destroy
   has_many :summaries, dependent: :destroy
 
-  validates :name, length: { maximum: 10 }
+  validates :name, presence: true, length: { maximum: 10 }, if: :not_first_login?
+  validates :school, presence: true, if: :not_first_login?
+  validates :lives_in, presence: true, if: :not_first_login?
+  validates :school_desire, presence: true, if: :not_first_login?
 
   def photo_file= (p)
     if p
       self.photo = p.read
     end
+  end
+
+  def not_first_login?
+    !self.id.nil?
   end
 end

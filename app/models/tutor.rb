@@ -12,7 +12,9 @@ class Tutor < ActiveRecord::Base
   has_many :articles
   accepts_nested_attributes_for :subject, allow_destroy: true
 
-  validates :name, length: { maximum: 10 }
+  validates :name, presence: true, length: { maximum: 10 }, if: :not_first_login?
+  validates :university, presence: true, if: :not_first_login?
+  validates :is_from, presence: true, if: :not_first_login?
   validates :nowadays, length: { minimum: 200, maximum: 500 }, if: :not_first_login?
   validates :dream, length: { minimum: 200, maximum: 500 }, if: :not_first_login?
   #validates :intro, length: { minimum: 200, maximum: 500 }, if: :not_first_login?

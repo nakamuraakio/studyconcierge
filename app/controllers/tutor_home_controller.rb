@@ -1,5 +1,6 @@
 class TutorHomeController < ApplicationController
   before_action :authenticate_tutor!
+  before_action :check_profile
   #current_tutorのidと、userテーブルのカラムが一致して初めて見られる
 
   def index

@@ -1,6 +1,8 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]
+  before_action :check_profile
+
   before_action do
     if !user_signed_in? && !tutor_signed_in?
       flash[:notice] = 'ログインして下さい'

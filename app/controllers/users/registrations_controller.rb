@@ -65,6 +65,8 @@ http_basic_authenticate_with :name => "akio", :password => "111", only: :new
     def after_update_path_for(resource)
       home_index_path
     end
+
+
     
     
   # You can put the params you want to permit in the empty array.

@@ -6,6 +6,8 @@ class SummariesController < ApplicationController
   #  end
   #end
   before_action :authenticate_user!
+  before_action :check_profile
+
 
   def index
   	@summaries = Summary.where(user_id: current_user.id)

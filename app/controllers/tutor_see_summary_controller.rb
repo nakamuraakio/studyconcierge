@@ -1,5 +1,7 @@
 class TutorSeeSummaryController < ApplicationController
   before_action :authenticate_tutor!
+  before_action :check_profile
+
   def index
     @users = User.includes(:summaries).where(tutor_id: current_tutor.id)
   end

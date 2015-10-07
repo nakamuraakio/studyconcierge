@@ -58,7 +58,7 @@
       <b>
         <% if current_user.tutor_request_exists %>
           申請を撤回する
-        <% elsif current_user.tutor_id == 0 %>
+        <% elsif current_user.tutor_id == 0 || current_user.tutor.nil? %>
           チューターを選択しない
         <% else %>
           チューターを解除する
@@ -103,6 +103,8 @@
               <td class="exist_free_time" id="tutor_profile">
               <% if current_user.tutor_request_exists %>
                 <small class='ftime ft_noteExist'><span class='fa fa-close'></span>承認待ちのため選択できません</small>
+              <% elsif tutor == current_user.tutor %>
+                <small class='ftime ft_noteExist'><span class='fa fa-close'></span>現在選択中のチューターです</small>
               <% else %>
                 <small class='ftime ft_noteExist'><span class='fa fa-close'></span>選択できません</small>
               <% end %>
