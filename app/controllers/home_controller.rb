@@ -109,12 +109,12 @@ class HomeController < ApplicationController
   #報告する科目について、「科目=>時間」の連想配列を作成
     def check_subjects(array, element, subject_name, studytime)
       if element == true
-      	return array[subject_name] = studytime
+      	return array[subject_name] = (sprintf "%.1f",studytime)
       end
     end
   #合計勉強時間とその科目の％を渡すと、何時間勉強したかを自動的に計算
     def get_studytime(report, subject_percentage)
-      ((report.average_studytime.to_f) * (subject_percentage.to_f) / 100).round(2)
+      (report.average_studytime.to_f) * (subject_percentage.to_f) / 100
     end
 
   

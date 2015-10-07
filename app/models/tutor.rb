@@ -15,7 +15,7 @@ class Tutor < ActiveRecord::Base
   validates :name, length: { maximum: 10 }
   validates :nowadays, length: { minimum: 200, maximum: 500 }, if: :not_first_login?
   validates :dream, length: { minimum: 200, maximum: 500 }, if: :not_first_login?
-  validates :intro, length: { minimum: 200, maximum: 500 }, if: :not_first_login?
+  #validates :intro, length: { minimum: 200, maximum: 500 }, if: :not_first_login?
   validate :under_capacity
 
   def photo_file= (p)

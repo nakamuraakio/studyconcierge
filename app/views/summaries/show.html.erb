@@ -2,30 +2,8 @@
 <div class="row">
 
 <div class="menu col-md-3">
-<h3>メニュー</h3>
-  <ul class="list-group">
-  <%= link_to(home_index_path, :class => "list-group-item") do %>
-    <i class="fa fa-home fa-fw"></i>ホーム
-  <% end %>
-  <%= link_to(new_report_path, :class => "list-group-item") do %>
-    <i class="fa fa-pencil fa-fw"></i>勉強を記録する
-  <% end %>
-  <%= link_to(reports_path, :class => "list-group-item active") do %>
-    <i class="fa fa-bar-chart fa-fw"></i>記録の一覧を見る
-  <% end %>
-  <%= link_to(summaries_path , :class => "list-group-item") do %>
-    <i class="fa fa-file-text-o fa-fw"></i>先生からのコメントを見る
-  <% end %>
-  <%= link_to(select_tutor_index_path , :class => "list-group-item") do %>
-    <i class="fa fa-group fa-fw"></i>チューターを変更する
-  <% end %>
-  <%= link_to(users_edit_profile_path , :class => "list-group-item") do %>
-    <i class="fa fa-cog fa-fw"></i>プロフィールを変更する
-  <% end %>
-    <li class="list-group-item"><i class="fa fa-envelope-o fa-fw"></i>
-お問い合わせ</li>
-  </ul>
- </div>
+<%= render 'home/menu' %>
+</div>
 
 <div class = "col-md-9">
 <h3>サマリー</h3>
@@ -216,17 +194,10 @@
           <% #end %>
         </div>
       </div>
-      <% if current_user.photo == "" %>
-        <%= image_tag '1310.png', :height => '100', :width => '100', :class=> 'img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
-      <% else %>
-        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
-      <% end %>
+      
+      <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
     <% else %>
-      <% if current_user.tutor.photo == "" %>
-        <%= image_tag '1310.png', :height => '100', :width => '100', :class=> 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
-      <% else %>
-        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
-      <% end %>
+      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => comment.tutor.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
       <div class="panel panel-default panel-comment-tutor panel-warning">
         <div class="panel-heading">
           <h3 class="panel-title"><%= comment.tutor.name %>チューター <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></h3>
@@ -242,27 +213,27 @@
         </div>
       </div>
     <% end %>
+  <% end %>
 <% end %>
 </div>
 
-<div style="clear:both;">
-  <% if @summary.user.tutor_id == 0 %>
+<% if @summary.user.tutor_id == 0 %>
+  <div class="alert alert-danger" style="clear:both;">
     <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  <% elsif @summary.comments.count > 7 %>
+  </div>
+<% elsif @summary.comments.count > 7 %>
+  <div class="alert alert-danger" style="clear:both;">
     <p>コメント数の上限に到達しました</p>
-  <% elsif @summary.comments.count % 2 == 0 %>
+  </div>
+<% elsif @summary.comments.count % 2 == 0 %>
+  <div class="alert alert-danger" style="clear:both;">
     <p>チューターからの返信待ちです</p>
-  <% else %>
-    <%= render 'comments/form' %>
-  <% end %>
+  </div>
 <% else %>
-  <% if @summary.user.tutor_id == 0 %>
-    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  <% else %>
-    <p>チューターからの返信待ちです</p>
-  <% end %>
+  <div class="panel panel-default" style="clear:both;padding:10px;">
+    <%= render 'comments/form' %>
+  </div>
 <% end %>
-</div>
 
 
 <% link_to '一覧に戻る', summaries_path %>

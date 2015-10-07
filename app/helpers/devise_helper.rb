@@ -8,7 +8,7 @@ module DeviseHelper
                       :resource => resource.class.model_name.human.downcase)
 
     html = <<-HTML
-    <div id="error_explanation" class="container-fluid">
+    <div id="error_explanation" class="container-fluid panel panel-default">
       <h5>#{sentence}</h5><br>
       <ul style="list-style:none;">#{messages}</ul>
     </div>

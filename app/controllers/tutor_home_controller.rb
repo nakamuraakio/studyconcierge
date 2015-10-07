@@ -136,7 +136,7 @@ class TutorHomeController < ApplicationController
   private
     def check_subjects(array, element, subject_name, studytime)
       if element == true
-        return array[subject_name] = studytime
+        return array[subject_name] = (sprintf "%.1f",studytime)
       end
     end
   #

@@ -29,7 +29,7 @@
 <tr>
     <td style="width:250px;">
         <div class="user_img">
-            <a href="show/<%= user.id %>">
+            <a href="/tutor_home/user_show/<%= user.id %>">
             <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => user.id)%>
             </a>
         </div>

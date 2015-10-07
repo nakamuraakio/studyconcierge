@@ -15,7 +15,6 @@ men/*
  *= require font-awesome
  */
 
-
 .menu{
   z-index: 100;
 }
@@ -85,6 +84,7 @@ men/*
   clear: both;
 }
 .timeline > li > .timeline-panel {
+  background-color: rgb(255,255,255);
   width: 46%;
   float: left;
   border: 1px solid #d4d4d4;
@@ -193,9 +193,9 @@ men/*
 }
 
 #tutor_table{
-  width: 250px;
+  width: 240px;
   height: 350px;
-  margin: 0px 0px 15px 15px;
+  margin: 7.5px 7.5px 7.5px 7.5px;
   display: inline-block;
   border-top: solid 1px rgb(250,250,250);
   border-right: solid 1px rgb(235,235,235);
@@ -213,8 +213,8 @@ men/*
   box-shadow: 2px 5px 20px #dfdfdf;
 }
 .tutor_img{
-  width: 140px;
-  height: 140px;
+  width: 120px;
+  height: 120px;
   margin: 15px auto 15px;
   overflow: hidden;
   border-radius: 100px;
@@ -329,6 +329,19 @@ men/*
 body {
   padding-bottom: 40px;
   color: #5a5a5a;
+  
+  font-family:  "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", Meiryo, sans-serif;
+}
+
+body.other-than-landing{
+  background-image: url("retina_wood.png");
+  background-repeat : repeat;
+}
+
+h1,h2,h3,h4,h5{
+  color: rgb(63,46,40);
+  text-shadow: -1px 1px 0 rgba(255,255,255,.7);
+  font-weight: bold;
 }
 
 
@@ -488,6 +501,11 @@ footer{
   left: 20px;
   right: 20px;
   z-index: 10;
+}
+
+.table{
+  background-color: rgb(255,255,255);
+  border: none;
 }
 
 
