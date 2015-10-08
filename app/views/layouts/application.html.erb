@@ -14,6 +14,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="other-than-landing" style="background-image:url(<%= asset_path "retina_wood.png" %>)">
+<div id="wrapper">
 	<header>
     <nav class = "navbar navbar-default">
       <div class = "navbar-header">
@@ -59,11 +60,12 @@
       </div>
     <% end %>
   </header>
-
-<div class = "layout">
-
-<%= yield %>
-
+  <div class="layout">
+    <%= yield %>
+  </div>
+  <footer>
+    <p class="pull-right">Footer coming soon!</p>
+  </footer>
 </div>
 
 <%= render 'home/modal' %>

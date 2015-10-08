@@ -26,7 +26,7 @@
 </tr>
 <tr>
   <th>出身地</th>
-  <td><%= @tutor.is_from %></td>
+  <td><%= @tutor.prefecture %><%= @tutor.is_from %></td>
 </tr>
 <tr>
   <th>出身高校</th>
@@ -34,15 +34,15 @@
 </tr>
 <tr>
   <th>最近こんなことしてます</th>
-  <td><%= @tutor.nowadays %></td>
+  <td><%= simple_format(@tutor.nowadays) %></td>
 </tr>
 <tr>
   <th>夢</td>
-  <td><%= @tutor.dream %></th>
+  <td><%= simple_format(@tutor.dream) %></th>
 </tr>
 <tr>
   <th>運営からの紹介</th>
-  <td><%= @tutor.intro %></td>
+  <td><%= simple_format(@tutor.intro) %></td>
 </tr>
 <tr>
   <th>担当曜日</th>

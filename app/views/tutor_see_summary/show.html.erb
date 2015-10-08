@@ -202,11 +202,11 @@
         </div>
         <div class = "panel-body">
           <p><%= comment.content %></p>
-          <% if comment.created_by_user %>
-            <% if comment.read_flag %>
-              <p>既読</p>
-            <% end %>
-          <% end %>
+          <%# if comment.created_by_user %>
+            <%# if comment.read_flag %>
+              <!--<p>既読</p>-->
+            <% #end %>
+          <% #end %>
         </div>
       </div>
       <% if comment.user.photo == "" %>
@@ -216,11 +216,7 @@
       <% end %>
 
     <% else %>
-      <% if current_tutor.photo == "" %>
-        <%= image_tag '1310.png', :height => '100', :width => '100', :class=> 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
-      <% else %>
-        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_tutor), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
-      <% end %>
+      
       <div class="panel panel-default panel-comment-tutor panel-warning">
         <div class="panel-heading">
           <h3 class="panel-title"><%= comment.tutor.name %>チューター <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></h3>
@@ -234,6 +230,11 @@
           <% end %>
         </div>
       </div>
+      <% if current_tutor.photo == "" %>
+        <%= image_tag '1310.png', :height => '100', :width => '100', :class=> 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
+      <% else %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_tutor), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

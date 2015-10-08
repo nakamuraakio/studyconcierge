@@ -14,6 +14,43 @@ men/*
  *= require_self
  *= require font-awesome
  */
+/* BOOTSTRAP 3.x GLOBAL STYLES
+-------------------------------------------------- */
+html{
+  height:100%; /*ブラウザいっぱいに高さを取得*/
+}
+
+body {
+  color: #5a5a5a;
+  width: 100%;
+  height:100%; /*ブラウザいっぱいに高さを取得*/
+  margin:0;
+  padding:0;  
+  font-family:  "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", Meiryo, sans-serif;
+}
+
+body.other-than-landing{
+  background-image: url("retina_wood.png");
+  background-repeat : repeat;
+}
+
+.layout{
+  margin: 0px 8%;
+  height: 100%;
+  min-height: 900px;
+  padding-bottom: 50px;
+}
+
+#wrapper{
+  width: 100%;
+  min-height: 100%;/*最低値を100％にしておけばコンテンツ量が増えた分だけ伸びる*/
+}
+
+h1,h2,h3,h4,h5{
+  color: rgb(63,46,40);
+  text-shadow: -1px 1px 0 rgba(255,255,255,.7);
+  font-weight: bold;
+}
 
 .menu{
   z-index: 100;
@@ -44,9 +81,7 @@ men/*
   color: white;
 }
 
-.layout{
-  margin: 0px 8%;
-}
+
 
 .timeline {
   list-style: none;
@@ -324,25 +359,6 @@ men/*
 .pagination{
 }
 
-/* BOOTSTRAP 3.x GLOBAL STYLES
--------------------------------------------------- */
-body {
-  padding-bottom: 40px;
-  color: #5a5a5a;
-  
-  font-family:  "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, "メイリオ", Meiryo, sans-serif;
-}
-
-body.other-than-landing{
-  background-image: url("retina_wood.png");
-  background-repeat : repeat;
-}
-
-h1,h2,h3,h4,h5{
-  color: rgb(63,46,40);
-  text-shadow: -1px 1px 0 rgba(255,255,255,.7);
-  font-weight: bold;
-}
 
 
 
@@ -488,7 +504,16 @@ hr {
 }
 
 footer{
-  background-color: rgb(248, 248, 248)
+  background-color: rgb(248, 248, 248);
+  clear: both;
+  width: 100%;
+  height: 120px;
+}
+
+
+
+footer > p{
+  margin: 0;
 }
 
 #myCarousel{
