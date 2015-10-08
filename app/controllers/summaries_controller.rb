@@ -20,7 +20,7 @@ class SummariesController < ApplicationController
   def show
   	@summary = Summary.find(params[:id])
   	if @summary.user != current_user
-      render '404'
+      render '/public/404.html'
     end
   	@comments = @summary.comments.includes(:user).includes(:tutor)
  

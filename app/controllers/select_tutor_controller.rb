@@ -8,7 +8,7 @@ class SelectTutorController < ApplicationController
   #before_action :change_tutor_too_often, only: :update
 
   def index
-    @tutors = Tutor.all
+    @tutors = Tutor.all.shuffle
 #  	Tutor.all.each do |tutor|
 #      if tutor != current_user.tutor
 #        @tutors.push(tutor)

@@ -88,4 +88,6 @@ Rails.application.configure do
     :user_name => 'studyconcierge@gmail.com',
     :password => 'akiokazukiyo'
   }
+
+  GA.tracker = "UA-68575887-1"
 end
