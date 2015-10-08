@@ -28,7 +28,7 @@ class ReportsController < ApplicationController
     #関係ない人のレポートを勝手に見られないようにするコード
     if user_signed_in?
       if @report.user != current_user
-        render '/public/404.html'
+        render_404
       end
     elsif tutor_signed_in?
       count = 0
@@ -40,10 +40,10 @@ class ReportsController < ApplicationController
         end
       end
       if count == current_tutor.users.count
-        render '/public/404.html'
+        render_404
       end
     else
-      render '/public/404.html'
+      render_404
     end
   end
 

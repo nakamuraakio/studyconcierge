@@ -73,15 +73,15 @@
 </tr>
 <tr>
   <th>最近こんなことしてます</th>
-  <td><%= current_tutor.nowadays %></td>
+  <td><%= simple_format(current_tutor.nowadays) %></td>
 </tr>
 <tr>
   <th>夢</th>
-  <td><%= current_tutor.dream %></td>
+  <td><%= simple_format(current_tutor.dream) %></td>
 </tr>
 <tr>
   <th>運営からの紹介</th>
-  <td><%= current_tutor.intro %></td>
+  <td><%= simple_format(current_tutor.intro) %></td>
 </tr>
 <tr>
   <th>担当曜日</th>

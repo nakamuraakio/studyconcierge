@@ -18,7 +18,7 @@ class TutorSeeSummaryController < ApplicationController
       end
     end
     if count == current_tutor.users.count
-      render '/public/404.html'
+      render_404
     end
 
     @reports = @summary.reports.includes(:user)

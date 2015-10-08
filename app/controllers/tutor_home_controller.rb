@@ -79,6 +79,12 @@ class TutorHomeController < ApplicationController
   def user_show
     #指導中の特定の学生の情報を取得
     @user = User.find(params[:id])
+
+    #もし指導中でなかったらアクセスを拒否
+    if @user.tutor != current_tutor
+      render_404
+    end
+
     @reports = Report.where(user_id: @user.id)
     @total_studytime = 0
     japanese_studytime = 0
