@@ -185,7 +185,7 @@
           <h3 class="panel-title"><%= comment.user.name %>さん <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></span></h3>
         </div>
         <div class = "panel-body">
-          <p><%= comment.content %></p>
+          <p><%= simple_format(comment.content) %></p>
           <% #if comment.created_by_user %>
             <%#= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
             <% #if comment.read_flag %>
@@ -203,7 +203,7 @@
           <h3 class="panel-title"><%= comment.tutor.name %>チューター <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></h3>
         </div>
         <div class = "panel-body">
-          <p><%= comment.content %></p>
+          <p><%= simple_format(comment.content) %></p>
           <% if comment.created_by_user %>
             <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
             <% if comment.read_flag %>
@@ -216,18 +216,21 @@
   <% end %>
 <% end %>
 </div>
-
-<% if @summary.user.tutor_id == 0 %>
+<% if @summary.comments.count > 7 %>
+  <div class="alert alert-danger" style="clear:both;">
+    <p>コメント数の上限に到達しました。</p>
+  </div>
+<% elsif @summary.user.tutor_id == 0 %>
   <div class="alert alert-danger" style="clear:both;">
     <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
   </div>
-<% elsif @summary.comments.count > 7 %>
+<% elsif @summary.user.tutor != @summary.comments.first.tutor %>
   <div class="alert alert-danger" style="clear:both;">
-    <p>コメント数の上限に到達しました</p>
+    <p>チューターが変更されたため本報告のコメント機能はご利用いただけません。</p>
   </div>
 <% elsif @summary.comments.count % 2 == 0 %>
   <div class="alert alert-danger" style="clear:both;">
-    <p>チューターからの返信待ちです</p>
+    <p>チューターからの返信待ちです。</p>
   </div>
 <% else %>
   <div class="panel panel-default" style="clear:both;padding:10px;">
@@ -241,40 +244,3 @@
 </div>
 
 </div>
-<script type = "text/javascript">
-
-// var pink = document.getElementById("bar_pink");
-// var japanese = pink.getAttribute('data-pink');
-
-var japanese = $("#bar_pink").data("japanese");
-var math = $("#bar_blue").data("math");
-var english = $("#bar_yellow").data("english");
-var social = $("#bar_purple").data("social");
-var science = $("#bar_green").data("science");
-var doughnutData = [
-　　{
-　　　value: japanese,
-     color:"#ff0000"
-　　},
-　　{
-　　　value: math,
-　　　color: "#3300FF"
-　　},
-　　{
-　　　value: english,
-　　　color: "#FFFF00"
-　　},
-   {
-　　　value: social,
-　　　color: "#CC00FF"
-　　},
-   {
-　　　value: science,
-　　　color: "#33FF00"
-　　},
-];
- 
-var myDoughnut = new Chart(document.getElementById("bar").
-getContext("2d")).Doughnut(doughnutData);
- 
-</script>

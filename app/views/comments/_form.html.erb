@@ -13,7 +13,14 @@
 
   <div class="form-group">
     <%= f.label :content, 'コメントを送信する',:style => "display: block; width:80%; margin: 0 auto; text-align:center;"  %><br>
-    <%= f.text_area :content, :class => "form-control", :row => "5", :style => "height:300px;width:80%; margin: 0 auto;" %>
+    <%= f.text_area :content, :class => "form-control", :row => "5", :style => "height:300px;width:80%; margin: 0 auto;", :id => 'comment1' %><br>
+    <% if user_signed_in? %>
+      <p class="text-center">現在<span class="count1 red">0</span>文字</p>
+      <p class="text-center"><small>500文字以下で書いて下さい</small></p>
+    <% elsif tutor_signed_in? %>
+      <p class="text-center">現在<span class="count1 red">0</span>文字</p>
+      <p class="text-center"><small>200文字以上500文字以下で書いて下さい</small></p>
+    <% end %>
   </div>
   <%= f.hidden_field :summary_id, :value => @summary.id %>
 
@@ -28,3 +35,46 @@
   </div>
 
 <% end %>
+
+<script type="text/javascript">
+$(function(){
+  $(document).ready(function(){
+    for ( num=1; num<=1; num++ ) {
+        var max = 500;
+        var min = 0;
+        var thisValueLength = $("#comment" + num).val().replace(/\s+/g,'').length;
+
+        if (thisValueLength <= min || thisValueLength >= max) {
+            $(".count" + num).addClass('red');
+        } else {
+            $(".count" + num).removeClass('red');
+        }
+        $(".count" + num).html(thisValueLength);
+    }
+  });
+});
+
+
+$(function(){
+    $('#comment1').bind('keyup',function() {
+        for ( num=1; num<=1; num++ ) {
+            var max = 500;
+            var min = 0;
+            var thisValueLength = $("#comment" + num).val().replace(/\s+/g,'').length;
+ 
+            if (thisValueLength <= min || thisValueLength >= max) {
+                $(".count" + num).addClass('red');
+            } else {
+                $(".count" + num).removeClass('red');
+            }
+            $(".count" + num).html(thisValueLength);
+        }
+    });
+});
+</script>
+
+<style type="text/css">
+.red{
+    color:#ff0000;
+}
+</style>

@@ -198,6 +198,24 @@
 
 <script type="text/javascript">
 $(function(){
+  $(document).ready(function(){
+    for ( num=1; num<=3; num++ ) {
+        var max = 500;
+        var min = 200;
+        var thisValueLength = $("#comment" + num).val().replace(/\s+/g,'').length;
+
+        if (thisValueLength <= min || thisValueLength >= max) {
+            $(".count" + num).addClass('red');
+        } else {
+            $(".count" + num).removeClass('red');
+        }
+        $(".count" + num).html(thisValueLength);
+    }
+  });
+});
+
+
+$(function(){
     $('#comment1,#comment2,#comment3').bind('keyup',function() {
         for ( num=1; num<=3; num++ ) {
             var max = 500;
