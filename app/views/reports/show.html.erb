@@ -1,164 +1,162 @@
 <div class="container-fluid">
-<div class = "row">
-
-<div class="menu col-md-3">
-<%= render 'home/menu' %>
-</div>
-
-<div class = "col-md-9">
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= @report.created_at.strftime('%Y年%m月%d日 %A') %></h3>
-  </div>
-  <div class = "panel-body">
-    <div class = "col-md-4">
-      <canvas id="bar" height="200" width="200"></canvas>
-      <div id="bar_pink" data-japanese="<%= (@report.japanese_percentage+@report.old_japanese_percentage+@report.old_chinese_percentage) %>"></div>
-      <div id="bar_blue" data-math="<%= (@report.math_percentage) %>"></div>
-      <div id="bar_yellow" data-english="<%= (@report.english_percentage) %>"></div>
-      <div id="bar_purple" data-social="<%= (@report.world_history_percentage+@report.japanese_history_percentage+@report.geography_percentage+@report.politics_and_economics_percentage+@report.ethics_percentage+@report.modern_society_percentage) %>"></div>
-      <div id="bar_green" data-science="<%= (@report.chemistry_percentage+@report.physics_percentage+@report.biology_percentage+@report.geology_percentage) %>"></div>
+  <div class = "row">
+    <div class="menu col-md-3">
+    <%= render 'home/menu' %>
     </div>
+    <div class = "col-md-9">
+      <h3>記録の詳細</h3>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><%= @report.created_at.strftime('%Y年%m月%d日 %A') %></h3>
+        </div>
+        <div class = "panel-body">
+          <div class = "col-md-4">
+            <canvas id="bar" height="200" width="200"></canvas>
+            <div id="bar_pink" data-japanese="<%= (@report.japanese_percentage+@report.old_japanese_percentage+@report.old_chinese_percentage) %>"></div>
+            <div id="bar_blue" data-math="<%= (@report.math_percentage) %>"></div>
+            <div id="bar_yellow" data-english="<%= (@report.english_percentage) %>"></div>
+            <div id="bar_purple" data-social="<%= (@report.world_history_percentage+@report.japanese_history_percentage+@report.geography_percentage+@report.politics_and_economics_percentage+@report.ethics_percentage+@report.modern_society_percentage) %>"></div>
+            <div id="bar_green" data-science="<%= (@report.chemistry_percentage+@report.physics_percentage+@report.biology_percentage+@report.geology_percentage) %>"></div>
+          </div>
 
-    <div class = "col-md-8">
+          <div class = "col-md-8">
 
-      <table class = "table">
-      <% if current_user.subject.japanese %>
-        <tr>
-          <th class = "col-md-3">現代文</th>
-          <td class = "col-md-2"><%= @report.japanese_percentage %></td>
-          <td><%= @report.japanese_comment %></td>
-        </tr>
-      <% end %>
+            <table class = "table">
+            <% if current_user.subject.japanese %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-danger">現代文</span></th>
+                <td class = "col-md-2"><small><%= @report.japanese_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.japanese_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.old_japanese %>
-        <tr>
-          <th>古文</th>
-          <td><%= @report.old_japanese_percentage %></td>
-          <td><%= @report.old_japanese_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.old_japanese %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-danger">古文</span></th>
+                <td class = "col-md-2"><small><%= @report.old_japanese_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.old_japanese_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.old_chinese %>
-        <tr>
-          <th>漢文</th>
-          <td><%= @report.old_chinese_percentage %></td>
-          <td><%= @report.old_chinese_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.old_chinese %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-danger">漢文</span></th>
+                <td class = "col-md-2"><small><%= @report.old_chinese_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.old_chinese_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.english %>
-        <tr>
-          <th>英語</th>
-          <td><%= @report.english_percentage %></td>
-          <td><%= @report.english_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.english %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-warning">英語</span></th>
+                <td class = "col-md-2"><small><%= @report.english_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.english_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.math %>
-        <tr>
-          <th>数学</th>
-          <td><%= @report.math_percentage %></td>
-          <td><%= @report.math_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.math %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-info">数学</span></th>
+                <td class = "col-md-2"><small><%= @report.math_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.math_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.physics %>
-        <tr>
-          <th>物理</th>
-          <td><%= @report.physics_percentage %></td>
-          <td><%= @report.physics_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.physics %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-success">物理</span></th>
+                <td class = "col-md-2"><small><%= @report.physics_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.physics_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.chemistry %>
-        <tr>
-          <th>化学</th>
-          <td><%= @report.chemistry_percentage %></td>
-          <td><%= @report.chemistry_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.chemistry %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-success">化学</span></th>
+                <td class = "col-md-2"><small><%= @report.chemistry_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.chemistry_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.biology %>
-        <tr>
-          <th>生物</th>
-          <td><%= @report.biology_percentage %></td>
-          <td><%= @report.biology_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.biology %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-success">生物</span></th>
+                <td class = "col-md-2"><small><%= @report.biology_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.biology_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.geology %>
-        <tr>
-          <th>地学</th>
-          <td><%= @report.geology_percentage %></td>
-          <td><%= @report.geology_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.geology %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-success">地学</span></th>
+                <td class = "col-md-2"><small><%= @report.geology_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.geology_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.world_history %>
-        <tr>
-          <th>世界史</th>
-          <td><%= @report.world_history_percentage %></td>
-          <td><%= @report.world_history_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.world_history %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-default">世界史</span></th>
+                <td class = "col-md-2"><small><%= @report.world_history_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.world_history_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.japanese_history %>
-        <tr>
-          <th>日本史</th>
-          <td><%= @report.japanese_history_percentage %></td>
-          <td><%= @report.japanese_history_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.japanese_history %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-default">日本史</span></th>
+                <td class = "col-md-2"><small><%= @report.japanese_history_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.japanese_history_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.politics_and_economics %>
-        <tr>
-          <th>政治経済</th>
-          <td><%= @report.politics_and_economics_percentage %></td>
-          <td><%= @report.politics_and_economics_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.politics_and_economics %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-default">政治経済</span></th>
+                <td class = "col-md-2"><small><%= @report.politics_and_economics_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.politics_and_economics_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.modern_society %>
-        <tr>
-          <th>現代社会</th>
-          <td><%= @report.modern_society_percentage %></td>
-          <td><%= @report.modern_society_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.modern_society %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-default">現代社会</span></th>
+                <td class = "col-md-2"><small><%= @report.modern_society_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.modern_society_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.ethics %>
-        <tr>
-          <th>倫理</th>
-          <td><%= @report.ethics_percentage %></td>
-          <td><%= @report.ethics_comment %></td>
-        </tr>
-      <% end %>
+            <% if current_user.subject.ethics %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-default">倫理</span></th>
+                <td class = "col-md-2"><small><%= @report.ethics_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.ethics_comment) %></small></td>
+              </tr>
+            <% end %>
 
-      <% if current_user.subject.geography %>
-        <tr>
-          <th>地理</th>
-          <td><%= @report.geography_percentage %></td>
-          <td><%= @report.geography_comment %></td>
-        </tr>
-      <% end %>
-      <tr>
-        <th>今日の勉強時間:</th>
-        <td><%= @report.average_studytime %></td>
-        <td></td>
-      </tr>
+            <% if current_user.subject.geography %>
+              <tr>
+                <th class = "col-md-3"><span class = "label label-default">地理</span></th>
+                <td class = "col-md-2"><small><%= @report.geography_percentage %>％</small></td>
+                <td><small><%= simple_format(@report.geography_comment) %></small></td>
+              </tr>
+            <% end %>
+            <tr>
+              <th><small>今日の勉強時間:</small></th>
+              <td colspan="2" class="text-center"><small><%= @report.average_studytime %>時間</small></td>
+            </tr>
 
-      <tr>
-        <th>Free comment:</th>
-        <td><%= @report.free_comment %></td>
-        <td></td>
-      </tr>
-      </table>
+            <tr>
+              <th class = "col-md-3"><small>自由コメント:</small></th>
+              <td colspan="2"><small><%= simple_format(@report.free_comment) %></small></td>
+            </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-</div>
-
 <script type = "text/javascript">
 
 // var pink = document.getElementById("bar_pink");
@@ -172,23 +170,23 @@ var science = $("#bar_green").data("science");
 var doughnutData = [
 　　{
 　　　value: japanese,
-     color:"#ff0000"
+     color:"#d9534f"
 　　},
 　　{
 　　　value: math,
-　　　color: "#3300FF"
+　　　color: "#5bc0de"
 　　},
 　　{
 　　　value: english,
-　　　color: "#FFFF00"
+　　　color: "#f0ad4e"
 　　},
    {
 　　　value: social,
-　　　color: "#CC00FF"
+　　　color: "#777777"
 　　},
    {
 　　　value: science,
-　　　color: "#33FF00"
+　　　color: "#5cb75c"
 　　},
 ];
  

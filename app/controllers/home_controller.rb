@@ -83,7 +83,7 @@ class HomeController < ApplicationController
     if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !summary_already_made.exists?
       #もし前回の報告から7日経過してなければ自動作成しない
       if summary_already_made.last.nil? || summary_already_made.order('created_at').last.created_at + 7.days <= Date.today
-        @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id)
+        @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id, :tutor_id => current_user.tutor_id)
         @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
         @summary.reports << @reports
         @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: current_user.id, event_type: 1)

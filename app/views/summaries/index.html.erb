@@ -1,26 +1,36 @@
 <div class="container-fluid">
-
-<div class="row">
-
-<div class="menu col-md-3">
-<%= render 'home/menu' %>
+  <div class="row">
+    <div class="menu col-md-3">
+    <%= render 'home/menu' %>
+    </div>
+    <div class="col-md-9">
+    <h3>過去に作成された報告一覧</h3>
+      <% if @summaries %>
+        <table class="table table-bordered">
+        <tbody>
+        <% @summaries.each do |summary| %>
+        <tr>
+          <th class="text-center"><%= summary.name %></th>
+          <td class="text-center"><%= if summary.tutor then summary.tutor.name else '-' end %></td>
+          <td class="text-center">
+            <% if summary.tutor_id != current_user.tutor_id %>
+              コメントのやりとりは終了しています。
+            <% elsif summary.comments.any? %>
+              <% if summary.comments.count > 7 %>
+                コメントのやりとりは終了しています。
+              <% elsif summary.comments.count % 2 != 0 %>
+                コメントに返信できます。
+              <% else %>
+                チューターからの返信待ちです。
+              <% end %>
+            <% end %>
+          </td>
+          <td class="text-center"><%= link_to '詳細', summary %></td>
+        </tr>
+        <% end %>
+        </tbody>
+        </table>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<div class="col-md-9">
-<% if @summaries %>
-  <table class="table table-bordered">
-  <tbody>
-  <% @summaries.each do |summary| %>
-  <tr>
-    <td><%= summary.name %></td>
-    <td><%= link_to '詳細', summary %></td>
-  </tr>
-  <% end %>
-  </tbody>
-  </table>
-<% end %>
-</div>
-
-</div>
-</div>
-
