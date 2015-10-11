@@ -7,7 +7,7 @@
 
 <div class="col-md-9">
 
-<h2>プロフィールを編集する</h2>
+<h3>プロフィールを編集する</h3>
 
 <%= form_for(resource, as: resource_name, :url => url_for(:controller => 'users/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
   
@@ -86,22 +86,24 @@
 <tr>
   <%= f.fields_for :subject, current_user.subject || Subject.new do |c| %>
     <div class="field form-group">
-      <th><%= c.label "報告したい科目" %></th>
-      <td><label><%= c.check_box :japanese %> 現代文</label>
-      <label><%= c.check_box :old_japanese %> 古文</label>
-      <label><%= c.check_box :old_chinese %> 漢文</label>
-      <label><%= c.check_box :english %> 英語</label>
-      <label><%= c.check_box :math %> 数学</label>
-      <label><%= c.check_box :physics %> 物理</label>
-      <label><%= c.check_box :chemistry %> 化学</label>
-      <label><%= c.check_box :biology %> 生物</label>
-      <label><%= c.check_box :geology %> 地学</label>
-      <label><%= c.check_box :world_history %> 世界史</label>
-      <label><%= c.check_box :japanese_history %> 日本史</label>
-      <label><%= c.check_box :politics_and_economics %> 政治経済</label>
-      <label><%= c.check_box :modern_society %> 現代社会</label>
-      <label><%= c.check_box :ethics %> 倫理</label>
-      <label><%= c.check_box :geography %> 地理</label></td>
+      <th><%= c.label "受験で使う科目" %></th>
+      <td>
+        <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :japanese %> 現代文</span></label>
+        <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :old_japanese %> 古文</span></label>
+        <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :old_chinese %> 漢文</span></label>
+        <label><span class = "label label-warning" style="font-size:100%;"><%= c.check_box :english %> 英語</span></label>
+        <label><span class = "label label-info" style="font-size:100%;"><%= c.check_box :math %> 数学</span></label>
+        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :physics %> 物理</span></label>
+        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :chemistry %> 化学</span></label>
+        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :biology %> 生物</span></label>
+        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :geology %> 地学</span></label>
+        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :world_history %> 世界史</span></label>
+        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :japanese_history %> 日本史</span></label>
+        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :politics_and_economics %> 政治経済</span></label>
+        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :modern_society %> 現代社会</span></label>
+        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :ethics %> 倫理</span></label>
+        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :geography %> 地理</span></label>
+      </td>
     </div>
   <% end %>
 </tr>

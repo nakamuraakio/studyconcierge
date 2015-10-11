@@ -5,7 +5,7 @@ class SelectTutorController < ApplicationController
 
   
   #開発終了時にコメントアウトを解除
-  #before_action :change_tutor_too_often, only: :update
+  before_action :change_tutor_too_often, only: :update
 
   def index
     @tutors = Tutor.all.shuffle
@@ -94,8 +94,8 @@ class SelectTutorController < ApplicationController
     def change_tutor_too_often
       #もし2週間以内の変更だったならリジェクト
       if current_user.last_tutor_change
-        if current_user.last_tutor_change + 2.week > Date.today
-          flash[:notice] = 'チューターの変更は前回の変更より２週間が経過すると可能になります'
+        if current_user.last_tutor_change + 1.week > Date.today && Rails.env == 'production'
+          flash[:notice] = 'チューターの変更は前回の変更より１週間が経過すると可能になります'
           redirect_to select_tutor_index_path
         end
       end
@@ -103,7 +103,7 @@ class SelectTutorController < ApplicationController
 
     def check
       if params[:user].nil?
-        flash[:notice] = '申請を撤回する場合は「申請を撤回する」にチェックを入れて下さい'
+        flash[:notice] = '更新に失敗しました'
         redirect_to select_tutor_index_path
       end
     end

@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="menu col-md-3">
-    <%= render 'home/menu' %>
+      <%= render 'home/menu' %>
     </div>
     <div class="col-md-9">
-    <h3>過去に作成された報告一覧</h3>
+    <h3>報告一覧</h3>
       <% if @summaries %>
         <table class="table table-bordered">
         <tbody>
@@ -19,10 +19,12 @@
               <% if summary.comments.count > 7 %>
                 コメントのやりとりは終了しています。
               <% elsif summary.comments.count % 2 != 0 %>
-                コメントに返信できます。
+                <strong>コメントに返信できます。</strong>
               <% else %>
                 チューターからの返信待ちです。
               <% end %>
+            <% else %>
+              チューターからの返信待ちです。
             <% end %>
           </td>
           <td class="text-center"><%= link_to '詳細', summary %></td>

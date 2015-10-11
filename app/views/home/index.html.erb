@@ -1,186 +1,182 @@
 <div class="container-fluid">
-<div class="row">
+  <div class="row">
 
-<div class="menu col-md-3">
-<%= render 'home/menu' %>
+  <div class="menu col-md-3">
+  <%= render 'home/menu' %>
 
-<table class="table table-bordered table-striped" style="font-size: 9pt">
-<tbody class="row">
-<div style="text-align:center; margin-bottom: 20px;">
-<% if current_user.photo == "" %>
-  <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
-<% else %>
-  <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
-<% end %>
-</div>
-<tr>
-  <th class="col-md-4">Email</th>
-  <td class="col-md-8"><%= current_user.email %></td>
-</tr>
-<tr>
-  <th>名前</th>
-  <td><%= current_user.name %></td>
-</tr>
-<tr>
-  <th>誕生日</th>
-  <td><%= current_user.birth %></td>
-</tr>
-<tr>
-  <th>学年</th>
-  <td><%= current_user.year %>年</td>
-</tr>
-<tr>
-  <th>学校名</th>
-  <td><%= current_user.school %></td>
-</tr>
-<tr>
-  <th>住所</th>
-  <td><%= current_user.lives_in %></td>
-</tr>
-<tr>
-  <th>志望校</th>
-  <td><%= current_user.school_desire %></td>
-</tr>
-<tr>
-  <th>チューター</th>
-  <td>
-    <% if current_user.tutor.nil? %>
-      <%= '選択されていません' %>
-    <% else %>
-      <% if current_user.tutor_request_exists %>
-        現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。<br>
-      <% end %>
-      <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
-        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
-        <%= current_user.tutor.name %>
-      <% end %>
-    <% end %>
-  </td>
-</tr>
-<tr>
-  <th>記録回数</th>
-  <td><%= current_user.reports.count %></td>
-</tr>
-<tr>
-  <th>報告科目</th>
-  <td>
-    <% @subjects.each do |subject, studytime| %>
-      <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
-        <span class = "label label-danger"><%= subject %></span>
-      <% elsif subject == '英語' %>
-        <span class = "label label-warning"><%= subject %></span>
-      <% elsif subject == '数学' %>
-        <span class = "label label-info"><%= subject %></span>
-      <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
-        <span class = "label label-success"><%= subject %></span>
-      <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
-        <span class = "label label-default"><%= subject %></span>
-      <% end %>
-    <% end %>
-  </td>
-</tr>
-<tr>
-  <th><small>合計勉強時間</small></th>
-  <td><%= @total_studytime %>時間</td>
-</tr>
-<tr>
-  <th><small style="font-size:20%">科目別勉強時間</small></th>
-  <td>
-    <% @subjects.each do |subject, studytime| %>
-      <p>
-      <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
-        <span class = "label label-danger"><%= subject %></span>
-      <% elsif subject == '英語' %>
-        <span class = "label label-warning"><%= subject %></span>
-      <% elsif subject == '数学' %>
-        <span class = "label label-info"><%= subject %></span>
-      <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
-        <span class = "label label-success"><%= subject %></span>
-      <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
-        <span class = "label label-default"><%= subject %></span>
-      <% end %>
-      <%= studytime %>時間
-      </p>
-    <% end %>
-  </td>
-</tr>
-</tbody>
-</table>
-</div>
-
-  <div class="col-md-9">
-    <ul class="timeline">
-        <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
-
-        <% @user_events.each_with_index do |user_event, i| %>
-        <% if i.even? %>
-        <li>
-          <% if user_event.event_type == 1 %>
-            <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
-          <% elsif user_event.event_type == 2 %>
-            <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
-          <% elsif user_event.event_type == 3 %>
-            <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
-          <% elsif user_event.event_type == 4 %>
-            <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
-          <% elsif user_event.event_type == 5 %>
-            <div class="timeline-badge success"><i class="fa fa-user"></i></div>
-          <% elsif user_event.event_type == 6 %>
-            <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
-          <% end  %>
-          <div class="timeline-panel">
-            <div class="timeline-heading">
-              <h4 class="timeline-title"><%= user_event.status %></h4>
-              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
-            </div>
-            <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
-              <div class="timeline-body">
-                <p><a href = "<%= user_event.link %>">詳細</a></p>
-              </div>
-            <% end %>
-          </div> 
-        </li>
-        <% else %>
-        <li class="timeline-inverted">
-          <% if user_event.event_type == 1 %>
-            <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
-          <% elsif user_event.event_type == 2 %>
-            <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
-          <% elsif user_event.event_type == 3 %>
-            <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
-          <% elsif user_event.event_type == 4 %>
-            <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
-          <% elsif user_event.event_type == 5 %>
-            <div class="timeline-badge success"><i class="fa fa-user"></i></div>
-          <% elsif user_event.event_type == 6 %>
-            <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
-          <% end  %>
-          <div class="timeline-panel">
-            <div class="timeline-heading">
-              <h4 class="timeline-title"><%= user_event.status %></h4>
-              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
-            </div>
-            <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
-              <div class="timeline-body">
-                <p><a href = "<%= user_event.link %>">詳細</a></p>
-              </div>
-            <% end %>
-          </div> 
-        </li>
+  <table class="table table-bordered table-striped" style="font-size: 8pt">
+  <tbody class="row">
+  <div style="text-align:center; margin-bottom: 20px;">
+  <% if current_user.photo == "" %>
+    <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+  <% else %>
+    <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
+  <% end %>
+  </div>
+  <tr>
+    <th class="col-md-4">Email</th>
+    <td class="col-md-8"><%= current_user.email %></td>
+  </tr>
+  <tr>
+    <th>名前</th>
+    <td><%= current_user.name %></td>
+  </tr>
+  <tr>
+    <th>誕生日</th>
+    <td><%= current_user.birth %></td>
+  </tr>
+  <tr>
+    <th>学年</th>
+    <td><%= current_user.year %>年</td>
+  </tr>
+  <tr>
+    <th>学校名</th>
+    <td><%= current_user.school %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= current_user.lives_in %></td>
+  </tr>
+  <tr>
+    <th>志望校</th>
+    <td><%= current_user.school_desire %></td>
+  </tr>
+  <tr>
+    <th>チューター</th>
+    <td>
+      <% if current_user.tutor.nil? %>
+        <%= '選択されていません' %>
+      <% else %>
+        <% if current_user.tutor_request_exists %>
+          現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。<br>
         <% end %>
+        <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
+          <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
+          <%= current_user.tutor.name %>
         <% end %>
-        <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
-    </ul>
-      
-
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>記録回数</th>
+    <td><%= current_user.reports.count %></td>
+  </tr>
+  <tr>
+    <th>報告科目</th>
+    <td>
+      <% @subjects.each do |subject, studytime| %>
+        <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+          <span class = "label label-danger"><%= subject %></span>
+        <% elsif subject == '英語' %>
+          <span class = "label label-warning"><%= subject %></span>
+        <% elsif subject == '数学' %>
+          <span class = "label label-info"><%= subject %></span>
+        <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+          <span class = "label label-success"><%= subject %></span>
+        <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+          <span class = "label label-default"><%= subject %></span>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th><small>合計勉強時間</small></th>
+    <td><%= @total_studytime %>時間</td>
+  </tr>
+  <tr>
+    <th><small style="font-size:20%">科目別勉強時間</small></th>
+    <td>
+      <% @subjects.each do |subject, studytime| %>
+        <p>
+        <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+          <span class = "label label-danger"><%= subject %></span>
+        <% elsif subject == '英語' %>
+          <span class = "label label-warning"><%= subject %></span>
+        <% elsif subject == '数学' %>
+          <span class = "label label-info"><%= subject %></span>
+        <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+          <span class = "label label-success"><%= subject %></span>
+        <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+          <span class = "label label-default"><%= subject %></span>
+        <% end %>
+        <%= studytime %>時間
+        </p>
+      <% end %>
+    </td>
+  </tr>
+  </tbody>
+  </table>
   </div>
 
+    <div class="col-md-9">
+      <ul class="timeline">
+          <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
 
-</div>
-</div>
-</div>
+          <% @user_events.each_with_index do |user_event, i| %>
+          <% if i.even? %>
+          <li>
+            <% if user_event.event_type == 1 %>
+              <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
+            <% elsif user_event.event_type == 2 %>
+              <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
+            <% elsif user_event.event_type == 3 %>
+              <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
+            <% elsif user_event.event_type == 4 %>
+              <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
+            <% elsif user_event.event_type == 5 %>
+              <div class="timeline-badge success"><i class="fa fa-user"></i></div>
+            <% elsif user_event.event_type == 6 %>
+              <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
+            <% end  %>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title"><%= user_event.status %></h4>
+                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+              </div>
+              <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
+                <div class="timeline-body">
+                  <p><a href = "<%= user_event.link %>">詳細</a></p>
+                </div>
+              <% end %>
+            </div> 
+          </li>
+          <% else %>
+          <li class="timeline-inverted">
+            <% if user_event.event_type == 1 %>
+              <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
+            <% elsif user_event.event_type == 2 %>
+              <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
+            <% elsif user_event.event_type == 3 %>
+              <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
+            <% elsif user_event.event_type == 4 %>
+              <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
+            <% elsif user_event.event_type == 5 %>
+              <div class="timeline-badge success"><i class="fa fa-user"></i></div>
+            <% elsif user_event.event_type == 6 %>
+              <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
+            <% end  %>
+            <div class="timeline-panel">
+              <div class="timeline-heading">
+                <h4 class="timeline-title"><%= user_event.status %></h4>
+                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+              </div>
+              <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
+                <div class="timeline-body">
+                  <p><a href = "<%= user_event.link %>">詳細</a></p>
+                </div>
+              <% end %>
+            </div> 
+          </li>
+          <% end %>
+          <% end %>
+          <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
+      </ul>
+        
 
-</div>
+    </div>
+
+
+  </div>
 </div>
 
 

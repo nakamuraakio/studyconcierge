@@ -36,18 +36,20 @@
           <th></th>
         </tr>
         <% user.summaries.each do |summary| %>
-        <tr>
-          <td><%= summary.name %></td>
-          
-          <% if summary.comments.count > 7 %>
-            <td>コメント数の上限に到達しました</td>
-          <% elsif summary.comments.count % 2 == 0 %>
-            <td><strong>未返信</strong></td>
-          <% else %>
-            <td>返信済み</td>
+          <% if summary.tutor_id == current_tutor.id %>
+            <tr>
+              <td><%= summary.name %></td>
+              
+              <% if summary.comments.count > 7 %>
+                <td>コメント数の上限に到達しました</td>
+              <% elsif summary.comments.count % 2 == 0 %>
+                <td><strong>未返信</strong></td>
+              <% else %>
+                <td>返信済み</td>
+              <% end %>
+              <td><%= link_to '詳細を見る', url_for(:controller => 'tutor_see_summary', :action => 'show', :id => summary.id) %></td>
+            </tr>
           <% end %>
-          <td><%= link_to '詳細を見る', url_for(:controller => 'tutor_see_summary', :action => 'show', :id => summary.id) %></td>
-        </tr>
         <% end %>
       </table>
     </ul>

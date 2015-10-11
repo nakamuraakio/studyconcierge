@@ -17,7 +17,7 @@ class TutorSeeSummaryController < ApplicationController
         count += 1
       end
     end
-    if count == current_tutor.users.count
+    if count == current_tutor.users.count || @summary.tutor_id != current_tutor.id #←summaryがcurrent_tutorのものでなかったらアクセスを許可しない
       render_404
     end
 

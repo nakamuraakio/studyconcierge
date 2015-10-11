@@ -6,7 +6,7 @@
 </div>
 
 <div class = "col-md-9">
-<h3>サマリー</h3>
+<h3>報告とコメント</h3>
 <div class = "panel panel-default" >
 <div class = "panel-body panel-scroll">
 <% @summary.reports.each do |report| %>
@@ -35,138 +35,136 @@
       </div>
     </div>
 
-    <div class = "col-md-8">
+    <div class = "col-md-12">
 
       <table class = "table">
         <% if current_user.subject.japanese %>
           <tr>
-            <th class = "col-md-3">現代文</th>
-            <td class = "col-md-2"><%= report.japanese_percentage %>%</td>
-            <td><%= report.japanese_comment %></td>
+            <th class = "col-md-2">現代文</th>
+            <td class = "col-md-1"><%= report.japanese_percentage %>%</td>
+            <td><%= simple_format(report.japanese_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.old_japanese %>
           <tr>
-            <th>古文</th>
-            <td><%= report.old_japanese_percentage %>%</td>
-            <td><%= report.old_japanese_comment %></td>
+            <th class = "col-md-2">古文</th>
+            <td class = "col-md-1"><%= report.old_japanese_percentage %>%</td>
+            <td><%= simple_format(report.old_japanese_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.old_chinese %>
           <tr>
-            <th>漢文</th>
-            <td><%= report.old_chinese_percentage %>%</td>
-            <td><%= report.old_chinese_comment %></td>
+            <th class = "col-md-2">漢文</th>
+            <td class = "col-md-1"><%= report.old_chinese_percentage %>%</td>
+            <td><%= simple_format(report.old_chinese_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.english %>
           <tr>
-            <th>英語</th>
-            <td><%= report.english_percentage %>%</td>
-            <td><%= report.english_comment %></td>
+            <th class = "col-md-2">英語</th>
+            <td class = "col-md-1"><%= report.english_percentage %>%</td>
+            <td><%= simple_format(report.english_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.math %>
           <tr>
-            <th>数学</th>
-            <td><%= report.math_percentage %>%</td>
-            <td><%= report.math_comment %></td>
+            <th class = "col-md-2">数学</th>
+            <td class = "col-md-1"><%= report.math_percentage %>%</td>
+            <td><%= simple_format(report.math_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.physics %>
           <tr>
-            <th>物理</th>
-            <td><%= report.physics_percentage %>%</td>
-            <td><%= report.physics_comment %></td>
+            <th class = "col-md-2">物理</th>
+            <td class = "col-md-1"><%= report.physics_percentage %>%</td>
+            <td><%= simple_format(report.physics_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.chemistry %>
           <tr>
-            <th>化学</th>
-            <td><%= report.chemistry_percentage %>%</td>
-            <td><%= report.chemistry_comment %></td>
+            <th class = "col-md-2">化学</th>
+            <td class = "col-md-1"><%= report.chemistry_percentage %>%</td>
+            <td><%= simple_format(report.chemistry_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.biology %>
           <tr>
-            <th>生物</th>
-            <td><%= report.biology_percentage %>%</td>
-            <td><%= report.biology_comment %></td>
+            <th class = "col-md-2">生物</th>
+            <td class = "col-md-1"><%= report.biology_percentage %>%</td>
+            <td><%= simple_format(report.biology_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.geology %>
           <tr>
-            <th>地学</th>
-            <td><%= report.geology_percentage %>%</td>
-            <td><%= report.geology_comment %></td>
+            <th class = "col-md-2">地学</th>
+            <td class = "col-md-1"><%= report.geology_percentage %>%</td>
+            <td><%= simple_format(report.geology_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.world_history %>
           <tr>
-            <th>世界史</th>
-            <td><%= report.world_history_percentage %>%</td>
-            <td><%= report.world_history_comment %></td>
+            <th class = "col-md-2">世界史</th>
+            <td class = "col-md-1"><%= report.world_history_percentage %>%</td>
+            <td><%= simple_format(report.world_history_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.japanese_history %>
           <tr>
-            <th>日本史</th>
-            <td><%= report.japanese_history_percentage %>%</td>
-            <td><%= report.japanese_history_comment %></td>
+            <th class = "col-md-2">日本史</th>
+            <td class = "col-md-1"><%= report.japanese_history_percentage %>%</td>
+            <td><%= simple_format(report.japanese_history_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.politics_and_economics %>
           <tr>
-            <th>政治経済</th>
-            <td><%= report.politics_and_economics_percentage %>%</td>
-            <td><%= report.politics_and_economics_comment %></td>
+            <th class = "col-md-2">政治経済</th>
+            <td class = "col-md-1"><%= report.politics_and_economics_percentage %>%</td>
+            <td><%= simple_format(report.politics_and_economics_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.modern_society %>
           <tr>
-            <th>現代社会</th>
-            <td><%= report.modern_society_percentage %>%</td>
-            <td><%= report.modern_society_comment %></td>
+            <th class = "col-md-2">現代社会</th>
+            <td class = "col-md-1"><%= report.modern_society_percentage %>%</td>
+            <td><%= simple_format(report.modern_society_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.ethics %>
           <tr>
-            <th>倫理</th>
-            <td><%= report.ethics_percentage %>%</td>
-            <td><%= report.ethics_comment %></td>
+            <th class = "col-md-2">倫理</th>
+            <td class = "col-md-1"><%= report.ethics_percentage %>%</td>
+            <td><%= simple_format(report.ethics_comment) %></td>
           </tr>
         <% end %>
 
         <% if current_user.subject.geography %>
           <tr>
-            <th>地理</th>
-            <td><%= report.geography_percentage %>%</td>
-            <td><%= report.geography_comment %></td>
+            <th class = "col-md-2">地理</th>
+            <td class = "col-md-1"><%= report.geography_percentage %>%</td>
+            <td><%= simple_format(report.geography_comment) %></td>
           </tr>
         <% end %>
         <tr>
-          <th>今日の勉強時間:</th>
-          <td><%= report.average_studytime %>時間</td>
-          <td></td>
+          <th><small>今日の勉強時間:</small></th>
+          <td colspan="2"><%= report.average_studytime %>時間</td>
         </tr>
 
         <tr>
           <th>コメント:</th>
-          <td><%= report.free_comment %></td>
-          <td></td>
+          <td colspan="2"><%= simple_format(report.free_comment) %></td>
         </tr>
       </table>
     </div>
@@ -224,7 +222,7 @@
   <div class="alert alert-danger" style="clear:both;">
     <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
   </div>
-<% elsif @summary.user.tutor != @summary.comments.first.tutor %>
+<% elsif @summary.user.tutor != @summary.tutor %>
   <div class="alert alert-danger" style="clear:both;">
     <p>チューターが変更されたため本報告のコメント機能はご利用いただけません。</p>
   </div>
