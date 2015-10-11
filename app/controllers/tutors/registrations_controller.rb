@@ -4,14 +4,15 @@ class Tutors::RegistrationsController < Devise::RegistrationsController
 http_basic_authenticate_with :name => "akio", :password => "111", only: :new
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  #def new
+  #  super
+  #end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    @mail = NoticeMailer.tutor_register_confirm(current_tutor).deliver
+  end
 
   def edit_profile
     @tutor = Tutor.find(current_tutor.id)

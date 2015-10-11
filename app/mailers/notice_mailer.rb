@@ -13,11 +13,19 @@ class NoticeMailer < ApplicationMailer
   end
 =end
 
+  def tutor_register_confirm(tutor)
+    @tutor = tutor
+
+    mail(to: tutor.email, bcc: 'studyconcierge@gmail.com', subject: '【Study Concierge】登録完了のお知らせ')
+  end
+
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
   #   en.notice_mailer.message_confirm.subject
   #
+
+
   def comment_notice_to_user(user, tutor, comment)
     @user = user
     @tutor = tutor
