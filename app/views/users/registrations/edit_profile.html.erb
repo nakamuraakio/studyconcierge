@@ -1,8 +1,11 @@
 <div class="container-fluid">
-<div class = "row">
-
-<div class="menu col-md-3">
+<div class="row row-offcanvas row-offcanvas-left">
+<div class="menu col-md-3 hidden-xs">
 <%= render 'home/menu' %>
+</div>
+
+<div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+  <%= render 'home/menu' %>
 </div>
 
 <div class="col-md-9">
@@ -17,8 +20,8 @@
 <tbody>
 <tr>
   <div class="field form-group row">
-    <th class="col-md-2"><%= f.label :email %></th>
-    <td class="col-md-10"><%= f.email_field :email, autofocus: true, :class => "form-control" %></td>
+    <th class="col-md-2 col-xs-2"><%= f.label :email %></th>
+    <td class="col-md-10 col-xs-10"><%= f.email_field :email, autofocus: true, :class => "form-control" %></td>
   </div>
 </tr>
 
@@ -67,12 +70,12 @@
     <th><%= f.label "住所" %></th>
     <td>  
       <div class="row address-field-row">
-        <div class="col-md-1 text-right"><%= f.label '郵便番号', :class => '' %></div>
-        <div class="col-md-3"><%= f.text_field :zipcode, :class => "form-control", :id => "address_zipcode" %></div>
-        <div class="col-md-1 text-right"><%= f.label "都道府県", :class => '' %></div>
-        <div class="col-md-3"><%= f.text_field :prefecture, :class => "form-control", :id => "address_prefecture_name" %></div>
-        <div class="col-md-1 text-right"><%= f.label "市区町村", :class => '' %></div>
-        <div class="col-md-3"><%= f.text_field :lives_in, :class => "form-control", :id => "address_city" %></div>
+        <div class="col-md-1 col-xs-2 text-right"><%= f.label '郵便番号', :class => '' %></div>
+        <div class="col-md-3 col-xs-10"><%= f.text_field :zipcode, :class => "form-control", :id => "address_zipcode" %></div>
+        <div class="col-md-1 col-xs-2 text-right"><%= f.label "都道府県", :class => '' %></div>
+        <div class="col-md-3 col-xs-10"><%= f.text_field :prefecture, :class => "form-control", :id => "address_prefecture_name" %></div>
+        <div class="col-md-1 col-xs-2 text-right"><%= f.label "市区町村", :class => '' %></div>
+        <div class="col-md-3 col-xs-10"><%= f.text_field :lives_in, :class => "form-control", :id => "address_city" %></div>
       </div>
     </td>
   </div>

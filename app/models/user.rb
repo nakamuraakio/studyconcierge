@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
   has_many :reports, dependent: :destroy
   has_many :summaries, dependent: :destroy
 
-  validates :name, presence: true, length: { maximum: 10 }, if: :not_first_login?
-  validates :school, presence: true, if: :not_first_login?
-  validates :lives_in, presence: true, if: :not_first_login?
-  validates :school_desire, presence: true, if: :not_first_login?
+  validates :name, presence: { message: "名前を入力してください" }, length: { maximum: 20, message: "名前は20文字以下で入力して下さい" }, if: :not_first_login?
+  validates :school, presence: { message: "学校名を入力してください"}, if: :not_first_login?
+  validates :lives_in, presence: { message: "現住地を入力してください"}, if: :not_first_login?
+  validates :school_desire, presence: { message: "志望校を入力してください"}, if: :not_first_login?
 
   def photo_file= (p)
     if p

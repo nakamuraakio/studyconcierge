@@ -1,8 +1,15 @@
-<div class="container-fluid row">
+<div class="container-fluid">
+<div class="row row-offcanvas row-offcanvas-left">
+    
 
-<div class="menu col-md-3 report_menu">
+<div class="menu col-md-3 hidden-xs report_menu">
 <%= render 'home/menu' %>
 </div>
+
+<div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+  <%= render 'home/menu' %>
+</div>
+
 
 <div class = "col-md-9">
 <h3>今までの記録</h3>
@@ -151,4 +158,5 @@
 <br>
 </div>
 
+</div>
 </div>

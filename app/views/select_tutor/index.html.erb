@@ -1,7 +1,11 @@
-<div class="menu col-md-3">
+<div class="row row-offcanvas row-offcanvas-left">
+
+<div class="menu col-md-3 hidden-xs">
 <%= render 'home/menu' %>
 </div>
-
+<div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+  <%= render 'home/menu' %>
+</div>
 
 
 
@@ -127,6 +131,7 @@
   </table>
   <% end %>
 <% end %>
+</div>
 </div>
 </div>
 

@@ -1,116 +1,163 @@
 <div class="container-fluid">
-  <div class="row">
-
-  <div class="menu col-md-3">
-  <%= render 'home/menu' %>
-
-  <table class="table table-bordered table-striped" style="font-size: 8pt">
-  <tbody class="row">
-  <div style="text-align:center; margin-bottom: 20px;">
-  <% if current_user.photo == "" %>
-    <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
-  <% else %>
-    <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
-  <% end %>
-  </div>
-  <tr>
-    <th class="col-md-4">Email</th>
-    <td class="col-md-8"><%= current_user.email %></td>
-  </tr>
-  <tr>
-    <th>名前</th>
-    <td><%= current_user.name %></td>
-  </tr>
-  <tr>
-    <th>誕生日</th>
-    <td><%= current_user.birth %></td>
-  </tr>
-  <tr>
-    <th>学年</th>
-    <td><%= current_user.year %>年</td>
-  </tr>
-  <tr>
-    <th>学校名</th>
-    <td><%= current_user.school %></td>
-  </tr>
-  <tr>
-    <th>住所</th>
-    <td><%= current_user.lives_in %></td>
-  </tr>
-  <tr>
-    <th>志望校</th>
-    <td><%= current_user.school_desire %></td>
-  </tr>
-  <tr>
-    <th>チューター</th>
-    <td>
-      <% if current_user.tutor.nil? %>
-        <%= '選択されていません' %>
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="menu col-md-3 hidden-xs">
+      <%= render 'home/menu' %>
+      <table class="table table-bordered table-striped" style="font-size: 8pt">
+      <tbody class="row">
+      <div style="text-align:center; margin-bottom: 20px;">
+      <% if current_user.photo == "" %>
+        <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
       <% else %>
-        <% if current_user.tutor_request_exists %>
-          現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。<br>
-        <% end %>
-        <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
-          <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
-          <%= current_user.tutor.name %>
-        <% end %>
+        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
       <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>記録回数</th>
-    <td><%= current_user.reports.count %></td>
-  </tr>
-  <tr>
-    <th>報告科目</th>
-    <td>
-      <% @subjects.each do |subject, studytime| %>
-        <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
-          <span class = "label label-danger"><%= subject %></span>
-        <% elsif subject == '英語' %>
-          <span class = "label label-warning"><%= subject %></span>
-        <% elsif subject == '数学' %>
-          <span class = "label label-info"><%= subject %></span>
-        <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
-          <span class = "label label-success"><%= subject %></span>
-        <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
-          <span class = "label label-default"><%= subject %></span>
-        <% end %>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th><small>合計勉強時間</small></th>
-    <td><%= @total_studytime %>時間</td>
-  </tr>
-  <tr>
-    <th><small style="font-size:20%">科目別勉強時間</small></th>
-    <td>
-      <% @subjects.each do |subject, studytime| %>
-        <p>
-        <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
-          <span class = "label label-danger"><%= subject %></span>
-        <% elsif subject == '英語' %>
-          <span class = "label label-warning"><%= subject %></span>
-        <% elsif subject == '数学' %>
-          <span class = "label label-info"><%= subject %></span>
-        <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
-          <span class = "label label-success"><%= subject %></span>
-        <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
-          <span class = "label label-default"><%= subject %></span>
-        <% end %>
-        <%= studytime %>時間
-        </p>
-      <% end %>
-    </td>
-  </tr>
-  </tbody>
-  </table>
-  </div>
+      </div>
+      <tr>
+        <th class="col-md-4">Email</th>
+        <td class="col-md-8"><%= current_user.email %></td>
+      </tr>
+      <tr>
+        <th>名前</th>
+        <td><%= current_user.name %></td>
+      </tr>
+      <tr>
+        <th>誕生日</th>
+        <td><%= current_user.birth %></td>
+      </tr>
+      <tr>
+        <th>学年</th>
+        <td><%= current_user.year %>年</td>
+      </tr>
+      <tr>
+        <th>学校名</th>
+        <td><%= current_user.school %></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td><%= current_user.lives_in %></td>
+      </tr>
+      <tr>
+        <th>志望校</th>
+        <td><%= current_user.school_desire %></td>
+      </tr>
+      <tr>
+        <th>チューター</th>
+        <td>
+          <% if current_user.tutor.nil? %>
+            <%= '選択されていません' %>
+          <% else %>
+            <% if current_user.tutor_request_exists %>
+              現在承認待ちです。報告・コメント機能は承認後にご使用いただけます。<br>
+            <% end %>
+            <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
+              <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '64', :width => '64', :class => 'img-circle' %>
+              <%= current_user.tutor.name %>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>記録回数</th>
+        <td><%= current_user.reports.count %></td>
+      </tr>
+      <tr>
+        <th>報告科目</th>
+        <td>
+          <% @subjects.each do |subject, studytime| %>
+            <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+              <span class = "label label-danger"><%= subject %></span>
+            <% elsif subject == '英語' %>
+              <span class = "label label-warning"><%= subject %></span>
+            <% elsif subject == '数学' %>
+              <span class = "label label-info"><%= subject %></span>
+            <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+              <span class = "label label-success"><%= subject %></span>
+            <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+              <span class = "label label-default"><%= subject %></span>
+            <% end %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><small>合計勉強時間</small></th>
+        <td><%= @total_studytime %>時間</td>
+      </tr>
+      <tr>
+        <th><small style="font-size:20%">科目別勉強時間</small></th>
+        <td>
+          <% @subjects.each do |subject, studytime| %>
+            <p>
+            <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+              <span class = "label label-danger"><%= subject %></span>
+            <% elsif subject == '英語' %>
+              <span class = "label label-warning"><%= subject %></span>
+            <% elsif subject == '数学' %>
+              <span class = "label label-info"><%= subject %></span>
+            <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+              <span class = "label label-success"><%= subject %></span>
+            <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+              <span class = "label label-default"><%= subject %></span>
+            <% end %>
+            <%= studytime %>時間
+            </p>
+          <% end %>
+        </td>
+      </tr>
+      </tbody>
+      </table>
+    </div>
 
-    <div class="col-md-9">
+    <div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+      <%= render 'home/menu' %>
+    </div>
+
+    <div class="col-xs-12 col-md-9">
+      <h3></h3>
+      <div class="panel panel-default" style="height:100%;padding:10px;">
+        <div class="container-fluid row">
+          <div class="col-xs-3 col-md-2 text-center top-menu-item">
+            <p>報告回数</p>
+            <p><span class="num"><%= current_user.reports.count %></span>回</p>
+          </div>
+          <div class="col-xs-3 col-md-2 text-center top-menu-item">
+            <p>総勉強時間</p>
+            <p><span class="num"><%= @total_studytime %></span>時間</p>
+          </div>
+          <div class="col-xs-3 col-md-2 text-center top-menu-item">
+            <p>チューター</p>
+            <p>
+              <% if current_user.tutor.nil? %>
+                <small>未選択</small>
+              <% else %>
+                <% if current_user.tutor_request_exists %>
+                  
+                <% end %>
+                <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
+                  <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '46', :width => '46', :class => 'img-circle' %><br>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+          <div class="col-xs-3 col-md-2 text-center top-menu-item">
+            <p>コメント</p>
+            <p>
+              <% if @unread_messages != 0 %>
+                <%= link_to summaries_path do %>
+                  <i class="fa fa-comment-o fa-3x fa-gray"></i>
+                  <span class="badge badge-red"><%= @unread_messages %></span>
+                <% end %>
+              <% else %>
+                <%= link_to summaries_path do %>
+                  <i class="fa fa-comment-o fa-3x fa-gray"></i>
+                <% end %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <h3>タイムライン</h3>
       <ul class="timeline">
-          <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
+          <% # will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
 
           <% @user_events.each_with_index do |user_event, i| %>
           <% if i.even? %>
@@ -171,8 +218,6 @@
           <% end %>
           <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
       </ul>
-        
-
     </div>
 
 

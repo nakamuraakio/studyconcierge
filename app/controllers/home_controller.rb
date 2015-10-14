@@ -75,7 +75,7 @@ class HomeController < ApplicationController
     
     #未読メッセージの件数をflashを用いて表示
     if @unread_messages != 0
-      flash.now[:notice] = "#{@unread_messages}件の未読メッセージがあります。"
+      #flash.now[:notice] = "#{@unread_messages}件の未読メッセージがあります。"
     end    
     
     #指導中の学生が存在し、もし今日が指導日だったら、学生の報告を自動作成し、両者のタイムラインに表示

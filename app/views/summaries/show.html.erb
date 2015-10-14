@@ -1,244 +1,246 @@
 <div class="container-fluid">
-<div class="row">
-
-<div class="menu col-md-3">
-<%= render 'home/menu' %>
-</div>
-
-<div class = "col-md-9">
-<h3>報告とコメント</h3>
-<div class = "panel panel-default" >
-<div class = "panel-body panel-scroll">
-<% @summary.reports.each do |report| %>
-
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= report.created_at.strftime('%Y年%m月%d日 %A') %></h3>
+<div class="row row-offcanvas row-offcanvas-left">
+  <div class="menu col-md-3 hidden-xs">
+  <%= render 'home/menu' %>
+  </div>
+  <div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+    <%= render 'home/menu' %>
   </div>
 
-  <div class = "panel-body">
-    <div class="progress center-block" style="width: 80%">
-      <div class="progress-bar progress-bar-danger" style="width: <%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>%">
-        <%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>%
-      </div>
-      <div class="progress-bar progress-bar-info" style="width: <%= (report.math_percentage) %>%">
-        <%= (report.math_percentage) %>%
-      </div>
-      <div class="progress-bar progress-bar-warning" style="width: <%= (report.english_percentage) %>%">
-        <%= (report.english_percentage) %>%
-      </div>
-      <div class="progress-bar progress-bar-default" style="width: <%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>%">
-        <%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>%
-      </div>
-      <div class="progress-bar progress-bar-success" style="width: <%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>%">
-        <%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>%
-      </div>
+  <div class = "col-md-9">
+  <h3>報告とコメント</h3>
+  <div class = "panel panel-default" >
+  <div class = "panel-body panel-scroll">
+  <% @summary.reports.each do |report| %>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= report.created_at.strftime('%Y年%m月%d日 %A') %></h3>
     </div>
 
-    <div class = "col-md-12">
-
-      <table class = "table">
-        <% if current_user.subject.japanese %>
-          <tr>
-            <th class = "col-md-2">現代文</th>
-            <td class = "col-md-1"><%= report.japanese_percentage %>%</td>
-            <td><%= simple_format(report.japanese_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.old_japanese %>
-          <tr>
-            <th class = "col-md-2">古文</th>
-            <td class = "col-md-1"><%= report.old_japanese_percentage %>%</td>
-            <td><%= simple_format(report.old_japanese_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.old_chinese %>
-          <tr>
-            <th class = "col-md-2">漢文</th>
-            <td class = "col-md-1"><%= report.old_chinese_percentage %>%</td>
-            <td><%= simple_format(report.old_chinese_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.english %>
-          <tr>
-            <th class = "col-md-2">英語</th>
-            <td class = "col-md-1"><%= report.english_percentage %>%</td>
-            <td><%= simple_format(report.english_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.math %>
-          <tr>
-            <th class = "col-md-2">数学</th>
-            <td class = "col-md-1"><%= report.math_percentage %>%</td>
-            <td><%= simple_format(report.math_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.physics %>
-          <tr>
-            <th class = "col-md-2">物理</th>
-            <td class = "col-md-1"><%= report.physics_percentage %>%</td>
-            <td><%= simple_format(report.physics_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.chemistry %>
-          <tr>
-            <th class = "col-md-2">化学</th>
-            <td class = "col-md-1"><%= report.chemistry_percentage %>%</td>
-            <td><%= simple_format(report.chemistry_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.biology %>
-          <tr>
-            <th class = "col-md-2">生物</th>
-            <td class = "col-md-1"><%= report.biology_percentage %>%</td>
-            <td><%= simple_format(report.biology_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.geology %>
-          <tr>
-            <th class = "col-md-2">地学</th>
-            <td class = "col-md-1"><%= report.geology_percentage %>%</td>
-            <td><%= simple_format(report.geology_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.world_history %>
-          <tr>
-            <th class = "col-md-2">世界史</th>
-            <td class = "col-md-1"><%= report.world_history_percentage %>%</td>
-            <td><%= simple_format(report.world_history_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.japanese_history %>
-          <tr>
-            <th class = "col-md-2">日本史</th>
-            <td class = "col-md-1"><%= report.japanese_history_percentage %>%</td>
-            <td><%= simple_format(report.japanese_history_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.politics_and_economics %>
-          <tr>
-            <th class = "col-md-2">政治経済</th>
-            <td class = "col-md-1"><%= report.politics_and_economics_percentage %>%</td>
-            <td><%= simple_format(report.politics_and_economics_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.modern_society %>
-          <tr>
-            <th class = "col-md-2">現代社会</th>
-            <td class = "col-md-1"><%= report.modern_society_percentage %>%</td>
-            <td><%= simple_format(report.modern_society_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.ethics %>
-          <tr>
-            <th class = "col-md-2">倫理</th>
-            <td class = "col-md-1"><%= report.ethics_percentage %>%</td>
-            <td><%= simple_format(report.ethics_comment) %></td>
-          </tr>
-        <% end %>
-
-        <% if current_user.subject.geography %>
-          <tr>
-            <th class = "col-md-2">地理</th>
-            <td class = "col-md-1"><%= report.geography_percentage %>%</td>
-            <td><%= simple_format(report.geography_comment) %></td>
-          </tr>
-        <% end %>
-        <tr>
-          <th><small>今日の勉強時間:</small></th>
-          <td colspan="2"><%= report.average_studytime %>時間</td>
-        </tr>
-
-        <tr>
-          <th>コメント:</th>
-          <td colspan="2"><%= simple_format(report.free_comment) %></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
-<% end %>
-</div>
-</div>
-
-<div class = "comment">
-<% if @comments %>
-  <% @comments.each do |comment| %>
-    <% if comment.created_by_user %>
-      <div class="panel panel-default panel-comment-user panel-info">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= comment.user.name %>さん <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></span></h3>
+    <div class = "panel-body">
+      <div class="progress center-block" style="width: 80%">
+        <div class="progress-bar progress-bar-danger" style="width: <%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>%">
+          <%= (report.japanese_percentage+report.old_japanese_percentage+report.old_chinese_percentage) %>%
         </div>
-        <div class = "panel-body">
-          <p><%= simple_format(comment.content) %></p>
-          <% #if comment.created_by_user %>
-            <%#= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
-            <% #if comment.read_flag %>
-              <!--<p>既読</p>-->
-            <% #end %>
-          <% #end %>
+        <div class="progress-bar progress-bar-info" style="width: <%= (report.math_percentage) %>%">
+          <%= (report.math_percentage) %>%
+        </div>
+        <div class="progress-bar progress-bar-warning" style="width: <%= (report.english_percentage) %>%">
+          <%= (report.english_percentage) %>%
+        </div>
+        <div class="progress-bar progress-bar-default" style="width: <%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>%">
+          <%= (report.world_history_percentage+report.japanese_history_percentage+report.geography_percentage+report.politics_and_economics_percentage+report.ethics_percentage+report.modern_society_percentage) %>%
+        </div>
+        <div class="progress-bar progress-bar-success" style="width: <%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>%">
+          <%= (report.chemistry_percentage+report.physics_percentage+report.biology_percentage+report.geology_percentage) %>%
         </div>
       </div>
-      
-      <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
-    <% else %>
-      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => comment.tutor.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
-      <div class="panel panel-default panel-comment-tutor panel-warning">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= comment.tutor.name %>チューター <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></h3>
-        </div>
-        <div class = "panel-body">
-          <p><%= simple_format(comment.content) %></p>
-          <% if comment.created_by_user %>
-            <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
-            <% if comment.read_flag %>
-              <p>既読</p>
-            <% end %>
+
+      <div class = "col-md-12">
+
+        <table class = "table">
+          <% if current_user.subject.japanese %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-danger" style="font-size:100%;">現代文</span></th>
+              <td class = "col-md-1"><%= report.japanese_percentage %>%</td>
+              <td><%= simple_format(report.japanese_comment) %></td>
+            </tr>
           <% end %>
-        </div>
+
+          <% if current_user.subject.old_japanese %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-danger" style="font-size:100%;">古文</span></th>
+              <td class = "col-md-1"><%= report.old_japanese_percentage %>%</td>
+              <td><%= simple_format(report.old_japanese_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.old_chinese %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-danger" style="font-size:100%;">漢文</span></th>
+              <td class = "col-md-1"><%= report.old_chinese_percentage %>%</td>
+              <td><%= simple_format(report.old_chinese_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.english %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-warning" style="font-size:100%;">英語</span></th>
+              <td class = "col-md-1"><%= report.english_percentage %>%</td>
+              <td><%= simple_format(report.english_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.math %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-info" style="font-size:100%;">数学</span></th>
+              <td class = "col-md-1"><%= report.math_percentage %>%</td>
+              <td><%= simple_format(report.math_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.physics %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-success" style="font-size:100%;">物理</span></th>
+              <td class = "col-md-1"><%= report.physics_percentage %>%</td>
+              <td><%= simple_format(report.physics_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.chemistry %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-success" style="font-size:100%;">化学</span></th>
+              <td class = "col-md-1"><%= report.chemistry_percentage %>%</td>
+              <td><%= simple_format(report.chemistry_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.biology %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-success" style="font-size:100%;">生物</span></th>
+              <td class = "col-md-1"><%= report.biology_percentage %>%</td>
+              <td><%= simple_format(report.biology_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.geology %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-success" style="font-size:100%;">地学</span></th>
+              <td class = "col-md-1"><%= report.geology_percentage %>%</td>
+              <td><%= simple_format(report.geology_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.world_history %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-default" style="font-size:100%;">世界史</span></th>
+              <td class = "col-md-1"><%= report.world_history_percentage %>%</td>
+              <td><%= simple_format(report.world_history_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.japanese_history %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-default" style="font-size:100%;">日本史</span></th>
+              <td class = "col-md-1"><%= report.japanese_history_percentage %>%</td>
+              <td><%= simple_format(report.japanese_history_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.politics_and_economics %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-default" style="font-size:100%;">政治経済</span></th>
+              <td class = "col-md-1"><%= report.politics_and_economics_percentage %>%</td>
+              <td><%= simple_format(report.politics_and_economics_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.modern_society %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-default" style="font-size:100%;">現代社会</span></th>
+              <td class = "col-md-1"><%= report.modern_society_percentage %>%</td>
+              <td><%= simple_format(report.modern_society_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.ethics %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-default" style="font-size:100%;">倫理</span></th>
+              <td class = "col-md-1"><%= report.ethics_percentage %>%</td>
+              <td><%= simple_format(report.ethics_comment) %></td>
+            </tr>
+          <% end %>
+
+          <% if current_user.subject.geography %>
+            <tr>
+              <th class = "col-md-2"><span class = "label label-default" style="font-size:100%;">地理</span></th>
+              <td class = "col-md-1"><%= report.geography_percentage %>%</td>
+              <td><%= simple_format(report.geography_comment) %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <th><small>今日の勉強時間:</small></th>
+            <td colspan="2"><%= report.average_studytime %>時間</td>
+          </tr>
+
+          <tr>
+            <th>コメント:</th>
+            <td colspan="2"><%= simple_format(report.free_comment) %></td>
+          </tr>
+        </table>
       </div>
+    </div>
+  </div>
+  <% end %>
+  </div>
+  </div>
+
+  <div class = "comment">
+  <% if @comments %>
+    <% @comments.each do |comment| %>
+      <% if comment.created_by_user %>
+        <div class="panel panel-default panel-comment-user panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= comment.user.name %>さん <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></span></h3>
+          </div>
+          <div class = "panel-body">
+            <p><%= simple_format(comment.content) %></p>
+            <% #if comment.created_by_user %>
+              <%#= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
+              <% #if comment.read_flag %>
+                <!--<p>既読</p>-->
+              <% #end %>
+            <% #end %>
+          </div>
+        </div>
+        
+        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
+      <% else %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => comment.tutor.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
+        <div class="panel panel-default panel-comment-tutor panel-warning">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= comment.tutor.name %>チューター <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></h3>
+          </div>
+          <div class = "panel-body">
+            <p><%= simple_format(comment.content) %></p>
+            <% if comment.created_by_user %>
+              <%= link_to '削除', comment, method: :delete, data: { confirm: 'コメントを削除してよろしいですか？' } %>
+              <% if comment.read_flag %>
+                <p>既読</p>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
-</div>
-<% if @summary.comments.count > 7 %>
-  <div class="alert alert-danger" style="clear:both;">
-    <p>コメント数の上限に到達しました。</p>
   </div>
-<% elsif @summary.user.tutor_id == 0 %>
-  <div class="alert alert-danger" style="clear:both;">
-    <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
-  </div>
-<% elsif @summary.user.tutor != @summary.tutor %>
-  <div class="alert alert-danger" style="clear:both;">
-    <p>チューターが変更されたため本報告のコメント機能はご利用いただけません。</p>
-  </div>
-<% elsif @summary.comments.count % 2 == 0 %>
-  <div class="alert alert-danger" style="clear:both;">
-    <p>チューターからの返信待ちです。</p>
-  </div>
-<% else %>
-  <div class="panel panel-default" style="clear:both;padding:10px;">
-    <%= render 'comments/form' %>
-  </div>
-<% end %>
+  <% if @summary.comments.count > 7 %>
+    <div class="alert alert-danger" style="clear:both;">
+      <p>コメント数の上限に到達しました。</p>
+    </div>
+  <% elsif @summary.user.tutor_id == 0 %>
+    <div class="alert alert-danger" style="clear:both;">
+      <p>チューターが未登録なため現在コメント機能はご利用いただけません。</p>
+    </div>
+  <% elsif @summary.user.tutor != @summary.tutor %>
+    <div class="alert alert-danger" style="clear:both;">
+      <p>チューターが変更されたため本報告のコメント機能はご利用いただけません。</p>
+    </div>
+  <% elsif @summary.comments.count % 2 == 0 %>
+    <div class="alert alert-danger" style="clear:both;">
+      <p>チューターからの返信待ちです。</p>
+    </div>
+  <% else %>
+    <div class="panel panel-default" style="clear:both;padding:10px;">
+      <%= render 'comments/form' %>
+    </div>
+  <% end %>
 
 
-<% link_to '一覧に戻る', summaries_path %>
-</div>
+  <% link_to '一覧に戻る', summaries_path %>
+  </div>
 </div>
 
 </div>
