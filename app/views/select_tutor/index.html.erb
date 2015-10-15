@@ -1,29 +1,87 @@
-<div class="row row-offcanvas row-offcanvas-left">
+<div class="container-fluid">
+  <div class="row row-offcanvas row-offcanvas-left">
 
-<div class="menu col-md-3 hidden-xs">
-<%= render 'home/menu' %>
-</div>
-<div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+  <div class="menu col-md-3 hidden-xs">
   <%= render 'home/menu' %>
-</div>
+  </div>
+  <div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+    <%= render 'home/menu' %>
+  </div>
 
 
 
-<div class="menu col-md-9">
-<%= form_for(@user, url: select_tutor_update_path) do |f| %>
-  <h3>チューター一覧</h3>
+  <div class="menu col-xs-12 col-md-8">
+  <%= form_for(@user, url: select_tutor_update_path) do |f| %>
+    <h3>チューター一覧</h3>
 
-  <div class="container-fluid row">
-  <% if current_user.tutor %>
-  <div class="panel panel-default">
-    <h4 class="text-center">＜現在選択済みのチューター＞</h4>
-    <table id="tutor_table" name="tutor_table" style="margin-left:267px;">
-    
+    <div class="container-fluid row">
+    <% if current_user.tutor %>
+      
+        <h4>＜現在選択済みのチューター＞</h4>
+        <table id="tutor_table" name="tutor_table">
+        
+          <tr>
+              <td>
+                  <div class="tutor_img">
+                      <a href="show/<%= current_user.tutor.id %>">
+                      <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id) %>
+                      </a>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td id="tutor_profile">
+              <h4>
+              <a href="/mentee/mentees/tutorInfo/1/29"></a>
+              </h4>
+              <h5><%= current_user.tutor.name %></h5>
+              </td>
+          </tr>
+          <tr>
+              <td id="tutor_profile">
+                  <p><%= current_user.tutor.university %></p>
+                  <p><%= current_user.tutor.prefecture %><%= current_user.tutor.is_from %></p>
+                  <p><%= current_user.tutor.highschool %></p>
+                  <br>
+                  <p>
+                    <b>
+                      <% if current_user.tutor_request_exists %>
+                        承認までしばらくお待ちください
+                      <% else %>
+                        現在チューターとして選択中です
+                      <% end %> 
+                    </b>
+                  </p>
+              </td>
+          </tr>
+        </table>
+    <% end %>
+    </div>
+
+
+    <div class="panel panel-default container-fluid" style="padding:10px;position:relative;">
+      <div class="pull-right" style="position:absolute;top:17.5px;right:40px;">
+        <b>
+          <% if current_user.tutor_request_exists %>
+            申請を撤回する
+          <% elsif current_user.tutor_id == 0 || current_user.tutor.nil? %>
+            チューターを選択しない
+          <% else %>
+            チューターを解除する
+          <% end %>
+        </b>
+        <%= f.radio_button :tutor_id, 0 %>
+      </div>
+      <%= f.submit "更新", data: { confirm: '更新しますか？' }, :class => 'btn btn-success pull-left col-md-8 col-xs-5 col-sm-8' %>
+    </div>
+    <div class="tutor-table-association">
+    <% @tutors.each do |tutor| %>
+    <table id="tutor_table" name="tutor_table">
       <tr>
-          <td style="width:250px;">
+          <td style="width:240px">
               <div class="tutor_img">
-                  <a href="show/<%= current_user.tutor.id %>">
-                  <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id) %>
+                  <a href="show/<%= tutor.id %>">
+                  <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id) %>
                   </a>
               </div>
           </td>
@@ -31,107 +89,51 @@
       <tr>
           <td id="tutor_profile">
           <h4>
-          <a href="/mentee/mentees/tutorInfo/1/29"></a>
-          </h4>
-          <h5><%= current_user.tutor.name %></h5>
+          <a href="/mentee/mentees/tutorInfo/1/29"></a>                    </h4>
+          <h5><%= tutor.name %></h5>
           </td>
       </tr>
       <tr>
-          <td id="tutor_profile">
-              <p><%= current_user.tutor.university %></p>
-              <p><%= current_user.tutor.prefecture %><%= current_user.tutor.is_from %></p>
-              <p><%= current_user.tutor.highschool %></p>
-              <br>
-              <p>
-                <b>
-                  <% if current_user.tutor_request_exists %>
-                    承認までしばらくお待ちください
-                  <% else %>
-                    現在チューターとして選択中です
-                  <% end %> 
-                </b>
-              </p>
-          </td>
+        <td id="tutor_profile">
+          <p><small><%= tutor.university %></small></p>
+          <p><small><%= tutor.prefecture %><%= tutor.is_from %></small></p>
+          <p><small><%= tutor.highschool %></small></p>
+          <!--<p>あと<%= tutor.capacity - tutor.users.count %>人の指導ができます。</p>--><hr>
+          <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists || tutor == current_user.tutor %>
+            <p>
+              <label>
+                  <%= f.radio_button :tutor_id, tutor.id, { :disabled => true } %>
+              </label>
+              このチューターを選択する
+            </p>
+            <tr>
+                <td class="exist_free_time" id="tutor_profile">
+                <% if current_user.tutor_request_exists %>
+                  <small class='ftime ft_noteExist'><span class='fa fa-close'></span>承認待ちのため選択できません</small>
+                <% elsif tutor == current_user.tutor %>
+                  <small class='ftime ft_noteExist'><span class='fa fa-close'></span>現在選択中のチューターです</small>
+                <% else %>
+                  <small class='ftime ft_noteExist'><span class='fa fa-close'></span>選択できません</small>
+                <% end %>
+                </td>
+            </tr>
+          <% else %>
+            <p>
+              <label>
+                  <%= f.radio_button :tutor_id, tutor.id %>
+              </label>
+              このチューターを選択する
+            </p>
+            <tr>
+                <td class="exist_free_time" id="tutor_profile">
+                <small class='ftime ft_exist'><span class='fa fa-circle-o'></span>選択できます</small>                    </td>
+            </tr>
+          <% end %>
+        </td>
       </tr>
     </table>
-  </div>
+    <% end %>
   <% end %>
-
-  <div class="panel panel-default container-fluid" style="padding:10px;position:relative;">
-    <div class="pull-right" style="position:absolute;top:17.5px;right:40px;">
-      <b>
-        <% if current_user.tutor_request_exists %>
-          申請を撤回する
-        <% elsif current_user.tutor_id == 0 || current_user.tutor.nil? %>
-          チューターを選択しない
-        <% else %>
-          チューターを解除する
-        <% end %>
-      </b>
-      <%= f.radio_button :tutor_id, 0 %>
-    </div>
-    <%= f.submit "更新", data: { confirm: '更新しますか？' }, :class => 'btn btn-success pull-left col-sm-8' %>
   </div>
-  <% @tutors.each do |tutor| %>
-  <table id="tutor_table" name="tutor_table">
-    <tr>
-        <td style="width:240px">
-            <div class="tutor_img">
-                <a href="show/<%= tutor.id %>">
-                <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => tutor.id) %>
-                </a>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td id="tutor_profile">
-        <h4>
-        <a href="/mentee/mentees/tutorInfo/1/29"></a>                    </h4>
-        <h5><%= tutor.name %></h5>
-        </td>
-    </tr>
-    <tr>
-      <td id="tutor_profile">
-        <p><small><%= tutor.university %></small></p>
-        <p><small><%= tutor.prefecture %><%= tutor.is_from %></small></p>
-        <p><small><%= tutor.highschool %></small></p>
-        <!--<p>あと<%= tutor.capacity - tutor.users.count %>人の指導ができます。</p>--><hr>
-        <% if tutor.capacity - tutor.users.count == 0 || current_user.tutor_request_exists || tutor == current_user.tutor %>
-          <p>
-            <label>
-                <%= f.radio_button :tutor_id, tutor.id, { :disabled => true } %>
-            </label>
-            このチューターを選択する
-          </p>
-          <tr>
-              <td class="exist_free_time" id="tutor_profile">
-              <% if current_user.tutor_request_exists %>
-                <small class='ftime ft_noteExist'><span class='fa fa-close'></span>承認待ちのため選択できません</small>
-              <% elsif tutor == current_user.tutor %>
-                <small class='ftime ft_noteExist'><span class='fa fa-close'></span>現在選択中のチューターです</small>
-              <% else %>
-                <small class='ftime ft_noteExist'><span class='fa fa-close'></span>選択できません</small>
-              <% end %>
-              </td>
-          </tr>
-        <% else %>
-          <p>
-            <label>
-                <%= f.radio_button :tutor_id, tutor.id %>
-            </label>
-            このチューターを選択する
-          </p>
-          <tr>
-              <td class="exist_free_time" id="tutor_profile">
-              <small class='ftime ft_exist'><span class='fa fa-circle-o'></span>選択できます</small>                    </td>
-          </tr>
-        <% end %>
-      </td>
-    </tr>
-  </table>
-  <% end %>
-<% end %>
+  </div>
 </div>
-</div>
-</div>
-

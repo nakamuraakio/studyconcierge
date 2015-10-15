@@ -16,34 +16,33 @@
 </head>
 <body class="other-than-landing" style="background-image:url(<%= asset_path "retina_wood.png" %>)">
 <div id="wrapper">
-	<header>
+	<header style="width:100%;">
     <nav class = "navbar navbar-default container-fluid">
-    <div class="row">
-      <div class = "navbar-header col-md-2 col-xs-4">
-        <% if user_signed_in? or tutor_signed_in? %>
-          <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
-        <% else %>
-          <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
-        <% end %>
-      </div>
-      <ul class = "nav navbar-nav col-md-4 col-xs-4">
-        <% if user_signed_in? %>
-        <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-        <% elsif tutor_signed_in? %>
-        <li><%= link_to 'ログアウト', destroy_tutor_session_path, method: :delete %></li>
-        <% elsif admin_signed_in? %>
-        <li><%= link_to 'Adminログアウト', destroy_admin_session_path, method: :delete %></li>
-        <% else %>
-        <li><%= link_to '高校生ログイン', new_user_session_path  %></li>
-        <li><%= link_to '大学生ログイン', new_tutor_session_path %></li>
-        <% end %>
-      </ul>
-      <div class="col-xs-1 visible-xs pull-right" style="margin-top:10px;">
-        <a href="#" class="" data-toggle="offcanvas"><i class="fa fa-bars fa-2x fa-gray"></i></a>
-      </div>
-    </div>
       
+        <div class = "navbar-header navbar-item-logo">
+          <% if user_signed_in? or tutor_signed_in? %>
+            <a class = "navbar-brand" href = "/" style="block"><strong>StudyConcierge</strong></a>
+          <% else %>
+            <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
+          <% end %>
+        </div>
+        <div class="visible-xs navbar-item-toggle">
+          <a href="#" class="" data-toggle="offcanvas"><i class="fa fa-bars fa-2x fa-gray"></i></a>
+        </div>
+        <ul class = "nav navbar-nav navbar-item hidden-xs">
+          <% if user_signed_in? %>
+          <li class=""><%= link_to 'ログアウト', destroy_user_session_path, method: :delete, style: "block" %></li>
+          <% elsif tutor_signed_in? %>
+          <li class=""><%= link_to 'ログアウト', destroy_tutor_session_path, method: :delete, style: "block" %></li>
+          <% elsif admin_signed_in? %>
+          <li class=""><%= link_to 'Adminログアウト', destroy_admin_session_path, method: :delete, style: "block" %></li>
+          <% else %>
+          <li class=""><%= link_to '高校生ログイン', new_user_session_path, style: "block"  %></li>
+          <li class=""><%= link_to '大学生ログイン', new_tutor_session_path, style: "block" %></li>
+          <% end %>
+        </ul>
     </nav>
+
     <% if alert || flash[:info] || notice %>
       <div class="container-fluid">
       <% if alert %>

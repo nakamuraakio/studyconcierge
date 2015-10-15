@@ -10,130 +10,130 @@
 
 <div class="col-md-9">
 
-<h3>プロフィールを編集する</h3>
+  <h3>プロフィールを編集する</h3>
 
-<%= form_for(resource, as: resource_name, :url => url_for(:controller => 'users/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
-  
+  <%= form_for(resource, as: resource_name, :url => url_for(:controller => 'users/registrations', :action => 'update_profile'), html: { method: :put }) do |f| %>
+    
 
-<table class="table table-bordered table-striped">
-<%= devise_error_messages! %>
-<tbody>
-<tr>
-  <div class="field form-group row">
-    <th class="col-md-2 col-xs-2"><%= f.label :email %></th>
-    <td class="col-md-10 col-xs-10"><%= f.email_field :email, autofocus: true, :class => "form-control" %></td>
-  </div>
-</tr>
+  <table class="table table-bordered table-striped edit-profile-table">
+  <%= devise_error_messages! %>
+  <tbody>
+  <tr>
+    <div class="field form-group row">
+      <th><%= f.label :email %></th>
+      <td><%= f.email_field :email, autofocus: true, :class => "form-control" %></td>
+    </div>
+  </tr>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label '名前' %></th>
-    <td><%= f.text_field :name, :class => "col-md-12 form-control" %></td>
-  </div>
-</tr>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label :photo_file, "プロフィール画像" %></th>
-    <td><%= f.file_field :photo_file %></td>
-  </div>
-</tr>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label "誕生日" %></th>
-    <td><%= f.date_select :birth,
-          use_month_numbers: true,
-          start_year:     1990,
-          end_year:       (Time.now.year - 10),
-          default:        Date.new(1999, 1, 1),
-          date_separator: '/'
-        %>
-    </td>
-  </div>
-</tr>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label "学年" %></th>
-    <td><%= f.select :year, {'高校1年' => 1,'高校2年' => 2,'高校3年' => 3}, :selected => @user.year, :class => "col-md-12 form-control" %></td>
-  </div>
-</tr>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label "学校名" %></th>
-    <td><%= f.text_field :school, :class => "col-md-12 form-control" %></td>
-  </div>
-</tr>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label "住所" %></th>
-    <td>  
-      <div class="row address-field-row">
-        <div class="col-md-1 col-xs-2 text-right"><%= f.label '郵便番号', :class => '' %></div>
-        <div class="col-md-3 col-xs-10"><%= f.text_field :zipcode, :class => "form-control", :id => "address_zipcode" %></div>
-        <div class="col-md-1 col-xs-2 text-right"><%= f.label "都道府県", :class => '' %></div>
-        <div class="col-md-3 col-xs-10"><%= f.text_field :prefecture, :class => "form-control", :id => "address_prefecture_name" %></div>
-        <div class="col-md-1 col-xs-2 text-right"><%= f.label "市区町村", :class => '' %></div>
-        <div class="col-md-3 col-xs-10"><%= f.text_field :lives_in, :class => "form-control", :id => "address_city" %></div>
-      </div>
-    </td>
-  </div>
-</tr>
-<tr>
-  <div class="field form-group">
-    <th><%= f.label "志望校" %></th>
-    <td><%= f.text_field :school_desire, :class => "col-md-12 form-control" %></td>
-  </div>
-</tr>
-<tr>
-  <%= f.fields_for :subject, current_user.subject || Subject.new do |c| %>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+  <tr>
     <div class="field form-group">
-      <th><%= c.label "受験で使う科目" %></th>
-      <td>
-        <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :japanese %> 現代文</span></label>
-        <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :old_japanese %> 古文</span></label>
-        <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :old_chinese %> 漢文</span></label>
-        <label><span class = "label label-warning" style="font-size:100%;"><%= c.check_box :english %> 英語</span></label>
-        <label><span class = "label label-info" style="font-size:100%;"><%= c.check_box :math %> 数学</span></label>
-        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :physics %> 物理</span></label>
-        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :chemistry %> 化学</span></label>
-        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :biology %> 生物</span></label>
-        <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :geology %> 地学</span></label>
-        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :world_history %> 世界史</span></label>
-        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :japanese_history %> 日本史</span></label>
-        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :politics_and_economics %> 政治経済</span></label>
-        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :modern_society %> 現代社会</span></label>
-        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :ethics %> 倫理</span></label>
-        <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :geography %> 地理</span></label>
+      <th><%= f.label '名前' %></th>
+      <td><%= f.text_field :name, :class => "col-md-12 form-control" %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field form-group">
+      <th><%= f.label :photo_file, "プロフィール画像" %></th>
+      <td><%= f.file_field :photo_file %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field form-group">
+      <th><%= f.label "誕生日" %></th>
+      <td><%= f.date_select :birth,
+            use_month_numbers: true,
+            start_year:     1990,
+            end_year:       (Time.now.year - 10),
+            default:        Date.new(1999, 1, 1),
+            date_separator: '/'
+          %>
       </td>
     </div>
-  <% end %>
-</tr>
+  </tr>
+  <tr>
+    <div class="field form-group">
+      <th><%= f.label "学年" %></th>
+      <td><%= f.select :year, {'高校1年' => 1,'高校2年' => 2,'高校3年' => 3}, :selected => @user.year, :class => "col-md-12 form-control" %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field form-group">
+      <th><%= f.label "学校名" %></th>
+      <td><%= f.text_field :school, :class => "col-md-12 form-control" %></td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field form-group">
+      <th><%= f.label "住所" %></th>
+      <td>  
+        <div class="row address-field-row">
+          <div class="col-md-1 col-xs-2 text-right"><%= f.label '郵便番号', :class => '' %></div>
+          <div class="col-md-3 col-xs-10"><%= f.text_field :zipcode, :class => "form-control", :id => "address_zipcode" %></div>
+          <div class="col-md-1 col-xs-2 text-right"><%= f.label "都道府県", :class => '' %></div>
+          <div class="col-md-3 col-xs-10"><%= f.text_field :prefecture, :class => "form-control", :id => "address_prefecture_name" %></div>
+          <div class="col-md-1 col-xs-2 text-right"><%= f.label "市区町村", :class => '' %></div>
+          <div class="col-md-3 col-xs-10"><%= f.text_field :lives_in, :class => "form-control", :id => "address_city" %></div>
+        </div>
+      </td>
+    </div>
+  </tr>
+  <tr>
+    <div class="field form-group">
+      <th><%= f.label "志望校" %></th>
+      <td><%= f.text_field :school_desire, :class => "col-md-12 form-control" %></td>
+    </div>
+  </tr>
+  <tr>
+    <%= f.fields_for :subject, current_user.subject || Subject.new do |c| %>
+      <div class="field form-group">
+        <th><%= c.label "受験で使う科目" %></th>
+        <td>
+          <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :japanese %> 現代文</span></label>
+          <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :old_japanese %> 古文</span></label>
+          <label><span class = "label label-danger" style="font-size:100%;"><%= c.check_box :old_chinese %> 漢文</span></label>
+          <label><span class = "label label-warning" style="font-size:100%;"><%= c.check_box :english %> 英語</span></label>
+          <label><span class = "label label-info" style="font-size:100%;"><%= c.check_box :math %> 数学</span></label>
+          <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :physics %> 物理</span></label>
+          <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :chemistry %> 化学</span></label>
+          <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :biology %> 生物</span></label>
+          <label><span class = "label label-success" style="font-size:100%;"><%= c.check_box :geology %> 地学</span></label>
+          <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :world_history %> 世界史</span></label>
+          <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :japanese_history %> 日本史</span></label>
+          <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :politics_and_economics %> 政治経済</span></label>
+          <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :modern_society %> 現代社会</span></label>
+          <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :ethics %> 倫理</span></label>
+          <label><span class = "label label-default" style="font-size:100%;"><%= c.check_box :geography %> 地理</span></label>
+        </td>
+      </div>
+    <% end %>
+  </tr>
 
 
-</tbody>
-</table>
+  </tbody>
+  </table>
 
-<div>
-  <%= link_to 'パスワードを変更する', edit_user_registration_path %>
-</div>
-
-  <div class="actions">
-    <br><%= f.submit "変更する", :class => 'btn btn-primary col-sm-2' %>
+  <div>
+    <%= link_to 'パスワードを変更する', edit_user_registration_path %>
   </div>
-<% end %>
+
+    <div class="actions">
+      <br><%= f.submit "変更する", :class => 'btn btn-primary col-sm-2' %>
+    </div>
+  <% end %>
 
 
-<% if admin_signed_in? %>
+  <% if admin_signed_in? %>
 
-<div>
-<h3>アカウントを削除する</h3>
-</div>
+  <div>
+  <h3>アカウントを削除する</h3>
+  </div>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<% end %>
+  <% end %>
 
 </div>
 </div>

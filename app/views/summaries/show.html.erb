@@ -195,9 +195,11 @@
           </div>
         </div>
         
-        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
+        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '100', :width => '100', :class => 'hidden-xs img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
+        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '50', :width => '50', :class => 'visible-xs img-circle', :style => "float:right; vertical-align:middle; margin-right:3%" %>
       <% else %>
-        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => comment.tutor.id), :height => '100', :width => '100', :class => 'img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => comment.tutor.id), :height => '100', :width => '100', :class => 'hidden-xs img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => comment.tutor.id), :height => '50', :width => '50', :class => 'visible-xs img-circle', :style => "float:left; vertical-align:middle; margin-left:3%" %>
         <div class="panel panel-default panel-comment-tutor panel-warning">
           <div class="panel-heading">
             <h3 class="panel-title"><%= comment.tutor.name %>チューター <%= comment.created_at.strftime('%Y年%m月%d日 %A') %> <span class = "badge"><%= comment.comment_count %></h3>

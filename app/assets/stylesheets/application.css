@@ -18,6 +18,7 @@ men/*
 -------------------------------------------------- */
 html{
   height:100%; /*ブラウザいっぱいに高さを取得*/
+  width:100%;
   overflow-x: hidden;
 }
 
@@ -53,16 +54,27 @@ h1,h2,h3,h4,h5{
   font-weight: bold;
 }
 
+input.text-right{
+  padding:0;
+}
+
 .fa-gray{
   color: rgb(85,85,85);
 }
 
 .top-menu-item{
   border-right: 3px solid rgb(240, 240, 240);
+  height:100%;
 }
 
 .menu{
   z-index: 100;
+}
+
+@media only screen and (max-width:767px){
+  #sidebar{
+    font-size: 80%;
+  }
 }
 
 .num{
@@ -73,6 +85,31 @@ h1,h2,h3,h4,h5{
 
 .badge-red{
   background-color: rgb(217,83,79);
+}
+
+.navbar-item{
+  float:left;
+  height:50px;
+  margin:0 15px;
+}
+
+.navbar-item-logo{
+  float:left;
+  height:50px;
+  margin:0 15px; 
+}
+
+.navbar-item > li > a{
+  float: left;
+  height:100%;
+  margin:15px 15px;
+  padding:0;
+}
+
+.navbar-item-toggle{
+  float:right;
+  height:100%;
+  margin:10px 15px;
 }
 
 .table-color-1{
@@ -100,7 +137,18 @@ h1,h2,h3,h4,h5{
   color: white;
 }
 
-
+.edit-profile-table th  { width: 20%; text-align: left; }
+ 
+@media only screen and (max-width:767px){
+    .edit-profile-table { margin: 0 -10px; }
+    .edit-profile-table th,
+    .edit-profile-table td{
+        width: 100%;
+        display: block;
+        border-top: none;
+    }
+    .edit-profile-table tr:first-child th   { border-top: 1px solid #ddd; }
+}
 
 .timeline {
   list-style: none;
