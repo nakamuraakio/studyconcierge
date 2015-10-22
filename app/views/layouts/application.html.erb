@@ -41,30 +41,34 @@
           <li class=""><%= link_to '大学生ログイン', new_tutor_session_path, style: "block" %></li>
           <% end %>
         </ul>
+        
+        <% if alert || flash[:info] || notice %>
+          <div class="navbar-item col-md-9 col-xs-12">
+            <div class="container-fluid">
+            <% if alert %>
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+                <%= alert %>
+              </div>
+            <% end %>
+            <% if notice %>
+              <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+                <%= notice %>
+              </div>
+            <% end %>
+            <% if flash[:info] %>
+              <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
+                <%= flash[:info].join("<br>").html_safe %>
+              </div>
+            <% end %>
+            </div>
+          </div>
+        <% end %>        
     </nav>
 
-    <% if alert || flash[:info] || notice %>
-      <div class="container-fluid">
-      <% if alert %>
-        <div class="alert alert-danger alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
-          <%= alert %>
-        </div>
-      <% end %>
-      <% if notice %>
-        <div class="alert alert-info alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
-          <%= notice %>
-        </div>
-      <% end %>
-      <% if flash[:info] %>
-        <div class="alert alert-success alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="閉じる"><span aria-hidden="true">×</span></button>
-          <%= flash[:info].join("<br>").html_safe %>
-        </div>
-      <% end %>
-      </div>
-    <% end %>
+    
   </header>
   <div class="layout">
     <%= yield %>

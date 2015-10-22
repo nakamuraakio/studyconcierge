@@ -4,109 +4,112 @@
     <%= render 'home/menu' %>
   </div>
   <div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
-    <%= render 'home/menu' %>
+    <%= render 'home/hidden_menu' %>
   </div>
 
-<div class = "col-md-9">
-  <h3>チュータープロフィール</h3>
-  <table class="table table-bordered table-striped row">
-  <tbody>
-  <div style="text-align:center; margin-bottom: 20px;">
-  <% if @tutor.photo == "" %>
-    <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
-  <% else %>
-    <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => @tutor.id), :height => '120', :width => '120', :class => 'img-circle' %>
+  <div class = "col-md-9">
+    <h3>チュータープロフィール</h3>
+
+    <div style="text-align:center; margin-bottom: 20px;">
+      <% if @tutor.photo == "" %>
+        <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+      <% else %>
+        <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => @tutor.id), :height => '120', :width => '120', :class => 'img-circle' %>
+      <% end %>
+    </div>
+    
+    <div class="container-fluid panel panel-default">
+      
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">名前</div>
+          <div class="col-md-10"><%= @tutor.name %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">大学・学部・学年</div>
+          <div class="col-md-10"><%= @tutor.university %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">出身地</div>
+          <div class="col-md-10"><%= @tutor.prefecture %><%= @tutor.is_from %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">出身高校</div>
+          <div class="col-md-10"><%= @tutor.highschool %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">最近こんなことしてます</div>
+          <div class="col-md-10"><%= simple_format(@tutor.nowadays) %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">夢</div>
+          <div class="col-md-10"><%= simple_format(@tutor.dream) %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">運営からの紹介</div>
+          <div class="col-md-10"><%= simple_format(@tutor.intro) %></div>
+        </div>
+        <div class="row select_tutor_show_row">
+          <div class="col-md-2">担当曜日</div>
+          <div class="col-md-10">
+            <% case @tutor.available_day %>
+              <% when 0 then %>
+                日曜日
+              <% when 1 then %>
+                月曜日
+              <% when 2 then %>
+                火曜日
+              <% when 3 then %>
+                水曜日
+              <% when 4 then %>
+                木曜日
+              <% when 5 then %>
+                金曜日
+              <% when 6 then %>
+                土曜日
+            <% end %>
+          </div>
+        </div>
+        <div class="row select_tutor_show_row" style="border-bottom:none;">
+          <div class="col-md-2">受験で使った科目</div>
+          <div class="col-md-10">
+            <% @subjects.each do |subject| %>
+              <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
+                <span class = "label label-danger"><%= subject %></span>
+              <% elsif subject == '英語' %>
+                <span class = "label label-warning"><%= subject %></span>
+              <% elsif subject == '数学' %>
+                <span class = "label label-info"><%= subject %></span>
+              <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
+                <span class = "label label-success"><%= subject %></span>
+              <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
+                <span class = "label label-default"><%= subject %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      
+    </div>
+    
+
+  <!--
+  <% if @tutor.articles.any? %>
+    <span><%= @tutor.name %>さんが書いた記事</span>
+    <ul>
+    <% @tutor.articles.each do |article| %>
+      <li><%= link_to article do %><%= article.title %><% end %></li>
+    <% end %>
+    </ul>
   <% end %>
+  -->
+  <br>
+  <% if @user.tutor != @tutor %>
+    <%= form_for(@user, url: select_tutor_update_path) do |f| %>
+      <%= f.hidden_field :tutor_id, :value => @tutor.id %>
+      <%= f.submit "#{@tutor.name}さんをチューターに選択する", :class => 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+
+
   </div>
-  <tr>
-    <th class="col-md-3">名前</th>
-    <td><%= @tutor.name %></td>
-  </tr>
-  <tr>
-    <th>大学・学部・学年</th>
-    <td><%= @tutor.university %></td>
-  </tr>
-  <tr>
-    <th>出身地</th>
-    <td><%= @tutor.prefecture %><%= @tutor.is_from %></td>
-  </tr>
-  <tr>
-    <th>出身高校</th>
-    <td><%= @tutor.highschool %></td>
-  </tr>
-  <tr>
-    <th>最近こんなことしてます</th>
-    <td><%= simple_format(@tutor.nowadays) %></td>
-  </tr>
-  <tr>
-    <th>夢</th>
-    <td><%= simple_format(@tutor.dream) %></td>
-  </tr>
-  <tr>
-    <th>運営からの紹介</th>
-    <td><%= simple_format(@tutor.intro) %></td>
-  </tr>
-  <tr>
-    <th>担当曜日</th>
-    <td>
-      <% case @tutor.available_day %>
-        <% when 0 then %>
-          日曜日
-        <% when 1 then %>
-          月曜日
-        <% when 2 then %>
-          火曜日
-        <% when 3 then %>
-          水曜日
-        <% when 4 then %>
-          木曜日
-        <% when 5 then %>
-          金曜日
-        <% when 6 then %>
-          土曜日
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <th>受験で使った科目</th>
-    <td>
-      <% @subjects.each do |subject| %>
-        <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
-          <span class = "label label-danger"><%= subject %></span>
-        <% elsif subject == '英語' %>
-          <span class = "label label-warning"><%= subject %></span>
-        <% elsif subject == '数学' %>
-          <span class = "label label-info"><%= subject %></span>
-        <% elsif subject == '物理' or subject == '化学' or subject == '生物' or subject == '地学' %>
-          <span class = "label label-success"><%= subject %></span>
-        <% elsif subject == '世界史' or subject == '日本史' or subject == '地理' or subject == '政治経済' or subject == '倫理' or subject == '現代社会' %>
-          <span class = "label label-default"><%= subject %></span>
-        <% end %>
-      <% end %>
-    </td>
-  </tr>
-  </tbody>
-  </table>
-
-<!--
-<% if @tutor.articles.any? %>
-  <span><%= @tutor.name %>さんが書いた記事</span>
-  <ul>
-  <% @tutor.articles.each do |article| %>
-    <li><%= link_to article do %><%= article.title %><% end %></li>
-  <% end %>
-  </ul>
-<% end %>
--->
-
-<% if @user.tutor != @tutor %>
-  <%= form_for(@user, url: select_tutor_update_path) do |f| %>
-    <%= f.hidden_field :tutor_id, :value => @tutor.id %>
-    <%= f.submit "#{@tutor.name}さんをチューターに選択する", :class => 'btn btn-primary' %>
-  <% end %>
-<% end %>
-
-
-</div>
 </div>
 </div>

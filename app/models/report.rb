@@ -28,4 +28,6 @@ class Report < ActiveRecord::Base
       errors.add(:base, '%の合計が100になるように入力して下さい')
     end
   end
+
+  
 end

@@ -11,7 +11,21 @@
 </div>
 
 
-<div class = "col-md-9">
+<div class = "col-md-8">
+<%= month_calendar events: @user_events do |date, user_events| %>
+  <%= date %>
+  <% user_events.each do |user_event| %>
+    <% if user_event.event_type == 1 %>
+      <%= link_to user_event.link, class: 'hidden-xs' do %><button class="btn btn-warning btn-xs calendar-item">記録しました。</button><% end %>
+      <%= link_to user_event.link, class: 'visible-xs' do %><button class="btn btn-warning btn-xs calendar-item">記録</button><% end %>
+    <% elsif user_event.event_type == 7 %>
+      <%= link_to user_event.link, class: 'hidden-xs' do %><button class="btn btn-info btn-xs calendar-item">報告しました。</button><% end %>
+      <%= link_to user_event.link, class: 'visible-xs' do %><button class="btn btn-info btn-xs calendar-item">報告</button><% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<!--
 <h3>今までの記録</h3>
 <br><%= link_to new_report_path do %><span class="btn btn-success">新しい記録を作成する</span><% end %>
 <div class="timeline report_timeline report_timeline_bar">
@@ -36,7 +50,7 @@
 
 
 
-<!-- 
+
 
 <table class="table">
   <thead>

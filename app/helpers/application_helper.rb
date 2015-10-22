@@ -6,4 +6,8 @@ module ApplicationHelper
       return ''
     end
   end
+
+  def block_is_haml?(block)
+      eval('!!defined?(_hamlout)', block.binding)
+    end
 end

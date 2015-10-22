@@ -2,15 +2,16 @@
   <div class="row row-offcanvas row-offcanvas-left">
     <div class="menu col-md-3 hidden-xs">
       <%= render 'home/menu' %>
+      <div class="panel panel-default">
       <table class="table table-bordered table-striped" style="font-size: 8pt">
       <tbody class="row">
-      <div style="text-align:center; margin-bottom: 20px;">
-      <% if current_user.photo == "" %>
-        <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
-      <% else %>
-        <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
-      <% end %>
-      </div>
+        <div style="text-align:center; margin-bottom: 20px;margin-top:20px;">
+        <% if current_user.photo == "" %>
+          <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+        <% else %>
+          <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
+        <% end %>
+        </div>
       <tr>
         <th class="col-md-4">Email</th>
         <td class="col-md-8"><%= current_user.email %></td>
@@ -104,6 +105,7 @@
       </tr>
       </tbody>
       </table>
+      </div>
     </div>
 
     <div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
@@ -189,7 +191,7 @@
           </li>
           <% else %>
           <li class="timeline-inverted">
-            <% if user_event.event_type == 1 %>
+            <% if user_event.event_type == 1 || 7 %>
               <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
             <% elsif user_event.event_type == 2 %>
               <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>

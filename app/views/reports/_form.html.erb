@@ -12,240 +12,243 @@
       </ul>
     </div>
   <% end %>
+  <div class="container-fluid panel panel-default" style="padding-top:15px;padding-bottom:15px;">
+  <% unless current_user.subject.nil? %>
+    <% if current_user.subject.japanese %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left">
+          <div class="input-group-addon"><strong>現代文</strong></div>
+          <%= f.label '現代文にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :japanese_percentage, :class => 'text-right form-control', :style => "padding:0" %>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8" style="float:left;">
+          <%= f.label '現代文のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :japanese_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.old_japanese %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>古文</strong></div>
+          <%= f.label '古文にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :old_japanese_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '古文のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :old_japanese_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
 
-<% unless current_user.subject.nil? %>
-  <% if current_user.subject.japanese %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left">
-        <div class="input-group-addon"><strong>現代文</strong></div>
-        <%= f.label '現代文にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :japanese_percentage, :class => 'text-right form-control', :style => "padding:0" %>
-        <div class="input-group-addon"><strong>%</strong></div>
+    <% if current_user.subject.old_chinese %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>漢文</strong></div>
+          <%= f.label '漢文にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :old_chinese_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '漢文のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :old_chinese_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
       </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5" style="float:left;">
-        <%= f.label '現代文のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :japanese_comment, :class => 'form-control', :placeholder => "コメント" %>
+    <% end %>
+    <% if current_user.subject.english %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>英語</strong></div>
+          <%= f.label '英語にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :english_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '英語のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :english_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
       </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.old_japanese %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>古文</strong></div>
-        <%= f.label '古文にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :old_japanese_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
+    <% end %>
+    <% if current_user.subject.math %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>数学</strong></div>
+          <%= f.label '数学にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :math_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '数学のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :math_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
       </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '古文のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :old_japanese_comment, :class => 'form-control', :placeholder => "コメント" %>
+    <% end %>
+    <% if current_user.subject.physics %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>物理</strong></div>
+          <%= f.label '物理にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :physics_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '物理のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :physics_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+    <% if current_user.subject.chemistry %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>化学</strong></div>
+          <%= f.label '化学にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :chemistry_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '化学のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :chemistry_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.biology %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>物理</strong></div>
+          <%= f.label '物理にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :biology_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '物理のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :biology_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.geology %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>地学</strong></div>
+          <%= f.label '地学にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :geology_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '地学のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :geology_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.world_history %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>世界史</strong></div>
+          <%= f.label '世界史にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :world_history_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '世界史のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :world_history_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.japanese_history %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>日本史</strong></div>
+          <%= f.label '日本史にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :japanese_history_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '日本史のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :japanese_history_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.politics_and_economics %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>政治経済</strong></div>
+          <%= f.label '政治経済にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :politics_and_economics_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '政治経済のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :politics_and_economics_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.modern_society %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>現代社会</strong></div>
+          <%= f.label '現代社会にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :modern_society_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '現代社会のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :modern_society_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.ethics %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>倫理</strong></div>
+          <%= f.label '倫理にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :ethics_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '倫理のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :ethics_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.subject.geography %>
+      <div class="row col-md-12 form-group">
+        <div class="input-group col-md-3 col-sm-3 col-xs-4" style = "float:left;">
+          <div class="input-group-addon"><strong>地理</strong></div>
+          <%= f.label '地理にかけた時間の割合：', :class => "control-label sr-only" %>
+          <%= f.number_field :geography_percentage, :class => 'text-right form-control'%>
+          <div class="input-group-addon"><strong>%</strong></div>
+        </div>
+        <div class = "col-md-9 col-sm-6 col-xs-8">
+          <%= f.label '地理のコメント：', :class => "control-label sr-only" %>
+          <%= f.text_field :geography_comment, :class => 'form-control', :placeholder => "コメント" %>
+        </div>
+      </div>
+    <% end %>
 
-  <% if current_user.subject.old_chinese %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>漢文</strong></div>
-        <%= f.label '漢文にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :old_chinese_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '漢文のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :old_chinese_comment, :class => 'form-control', :placeholder => "コメント" %>
+    <div class = "row col-md-12 form-group">
+      <small><%= f.label '今日の合計勉強時間：', :class => 'col-md-3 col-xs-4 control-label'%></small>
+      <div class = "input-group col-md-3 col-sm-3 col-xs-3" style="padding-left:15px;">
+        <%= f.number_field :average_studytime, :class => "text-right form-control" %>
+        <span class="input-group-addon"><strong>時間</strong></span>
       </div>
     </div>
-  <% end %>
-  <% if current_user.subject.english %>
     <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>英語</strong></div>
-        <%= f.label '英語にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :english_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '英語のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :english_comment, :class => 'form-control', :placeholder => "コメント" %>
+      <%= f.label '自由コメント：', :class => 'col-md-3 col-sm-3 control-label' %>
+      <div class = "col-md-9 col-sm-6">
+        <%= f.text_area :free_comment, :class => "form-control", :rows => "3", :style => 'height: 200px;' %>
       </div>
     </div>
-  <% end %>
-  <% if current_user.subject.math %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>数学</strong></div>
-        <%= f.label '数学にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :math_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '数学のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :math_comment, :class => 'form-control', :placeholder => "コメント" %>
+    <div class="col-md-12" style="padding-right:30px;">
+      <div class="row actions">
+        <%= f.submit '送信', data: { confirm: '送信しますか？' }, :class => 'btn btn-primary col-xs-12 col-md-12 col-sm-6' %>
       </div>
     </div>
-  <% end %>
-  <% if current_user.subject.physics %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>物理</strong></div>
-        <%= f.label '物理にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :physics_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '物理のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :physics_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.chemistry %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>化学</strong></div>
-        <%= f.label '化学にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :chemistry_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '化学のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :chemistry_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.biology %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>物理</strong></div>
-        <%= f.label '物理にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :biology_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '物理のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :biology_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.geology %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>地学</strong></div>
-        <%= f.label '地学にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :geology_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '地学のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :geology_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.world_history %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>世界史</strong></div>
-        <%= f.label '世界史にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :world_history_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '世界史のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :world_history_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.japanese_history %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>日本史</strong></div>
-        <%= f.label '日本史にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :japanese_history_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '日本史のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :japanese_history_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.politics_and_economics %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>政治経済</strong></div>
-        <%= f.label '政治経済にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :politics_and_economics_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '政治経済のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :politics_and_economics_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.modern_society %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>現代社会</strong></div>
-        <%= f.label '現代社会にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :modern_society_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '現代社会のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :modern_society_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.ethics %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>倫理</strong></div>
-        <%= f.label '倫理にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :ethics_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '倫理のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :ethics_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
-  <% if current_user.subject.geography %>
-    <div class="row col-md-12 form-group">
-      <div class="input-group col-md-2 col-sm-3 col-xs-7" style = "float:left;">
-        <div class="input-group-addon"><strong>地理</strong></div>
-        <%= f.label '地理にかけた時間の割合：', :class => "control-label sr-only" %>
-        <%= f.number_field :geography_percentage, :class => 'text-right form-control'%>
-        <div class="input-group-addon"><strong>%</strong></div>
-      </div>
-      <div class = "col-md-9 col-sm-6 col-xs-5">
-        <%= f.label '地理のコメント：', :class => "control-label sr-only" %>
-        <%= f.text_field :geography_comment, :class => 'form-control', :placeholder => "コメント" %>
-      </div>
-    </div>
-  <% end %>
 
-  <div class = "row col-md-12 form-group">
-    <small><%= f.label '今日の合計勉強時間：', :class => 'col-md-3 col-xs-7 control-label'%></small>
-    <div class = "input-group col-md-2 col-sm-3 col-xs-5" style="padding-left:15px;">
-      <%= f.number_field :average_studytime, :class => "text-right form-control" %>
-      <span class="input-group-addon"><strong>時間</strong></span>
-    </div>
+  <br>
+
+  <% end %>
   </div>
-  <div class="row col-md-12 form-group">
-    <%= f.label '自由コメント：', :class => 'col-md-3 col-sm-3 control-label' %>
-    <div class = "col-md-9 col-sm-6">
-      <%= f.text_area :free_comment, :class => "form-control", :rows => "3", :style => 'height: 200px;' %>
-    </div>
-  </div>
-  <div class="row col-md-12" style="padding-right:30px;">
-    <div class="actions">
-      <%= f.submit '送信', data: { confirm: '送信しますか？' }, :class => 'btn btn-primary col-md-12 col-sm-6' %>
-    </div>
-  </div>
+<% end %>
 </div>
-
-<% end %>
-<% end %>
 </div>

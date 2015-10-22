@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     @reports = Report.where(user_id: current_user.id).order('created_at DESC')
+    @user_events = UserEvent.where(user_id: current_user)
     if @reports.count == 0
       flash[:notice] = '記録がありません'
       redirect_to home_index_path

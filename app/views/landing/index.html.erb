@@ -16,15 +16,15 @@
 </head>
 <body>
   <header>
-    <nav class = "navbar navbar-default landing-nav">
-      <div class = "navbar-header">
+    <nav class = "navbar navbar-default landing-nav ">
+      <div class = "navbar-header navbar-item">
         <% if user_signed_in? or tutor_signed_in? %>
           <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
         <% else %>
           <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
         <% end %>
       </div>
-      <ul class = "nav navbar-nav">
+      <ul class = "nav navbar-nav navbar-item" style="font-size:90%">
         <% if user_signed_in? %>
         <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
         <% elsif tutor_signed_in? %>
@@ -32,7 +32,7 @@
         <% elsif admin_signed_in? %>
         <li><%= link_to 'Adminログアウト', destroy_admin_session_path, method: :delete %></li>
         <% else %>
-        <li><%= link_to '高校生ログイン', new_user_session_path  %></li>
+        <li><%= link_to '高校生ログイン', new_user_session_path %></li>
         <li><%= link_to '大学生ログイン', new_tutor_session_path %></li>
         <% end %>
       </ul>
@@ -152,8 +152,8 @@
   <hr class="featurette-divider">
 
   <div class="featurette">
-    <img class="featurette-image img-circle pull-right" src="http://placehold.it/512">
-    <h2 class="featurette-heading">Responsive Design. <span class="text-muted">It'll blow your mind.</span></h2>
+    <img class="featurette-image img-circle pull-right" style="width:512px;height:512px;" src="/assets/0001.png">
+    <h2 class="featurette-heading">勉強を、記録する。 <span class="text-muted">It'll blow your mind.</span></h2>
     <p class="lead">In simple terms, a responsive web design figures out what resolution of device it's being served on. Flexible grids then size correctly to fit the screen.</p>
   </div>
 
@@ -161,7 +161,7 @@
 
   <div class="featurette">
     <img class="featurette-image img-circle pull-left" src="http://placehold.it/512">
-    <h2 class="featurette-heading">Smaller Footprint. <span class="text-muted">Lightweight.</span></h2>
+    <h2 class="featurette-heading">チューターを、選ぶ。 <span class="text-muted">Lightweight.</span></h2>
     <p class="lead">The new Bootstrap 3 promises to be a smaller build. The separate Bootstrap base and responsive.css files have now been merged into one. There is no more fixed grid, only fluid.</p>
   </div>
 
@@ -169,8 +169,8 @@
 
   <div class="featurette">
     <img class="featurette-image img-circle pull-right" src="http://placehold.it/512">
-    <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Flatness.</span></h2>
-    <p class="lead">A big design trend for 2013 is "flat" design. Gone are the days of excessive gradients and shadows. Designers are producing cleaner flat designs, and Bootstrap 3 takes advantage of this minimalist trend.</p>
+    <h2 class="featurette-heading">コメントを、もらう。 <br><span class="text-muted"><small>理想の先輩に相談しよう。</small></span></h2>
+    <p class="lead">週に１回、あなたが選択中のチューターからあなたの勉強の状況や、あなたが書いた自由コメントについてのアドバイスコメントが来ます。</p>
   </div>
 
   <hr class="featurette-divider">
