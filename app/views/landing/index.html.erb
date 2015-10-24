@@ -18,11 +18,7 @@
   <header>
     <nav class = "navbar navbar-default landing-nav ">
       <div class = "navbar-header navbar-item">
-        <% if user_signed_in? or tutor_signed_in? %>
-          <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
-        <% else %>
-          <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
-        <% end %>
+        <a class = "navbar-brand" href = "/"><img src="/assets/logo-black.png" height="100%"></a>
       </div>
       <ul class = "nav navbar-nav navbar-item" style="font-size:90%">
         <% if user_signed_in? %>
@@ -79,9 +75,9 @@
       <img src="/assets/pc132602.jpg" style="width:100%" class="img-responsive">
       <div class="container">
         <div class="carousel-caption">
-          <h1>Bootstrap 3 Carousel Layout</h1>
+          <h1>Study Concierge</h1>
           <p></p>
-          <p><a class="btn btn-lg btn-primary" href="http://getbootstrap.com">Learn More</a>
+          <p><a class="btn btn-lg btn-primary" href="#">仮登録する</a>
         </p>
         </div>
       </div>
@@ -90,9 +86,9 @@
       <img src="/assets/p7203300.jpg" class="img-responsive">
       <div class="container">
         <div class="carousel-caption">
-          <h1>Changes to the Grid</h1>
-          <p>Bootstrap 3 still features a 12-column grid, but many of the CSS class names have completely changed.</p>
-          <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
+          <h1>受験勉強にコンシェルジュを</h1>
+          <p>毎日勉強を頑張るあなたのモチベーションをサポートします。</p>
+          <p><a class="btn btn-large btn-primary" href="#">仮登録する</a></p>
         </div>
       </div>
     </div>
@@ -100,9 +96,9 @@
       <img src="/assets/i000_582.jpg" class="img-responsive">
       <div class="container">
         <div class="carousel-caption">
-          <h1>Percentage-based sizing</h1>
-          <p>With "mobile-first" there is now only one percentage-based grid.</p>
-          <p><a class="btn btn-large btn-primary" href="#">Browse gallery</a></p>
+          <h1>受験勉強だけじゃない</h1>
+          <p>将来の悩み、夢、やりたいこと、相談できる人がここにはいます。</p>
+          <p><a class="btn btn-large btn-primary" href="#">仮登録する</a></p>
         </div>
       </div>
     </div>
@@ -125,64 +121,148 @@
 <div class="container marketing">
 
   <!-- Three columns of text below the carousel -->
+  <h3 class="sample2 text-center" style="margin-top:20px;">Study Concierge の３つの特徴</h3>
+  <br>
   <div class="row">
     <div class="col-md-4 text-center">
-      <img class="img-circle" src="http://placehold.it/140x140">
-      <h2>Mobile-first</h2>
-      <p>Tablets, phones, laptops. The new 3 promises to be mobile friendly from the start.</p>
-      <p><a class="btn btn-default" href="#">View details »</a></p>
+      <div class="center-block circle" style="position:relative">
+        <p style="font-size:200%;position:absolute;top:28px;left:32px"><i class="fa fa-clock-o fa-3x"></i></p>
+      </div>
+      <h2>１日５分で振り返り</h2>
+      <p>１日１回、受験で使う科目の全てについて、どのくらいがんばったかという％と、コメントを記録できます。その日つまづいた点を記入しておくことができます。</p>
+      <!--<p><a class="btn btn-default" href="#">View details »</a></p>-->
     </div>
     <div class="col-md-4 text-center">
-      <img class="img-circle" src="http://placehold.it/140x140">
-      <h2>One Fluid Grid</h2>
-      <p>There is now just one percentage-based grid for Bootstrap 3. Customize for fixed widths.</p>
-      <p><a class="btn btn-default" href="#">View details »</a></p>
+      <div class="center-block circle" style="position:relative">
+        <p style="font-size:200%;position:absolute;top:24px;left:28px"><i class="fa fa-comments fa-3x"></i></p>
+      </div>
+      <h2>大学生からコメント</h2>
+      <p>１週間に１度、大学生からコメントが来ます。返信することも可能で、相談に乗ってもらうことができます。</p>
+      <!--<p><a class="btn btn-default" href="#">View details »</a></p>-->
     </div>
     <div class="col-md-4 text-center">
-      <img class="img-circle" src="http://placehold.it/140x140">
-      <h2>LESS is More</h2>
-      <p>Improved support for mixins make the new Bootstrap 3 easier to customize.</p>
-      <p><a class="btn btn-default" href="#">View details »</a></p>
+      <div class="center-block circle" style="position:relative">
+        <p style="font-size:200%;position:absolute;top:28px;left:42px"><i class="fa fa-lock fa-3x"></i></p>
+      </div>
+      <h2>選択中のチューター以外には非公開</h2>
+      <p>記入いただいた情報は選択中のチューター以外のユーザーに見られることはありません。</p>
+      <!--<p><a class="btn btn-default" href="#">View details »</a></p>-->
     </div>
   </div><!-- /.row -->
+  <br>
+　<div class="row" style="margin-top:50px">
+    <button class="col-md-8 col-md-offset-2 btn btn-default"><i class="fa fa-sign-in"></i> Study Conciergeに仮登録する</button>
+  </div>
 
-
+  <h3 class="sample2 text-center">Study Concierge の３つの機能</h3>
   <!-- START THE FEATURETTES -->
 
-  <hr class="featurette-divider">
+  
 
   <div class="featurette">
     <img class="featurette-image img-circle pull-right" style="width:512px;height:512px;" src="/assets/0001.png">
-    <h2 class="featurette-heading">勉強を、記録する。 <span class="text-muted">It'll blow your mind.</span></h2>
-    <p class="lead">In simple terms, a responsive web design figures out what resolution of device it's being served on. Flexible grids then size correctly to fit the screen.</p>
+    <h2 class="featurette-heading">① 勉強を、記録する。 <br><span class="text-muted"><small>あなたの現状を分析します。</small></span></h2>
+    <p class="lead">１日の終わりに、今日どんな勉強をどれだけやったのか記録しておきましょう。記録は力。後から振り返ることもでき効果的です。</p>
   </div>
 
   <hr class="featurette-divider">
 
   <div class="featurette">
-    <img class="featurette-image img-circle pull-left" src="http://placehold.it/512">
-    <h2 class="featurette-heading">チューターを、選ぶ。 <span class="text-muted">Lightweight.</span></h2>
-    <p class="lead">The new Bootstrap 3 promises to be a smaller build. The separate Bootstrap base and responsive.css files have now been merged into one. There is no more fixed grid, only fluid.</p>
+    <img class="featurette-image img-circle pull-left" style="width:512px;height:512px;" src="/assets/0003.png">
+    <h2 class="featurette-heading">② チューターを、選ぶ。 <br><span class="text-muted"><small>話を聞きたい人を選ぼう。</small></span></h2>
+    <p class="lead">チューターを選びましょう。行きたい大学に通ってる、将来の夢が似てる、面白そうなことをしてる、理由は何でも構いません。選んだチューターはあなたの毎日を支えてくれます。チューターは何度でも変更可能です。目標となる先輩を見つけてみてください。</p>
   </div>
 
   <hr class="featurette-divider">
 
   <div class="featurette">
-    <img class="featurette-image img-circle pull-right" src="http://placehold.it/512">
-    <h2 class="featurette-heading">コメントを、もらう。 <br><span class="text-muted"><small>理想の先輩に相談しよう。</small></span></h2>
-    <p class="lead">週に１回、あなたが選択中のチューターからあなたの勉強の状況や、あなたが書いた自由コメントについてのアドバイスコメントが来ます。</p>
+    <img class="featurette-image img-circle pull-right" style="width:512px;height:512px;" src="/assets/0002.png">
+    <h2 class="featurette-heading">③ コメントを、もらう。 <br><span class="text-muted"><small>理想の先輩に相談しよう。</small></span></h2>
+    <p class="lead">週に１回、あなたが選択中のチューターからあなたの勉強の状況や、あなたが書いた自由コメントについてのアドバイスコメントが来ます。やりとりは交互に合計７通までできます。</p>
   </div>
 
-  <hr class="featurette-divider">
+  <h3 class="sample2 text-center">ご利用シーン</h3>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-xs-12">
+        <img src="/assets/0004.png" height="200px" class="center-block">
+      </div>
+      <div class="col-md-8 col-xs-12">
+        <h3 class="text-center"><strong>〜受験勉強のサポートに〜</strong></h3>
+        <br>
+        <p style="font-size:18px;">&nbsp;&nbsp;Study Concierge の大学生チューターは東京大学・早稲田大学・慶應義塾大学をはじめとする有名大学の学生が揃っております。その中から自分に合ったチューターを見つけていただき、週１回のコメントのやり取りを通じて学習計画をたてたり、わからないところを質問していただくことができます。</p>
+      </div>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="col-md-8 col-xs-12">
+        <h3 class="text-center"><strong>〜将来の夢を見つけるために〜</strong></h3>
+        <br>
+        <p style="font-size:18px;">&nbsp;&nbsp;Study Concierge で選択できるチューターの紹介欄には、全員「将来の夢」「最近やっていること」を簡単に書いてもらっています。チューターを選び、やりとりする中で「こんなことができるんだ！」という発見をすることができると思います。それが将来の夢やキャリアを選ぶ上での参考になれば幸いです。</p>
+      </div>
+      <div class="col-md-4 col-xs-12">
+        <img src="/assets/0005.png" height="200px" class="center-block">
+      </div>
+    </div>
+    <hr>
+    <br>
+    <div class="row">
+      <div class="col-md-4 col-xs-12">
+        <img src="/assets/0006.png" height="200px" class="center-block">
+      </div>
+      <div class="col-md-8 col-xs-12">
+        <h3 class="text-center"><strong>〜大学入学後のイメージを掴むために〜</strong></h3>
+        <br>
+        <p style="font-size:18px;">&nbsp;&nbsp;高校と大学は全く異なる環境です。その変化の大きさに不安を感じる方もいるかもしれません。そのようなときは、遠慮なくチューターに聞いてみてください。授業、サークル、バイトなど、大学生の生活を構成するいろいろな面について教えてくれることと思います。</p>
+      </div>
+    </div>
+  </div>
+  
+
 
   <!-- /END THE FEATURETTES -->
 
+  <h3 class="sample2 text-center">ご利用料金システム</h3>
+  <div style="height:500px;">
 
+    <!--<table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>機能</th>
+          <th>プランA</th>
+          <th>プランB</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>記録</th>
+          <td>◯</td>
+          <td>ウェブページの作成に使用される言語です。</td>
+        </tr>
+        <tr>
+          <td class="css-title">CSS</td>
+          <td>CSSは、HTMLと組み合わせて使用され、それを装飾する言語です。</td>
+        </tr>
+        <tr>
+          <td class="php-title">PHP</td>
+          <td>PHPはHTMLにプログラムを埋め込む言語です。</td>
+        </tr>
+      </tbody>
+    </table>-->
+  </div>
+
+  
+  
   <!-- FOOTER -->
 </div>
 <footer id="footer" style="background-image:url(<%= asset_path "textured_paper.png" %>);">
     <div class="container">
-        <div class="row">
+      <a href="#" class="btn btn-default" data-toggle="modal" data-target="#sampleModal">
+        <i class="fa fa-envelope-o fa-fw"></i> お問い合わせ
+      </a>
+        <!--<div class="row">
             <div class="col-xs-6 col-sm-6 col-md-3 column">
                 <h4>Information</h4>
                 <ul class="nav">
@@ -219,7 +299,7 @@
                     <li><a href="#">Terms &amp; Conditions</a></li>
                 </ul>
             </div>
-        </div>
+        </div>-->
         <!--/row-->
         <br>
         <p class="text-right" style="color:#34495e;font-size:8px;"><small>Copyright © 2015 StudyConcierge運営チーム All Rights Reserved.</small></p>
