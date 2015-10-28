@@ -37,4 +37,21 @@ class Tutor < ActiveRecord::Base
   def not_first_login?
     !self.id.nil?
   end
+
+  def previous
+    if Tutor.where("id < ?", self.id).order("id DESC").first
+      Tutor.where("id < ?", self.id).order("id DESC").first
+    else
+      Tutor.order("id ASC").first
+    end
+  end
+ 
+  def next
+    if Tutor.where("id > ?", self.id).order("id ASC").first
+      Tutor.where("id > ?", self.id).order("id ASC").first
+    else
+      Tutor.order("id ASC").last
+    end
+  end
+
 end

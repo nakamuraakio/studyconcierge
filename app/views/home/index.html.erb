@@ -2,16 +2,18 @@
   <div class="row row-offcanvas row-offcanvas-left">
     <div class="menu col-md-3 hidden-xs">
       <%= render 'home/menu' %>
-      <div class="panel panel-default">
-      <table class="table table-bordered table-striped" style="font-size: 8pt">
-      <tbody class="row">
-        <div style="text-align:center; margin-bottom: 20px;margin-top:20px;">
+      <div style="text-align:center; margin-bottom: 20px;margin-top:20px;">
         <% if current_user.photo == "" %>
-          <%= image_tag '1310.png', :height => '120', :width => '120', :class=> 'img-circle' %>
+          <%= image_tag '1310.png', :height => '100%', :class=> 'img-circle' %>
         <% else %>
           <%= image_tag url_for(:controller => 'users/registrations', :action => 'photo', :id => current_user.id), :height => '120', :width => '120', :class => 'img-circle' %>
         <% end %>
-        </div>
+      </div>
+      <div class="panel panel-default">
+
+      <table class="table table-bordered table-striped" style="font-size: 8pt">
+      <tbody class="row">
+        
       <tr>
         <th class="col-md-4">Email</th>
         <td class="col-md-8"><%= current_user.email %></td>
@@ -126,7 +128,7 @@
           </div>
           <div class="col-xs-3 col-md-2 text-center top-menu-item">
             <p>チューター</p>
-            <p>
+            <p style="margin:0;">
               <% if current_user.tutor.nil? %>
                 <small>未選択</small>
               <% else %>
@@ -141,11 +143,11 @@
           </div>
           <div class="col-xs-3 col-md-2 text-center top-menu-item">
             <p>コメント</p>
-            <p>
+            <p style="position:relative;">
               <% if @unread_messages != 0 %>
                 <%= link_to summaries_path do %>
                   <i class="fa fa-comment-o fa-3x fa-gray"></i>
-                  <span class="badge badge-red"><%= @unread_messages %></span>
+                  <span class="badge badge-red" style="position:absolute;top:20px;left:60px;"><%= @unread_messages %></span>
                 <% end %>
               <% else %>
                 <%= link_to summaries_path do %>
@@ -157,7 +159,7 @@
         </div>
       </div>
       
-      <h3>タイムライン</h3>
+      <h3 class="heading-shadow">タイムライン</h3>
       <ul class="timeline">
           <% # will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
 
@@ -191,7 +193,7 @@
           </li>
           <% else %>
           <li class="timeline-inverted">
-            <% if user_event.event_type == 1 || 7 %>
+            <% if user_event.event_type == 1 %>
               <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
             <% elsif user_event.event_type == 2 %>
               <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
@@ -225,8 +227,6 @@
 
   </div>
 </div>
-
-
 
 
 

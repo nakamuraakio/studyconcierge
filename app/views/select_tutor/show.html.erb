@@ -7,8 +7,14 @@
     <%= render 'home/hidden_menu' %>
   </div>
 
-  <div class = "col-md-9">
+  <div class = "col-md-7">
     <h3>チュータープロフィール</h3>
+
+    <div style="width:100%;">
+      <%= link_to url_for(:controller => 'select_tutor', :action => 'show', :id => @tutor.previous.id), class: 'pull-left' do %><button class="btn btn-default" style="height:30px">前のチューターへ</button><% end %>
+
+      <%= link_to url_for(:controller => 'select_tutor', :action => 'show', :id => @tutor.next.id), class: 'pull-right' do %><button class="btn btn-default" style="height:30px">次のチューターへ</button><% end %>
+    </div>
 
     <div style="text-align:center; margin-bottom: 20px;">
       <% if @tutor.photo == "" %>
@@ -17,40 +23,42 @@
         <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => @tutor.id), :height => '120', :width => '120', :class => 'img-circle' %>
       <% end %>
     </div>
+
+    
     
     <div class="container-fluid panel panel-default">
       
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">名前</div>
-          <div class="col-md-10"><%= @tutor.name %></div>
+          <div class="col-md-3">名前</div>
+          <div class="col-md-9"><%= @tutor.name %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">大学・学部・学年</div>
-          <div class="col-md-10"><%= @tutor.university %></div>
+          <div class="col-md-3">大学・学部・学年</div>
+          <div class="col-md-9"><%= @tutor.university %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">出身地</div>
-          <div class="col-md-10"><%= @tutor.prefecture %><%= @tutor.is_from %></div>
+          <div class="col-md-3">出身地</div>
+          <div class="col-md-9"><%= @tutor.prefecture %><%= @tutor.is_from %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">出身高校</div>
-          <div class="col-md-10"><%= @tutor.highschool %></div>
+          <div class="col-md-3">出身高校</div>
+          <div class="col-md-9"><%= @tutor.highschool %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">最近こんなことしてます</div>
-          <div class="col-md-10"><%= simple_format(@tutor.nowadays) %></div>
+          <div class="col-md-3">最近こんなことしてます</div>
+          <div class="col-md-9"><%= simple_format(@tutor.nowadays) %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">夢</div>
-          <div class="col-md-10"><%= simple_format(@tutor.dream) %></div>
+          <div class="col-md-3">夢</div>
+          <div class="col-md-9"><%= simple_format(@tutor.dream) %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">運営からの紹介</div>
-          <div class="col-md-10"><%= simple_format(@tutor.intro) %></div>
+          <div class="col-md-3">運営からの紹介</div>
+          <div class="col-md-9"><%= simple_format(@tutor.intro) %></div>
         </div>
         <div class="row select_tutor_show_row">
-          <div class="col-md-2">担当曜日</div>
-          <div class="col-md-10">
+          <div class="col-md-3">担当曜日</div>
+          <div class="col-md-9">
             <% case @tutor.available_day %>
               <% when 0 then %>
                 日曜日
@@ -70,8 +78,8 @@
           </div>
         </div>
         <div class="row select_tutor_show_row" style="border-bottom:none;">
-          <div class="col-md-2">受験で使った科目</div>
-          <div class="col-md-10">
+          <div class="col-md-3">受験で使った科目</div>
+          <div class="col-md-9">
             <% @subjects.each do |subject| %>
               <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
                 <span class = "label label-danger"><%= subject %></span>
@@ -113,3 +121,4 @@
   </div>
 </div>
 </div>
+<br>

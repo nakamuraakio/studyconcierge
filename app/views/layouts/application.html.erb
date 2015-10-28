@@ -20,11 +20,7 @@
     <nav class = "navbar navbar-default container-fluid">
       
         <div class = "navbar-header navbar-item-logo">
-          <% if user_signed_in? or tutor_signed_in? %>
-            <a class = "navbar-brand" href = "/" style="block"><strong>StudyConcierge</strong></a>
-          <% else %>
-            <a class = "navbar-brand" href = "/"><strong>StudyConcierge</strong></a>
-          <% end %>
+          <a class = "navbar-brand" href = "/"><img src="/assets/logo-black.png" height="100%"></a>
         </div>
         <div class="visible-xs navbar-item-toggle">
           <a href="#" class="" data-toggle="offcanvas"><i class="fa fa-bars fa-2x fa-gray"></i></a>

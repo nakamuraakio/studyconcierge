@@ -72,7 +72,7 @@
         </b>
         <%= f.radio_button :tutor_id, 0 %>
       </div>
-      <%= f.submit "更新", data: { confirm: '更新しますか？' }, :class => 'btn btn-success pull-left col-md-8 col-xs-5 col-sm-8' %>
+      <%= f.submit "更新", data: { confirm: '更新しますか？', disable_with: "送信中..." }, :class => 'btn btn-success pull-left col-md-8 col-xs-5 col-sm-8' %>
     </div>
     <div class="tutor-table-association">
     <% @tutors.each do |tutor| %>
