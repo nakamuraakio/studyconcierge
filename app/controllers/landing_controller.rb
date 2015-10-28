@@ -1,5 +1,5 @@
 class LandingController < ApplicationController
-  http_basic_authenticate_with :name => "akio", :password => "111", only: :index
+  #http_basic_authenticate_with :name => "akio", :password => "111", only: :index
   layout false
   def index
   	if current_user
