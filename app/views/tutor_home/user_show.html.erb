@@ -77,13 +77,14 @@
 </tr>
 <tr>
   <td>合計勉強時間</td>
-  <td><%= @total_studytime %>時間</td>
+  <td><%= (@total_studytime.to_f / 60).round(1)  %>時間</td>
 </tr>
 <tr>
   <td>科目別勉強時間</td>
   <td>
     <% @subjects.each do |subject, studytime| %>
       <p>
+      <% studytime = (studytime.to_f / 60).round(1) %>
       <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
         <span class = "label label-danger"><%= subject %></span>
       <% elsif subject == '英語' %>

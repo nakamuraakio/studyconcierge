@@ -3,69 +3,111 @@ class HomeController < ApplicationController
   before_action :check_profile
 
   def index
-
+    @subjects = []
     #各科目の勉強時間の取得
     @reports = Report.where(user_id: current_user)
+
     @total_studytime = 0
-    japanese_studytime = 0
-    old_japanese_studytime = 0
-    old_chinese_studytime = 0
-    english_studytime = 0
-    math_studytime = 0
-    physics_studytime = 0
-    chemistry_studytime = 0
-    biology_studytime = 0
-    geology_studytime = 0
-    world_history_studytime = 0
-    japanese_history_studytime = 0
-    politics_and_economics_studytime = 0
-    modern_society_studytime = 0
-    ethics_studytime = 0
-    geography_studytime = 0
+
+##########　総計の計算 ############
+    subject_hash.each do |key, value|
+      eval("@#{key}_studytime = 0")
+    end
+
     @reports.each do |report|
       @total_studytime += report.average_studytime
-      japanese_studytime += get_studytime(report, report.japanese_percentage)
-      old_japanese_studytime += get_studytime(report, report.old_japanese_percentage)
-      old_chinese_studytime += get_studytime(report, report.old_chinese_percentage)
-      english_studytime += get_studytime(report, report.english_percentage)
-      math_studytime += get_studytime(report, report.math_percentage)
-      physics_studytime += get_studytime(report, report.physics_percentage)
-      chemistry_studytime += get_studytime(report, report.chemistry_percentage)
-      biology_studytime += get_studytime(report, report.biology_percentage)
-      geology_studytime += get_studytime(report, report.geology_percentage)
-      world_history_studytime += get_studytime(report, report.world_history_percentage)
-      japanese_history_studytime += get_studytime(report, report.japanese_history_percentage)
-      politics_and_economics_studytime += get_studytime(report, report.politics_and_economics_percentage)
-      modern_society_studytime += get_studytime(report, report.modern_society_percentage)
-      ethics_studytime += get_studytime(report, report.ethics_percentage)
-      geography_studytime += get_studytime(report, report.geography_percentage)
+      subject_hash.each do |key, value|
+        eval("@#{key}_studytime += report.#{key}_percentage")
+      end
     end
-    @subjects = {}
-
+    @subjects[0] = {}
+    
     #科目ごとの「科目　=>　時間」なる連想配列を作成
     unless current_user.subject.nil?
-      check_subjects(@subjects, current_user.subject.japanese, '現代文', japanese_studytime)
-      check_subjects(@subjects, current_user.subject.old_japanese, '古文', old_japanese_studytime)
-      check_subjects(@subjects, current_user.subject.old_chinese, '漢文', old_chinese_studytime)
-      check_subjects(@subjects, current_user.subject.english, '英語', english_studytime)
-      check_subjects(@subjects, current_user.subject.math, '数学', math_studytime)
-      check_subjects(@subjects, current_user.subject.physics, '物理', physics_studytime)
-      check_subjects(@subjects, current_user.subject.chemistry, '化学', chemistry_studytime)
-      check_subjects(@subjects, current_user.subject.biology, '生物', biology_studytime)
-      check_subjects(@subjects, current_user.subject.geology, '地学', geology_studytime)
-      check_subjects(@subjects, current_user.subject.world_history, '世界史', world_history_studytime)
-      check_subjects(@subjects, current_user.subject.japanese_history, '日本史', japanese_history_studytime)
-      check_subjects(@subjects, current_user.subject.politics_and_economics, '政治経済', politics_and_economics_studytime)
-      check_subjects(@subjects, current_user.subject.modern_society, '現代社会', modern_society_studytime)
-      check_subjects(@subjects, current_user.subject.ethics, '倫理', ethics_studytime)
-      check_subjects(@subjects, current_user.subject.geography, '地理', geography_studytime)
+      subject_hash.each do |key, value|
+        eval("check_subjects(@subjects[0], current_user.subject.#{key}, '#{value}', @#{key}_studytime)")
+      end
+    end
+####################################
+###########　今日のデータ　###########
+    @report_today = Report.where("created_at >= ? AND user_id = ?", Time.zone.now.beginning_of_day, current_user.id).first
+    @report_today ||= Report.new
+
+    subject_hash.each do |key, value|
+      eval("@#{key}_studytime_of_day = 0")
     end
 
+    subject_hash.each do |key, value|
+      eval("@#{key}_studytime_of_day += @report_today.#{key}_percentage")
+    end
+    @subjects[1] = {}
     
+    #科目ごとの「科目　=>　時間」なる連想配列を作成
+    unless current_user.subject.nil?
+      subject_hash.each do |key, value|
+        eval("check_subjects(@subjects[1], current_user.subject.#{key}, '#{value}', @#{key}_studytime_of_day)")
+      end
+    end
+
+####################################
+###########　今週のデータ　###########
+    @subjects_this_week = {}
+    @total_studytime_of_week = 0
+    @reports_this_week = Report.where("created_at >= ? AND user_id = ?", Time.zone.now.beginning_of_week, current_user.id)
+    @reports_this_week ||= Report.new
+
+    subject_hash.each do |key, value|
+      eval("@#{key}_studytime_of_week = 0")
+    end
+
+    @reports_this_week.each do |report|
+      @total_studytime_of_week += report.average_studytime
+      subject_hash.each do |key, value|
+        eval("@#{key}_studytime_of_week += report.#{key}_percentage")
+      end
+    end
+    @subjects[2] = {}
+    
+    #科目ごとの「科目　=>　時間」なる連想配列を作成
+    unless current_user.subject.nil?
+      subject_hash.each do |key, value|
+        eval("check_subjects(@subjects[2], current_user.subject.#{key}, '#{value}', @#{key}_studytime_of_week)")
+      end
+    end
+
+####################################
+###########　今月のデータ　###########
+    @subjects_this_month = {}
+    @total_studytime_of_month = 0
+    @reports_this_month = Report.where("created_at >= ? AND user_id = ?", Time.zone.now.beginning_of_month, current_user.id)
+    @reports_this_month ||= Report.new
+
+    subject_hash.each do |key, value|
+      eval("@#{key}_studytime_of_month = 0")
+    end
+
+    @reports_this_month.each do |report|
+      @total_studytime_of_month += report.average_studytime
+      subject_hash.each do |key, value|
+        eval("@#{key}_studytime_of_month += report.#{key}_percentage")
+      end
+    end
+    @subjects[3] = {}
+    
+    #科目ごとの「科目　=>　時間」なる連想配列を作成
+    unless current_user.subject.nil?
+      subject_hash.each do |key, value|
+        eval("check_subjects(@subjects[3], current_user.subject.#{key}, '#{value}', @#{key}_studytime_of_month)")
+      end
+    end
+
+####################################
 
     #未読メッセージの件数を取得
     @comments = Comment.where(user_id: current_user.id)
+
     @user_events = UserEvent.where(user_id: current_user.id).paginate(:page => params[:page], :per_page => 10).order('created_at DESC')
+
     @unread_messages = 0
     @comments.each do |comment|
       if !comment.read_flag && !comment.created_by_user
@@ -79,10 +121,10 @@ class HomeController < ApplicationController
     end    
     
     #指導中の学生が存在し、もし今日が指導日だったら、学生の報告を自動作成し、両者のタイムラインに表示
-    summary_already_made = Summary.where(name: "#{Date.today}作成の記録まとめ", user_id: current_user.id)
-    if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && !summary_already_made.exists?
+    summary_already_made = Summary.where("created_at >= ? AND user_id = ?", Time.zone.now.beginning_of_day, current_user.id).first
+    if current_user.tutor && !current_user.tutor_request_exists && current_user.tutor.available_day == Date.today.wday && summary_already_made.nil?
       #もし前回の報告から7日経過してなければ自動作成しない
-      if summary_already_made.last.nil? || summary_already_made.order('created_at').last.created_at + 7.days <= Date.today
+      if summary_already_made.nil? || summary_already_made.created_at + 7.days <= Date.today
         @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => current_user.id, :tutor_id => current_user.tutor_id)
         @reports = Report.where('user_id = ? AND created_at >= ? AND created_at < ?', current_user.id, Date.today - 7.days, Date.today).order("created_at DESC")
         @summary.reports << @reports
@@ -104,12 +146,74 @@ class HomeController < ApplicationController
     else
       #render :index
     end
+    #byebug
   end
+
+  def study
+    @report = Report.where("created_at >= ? AND user_id = ?", Time.zone.now.beginning_of_day, current_user.id).first
+    @report ||= Report.new
+    @subject_attribute = params[:subject_attribute]
+
+    @timer_already_moving = false
+    
+    if current_user.studying_flag == false
+      current_user.update(studying_flag: true, studying_subject_attribute: @subject_attribute, studying_started_at: Time.now)
+    else
+      @timer_already_moving = true
+    end
+
+    @h = (Time.now - current_user.studying_started_at).to_i.divmod(3600)
+    @m = @h[1].to_i.divmod(60)
+    @s = @m[1]
+
+    #byebug
+
+    case @subject_attribute.to_i
+    when 1 then
+      @text = "現代文"
+    when 2 then
+      @text = "古文"
+    when 3 then
+      @text = "漢文"
+    when 4 then
+      @text = "英語"
+    when 5 then
+      @text = "数学"
+    when 6 then
+      @text = "物理"
+    when 7 then
+      @text = "化学"
+    when 8 then
+      @text = "生物"
+    when 9 then
+      @text = "地学"
+    when 10 then
+      @text = "世界史"
+    when 11 then
+      @text = "日本史"
+    when 12 then
+      @text = "地理"
+    when 13 then
+      @text = "政治経済"
+    when 14 then
+      @text = "倫理"
+    when 15 then
+      @text = "現代社会"
+    end
+  end
+
+  def stop
+    current_user.update(studying_flag: false, studying_subject_attribute: 0, studying_started_at: nil)
+    redirect_to home_index_path
+  end
+
+  
 
   private
   #報告する科目について、「科目=>時間」の連想配列を作成
     def check_subjects(array, element, subject_name, studytime)
       if element == true
+        studytime = studytime.to_f / 60
       	return array[subject_name] = (sprintf "%.1f",studytime)
       end
     end

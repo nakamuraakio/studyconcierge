@@ -19,9 +19,10 @@ class Report < ActiveRecord::Base
   validates :ethics_comment, length: { maximum: 140 }
   validates :geography_comment, length: { maximum: 140 }
   validates :free_comment, length: { maximum: 500 }
+  validates_presence_of :japanese_percentage, :old_japanese_percentage, :old_chinese_percentage, :english_percentage, :math_percentage, :physics_percentage, :chemistry_percentage, :biology_percentage, :geology_percentage, :world_history_percentage, :japanese_history_percentage, :politics_and_economics_percentage, :modern_society_percentage, :ethics_percentage, :geography_percentage, {:message => '空欄の「時間」が存在します。'}
 
   
-  validate :sum_equals_100
+  #validate :sum_equals_100
   def sum_equals_100
     percentage_array = [japanese_percentage, old_japanese_percentage, old_chinese_percentage, english_percentage, math_percentage, physics_percentage, chemistry_percentage, biology_percentage, geology_percentage, world_history_percentage, japanese_history_percentage, politics_and_economics_percentage, modern_society_percentage, ethics_percentage, geography_percentage]
     if percentage_array.inject(:+) != 100

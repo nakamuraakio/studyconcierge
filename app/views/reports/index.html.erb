@@ -12,17 +12,23 @@
 
 
 <div class = "col-md-8">
-<%= month_calendar events: @user_events do |date, user_events| %>
+<%= month_calendar events: @events do |date, events| %>
   <%= date %>
-  <% user_events.each do |user_event| %>
-    <% if user_event.event_type == 1 %>
-      <%= link_to user_event.link, class: 'hidden-xs' do %><button class="btn btn-warning btn-xs calendar-item">記録しました。</button><% end %>
-      <%= link_to user_event.link, class: 'visible-xs' do %><button class="btn btn-warning btn-xs calendar-item">記録</button><% end %>
-    <% elsif user_event.event_type == 7 %>
-      <%= link_to user_event.link, class: 'hidden-xs' do %><button class="btn btn-info btn-xs calendar-item">報告しました。</button><% end %>
-      <%= link_to user_event.link, class: 'visible-xs' do %><button class="btn btn-info btn-xs calendar-item">報告</button><% end %>
+  <% event1 = false %><% event7 = false %>
+  <% events.each do |event| %>
+    <% if event.event_type == 1 && event1 == false %>
+      <% event1 = true %>
+      <%= link_to event.link, class: 'hidden-xs' do %><button class="btn btn-warning btn-xs calendar-item-report">記録しました。</button><% end %>
+      <%= link_to event.link, class: 'visible-xs' do %><button class="btn btn-warning btn-xs calendar-item-report">記録</button><% end %>
+    <% elsif event.event_type == 7 && event7 == false %>
+      <% event7 = true %>
+      <%= link_to event.link, class: 'hidden-xs' do %><button class="btn btn-info btn-xs calendar-item-summary">報告しました。</button><% end %>
+      <%= link_to event.link, class: 'visible-xs' do %><button class="btn btn-info btn-xs calendar-item-summary">報告</button><% end %>
     <% end %>
   <% end %>
+
+
+  
 <% end %>
 
 <!--

@@ -37,7 +37,7 @@ class TutorHomeController < ApplicationController
         @summary = Summary.new(:name => "#{Date.today}作成の記録まとめ", :user_id => user.id, :tutor_id => current_tutor.id)
         @reports = Report.where('user_id = ? AND created_at >= ?', user.id, Date.today - 7.days).order("created_at DESC")
         @summary.reports << @reports
-        @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: user.id, event_type: 1)
+        @user_event = UserEvent.new(status: '勉強記録のまとめを作成し、報告しました。', user_id: user.id, event_type: 7)
         @tutor_event = TutorEvent.new(status: "#{user.name}さんが勉強記録を報告しました。", tutor_id: current_tutor.id, event_type: 1)
         flash.now[:info] << "#{user.name}さんが勉強記録を報告しました。"
         if @summary.save
@@ -104,21 +104,21 @@ class TutorHomeController < ApplicationController
     geography_studytime = 0
     @reports.each do |report|
       @total_studytime += report.average_studytime
-      japanese_studytime += get_studytime(report, report.japanese_percentage)
-      old_japanese_studytime += get_studytime(report, report.old_japanese_percentage)
-      old_chinese_studytime += get_studytime(report, report.old_chinese_percentage)
-      english_studytime += get_studytime(report, report.english_percentage)
-      math_studytime += get_studytime(report, report.math_percentage)
-      physics_studytime += get_studytime(report, report.physics_percentage)
-      chemistry_studytime += get_studytime(report, report.chemistry_percentage)
-      biology_studytime += get_studytime(report, report.biology_percentage)
-      geology_studytime += get_studytime(report, report.geology_percentage)
-      world_history_studytime += get_studytime(report, report.world_history_percentage)
-      japanese_history_studytime += get_studytime(report, report.japanese_history_percentage)
-      politics_and_economics_studytime += get_studytime(report, report.politics_and_economics_percentage)
-      modern_society_studytime += get_studytime(report, report.modern_society_percentage)
-      ethics_studytime += get_studytime(report, report.ethics_percentage)
-      geography_studytime += get_studytime(report, report.geography_percentage)
+      japanese_studytime += report.japanese_percentage
+      old_japanese_studytime += report.old_japanese_percentage
+      old_chinese_studytime += report.old_chinese_percentage
+      english_studytime += report.english_percentage
+      math_studytime += report.math_percentage
+      physics_studytime += report.physics_percentage
+      chemistry_studytime += report.chemistry_percentage
+      biology_studytime += report.biology_percentage
+      geology_studytime += report.geology_percentage
+      world_history_studytime += report.world_history_percentage
+      japanese_history_studytime += report.japanese_history_percentage
+      politics_and_economics_studytime += report.politics_and_economics_percentage
+      modern_society_studytime += report.modern_society_percentage
+      ethics_studytime += report.ethics_percentage
+      geography_studytime += report.geography_percentage
     end
     @subjects = {}
 

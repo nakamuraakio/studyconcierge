@@ -1,6 +1,14 @@
-<h1>Editing Report</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @report %> |
-<%= link_to 'Back', reports_path %>
+<div class="container-fluid">
+    <div class="row row-offcanvas row-offcanvas-left">
+		<div class="menu col-md-3 hidden-xs">
+			<%= render 'home/menu' %>
+		</div>
+		<div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+		  <%= render 'home/menu' %>
+		</div>
+		<div class="col-md-7">
+			<h3>【<%= Date.today %>】記録を編集する</h3>
+			<%= render 'form'%>
+		</div>
+	</div>
+</div>

@@ -7,7 +7,16 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/app_admin', as: 'rails_admin'
   resources :summaries, :only => [:create, :index, :show]
   resources :comments, :only => [:create, :destroy]
-  resources :reports
+  resources :reports do
+    member do
+      patch 'update_via_timer'
+    end
+
+    collection do
+      post 'update_via_timer'
+    end
+
+  end
   get 'select_tutor/index'
   get 'select_tutor/show/:id' => 'select_tutor#show'
 
@@ -36,6 +45,8 @@ Rails.application.routes.draw do
   end
   
   get 'home/index'
+  get 'home/study'
+  patch 'home/stop'
   get 'tutor_home/index'
   get 'tutor_home/user_index'
   get 'tutor_home/user_show/:id' => 'tutor_home#user_show'

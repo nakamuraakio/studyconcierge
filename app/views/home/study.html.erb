@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="menu col-md-3 hidden-xs">
+      <%= render 'home/menu' %>
+    </div>
+    <div class="col-xs-6 visible-xs sidebar-offcanvas" id="sidebar" role="navigation">
+      <%= render 'home/menu' %>
+    </div>
+    <div class="col-xs-12 col-md-9">
+      <h3 class="text-center"><%= @text %>を勉強中...</h3>
+      <p class="text-center" style="font-size:25px;width:100%;"><span class="num" id="clock"></span></p>
+      <%= form_for_report(@report.new_record?) do |f| %>
+        <!--
+        <button class="btn btn-warning btn-lg" style="width:100%;margin-bottom:20px;" id="stop">一時停止</button>
+        <button class="btn btn-success btn-lg" style="width:100%;margin-bottom:20px;" id="restart">再開</button>
+        -->
+        <%= f.submit "記録して終了", class: 'btn btn-danger btn-lg', style: 'width:100%;margin-bottom:20px;' %>
+        <%= link_to url_for(controller: "home", action: "stop"), method: :patch do %><button class="btn btn-default btn-lg" style="width:100%;margin-bottom:20px">記録しないで終了</button><% end %>
+      
+        <% case @subject_attribute.to_i %>
+        <% when 1 then %>
+          <%= f.hidden_field :japanese_percentage, :class => 'study_time', :value => @report.japanese_percentage %>
+          <%= f.text_area :japanese_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "現代文のコメント" %>
+        <% when 2 then %>
+          <%= f.hidden_field :old_japanese_percentage, :class => 'study_time', :value => @report.old_japanese_percentage %>
+          <%= f.text_area :old_japanese_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "古文のコメント" %>
+        <% when 3 then %>
+          <%= f.hidden_field :old_chinese_percentage, :class => 'study_time', :value => @report.old_chinese_percentage %>
+          <%= f.text_area :old_chinese_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "漢文のコメント" %>
+        <% when 4 then %>
+          <%= f.hidden_field :english_percentage, :class => 'study_time', :value => @report.english_percentage %>
+          <%= f.text_area :english_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "英語のコメント" %>
+        <% when 5 then %>
+          <%= f.hidden_field :math_percentage, :class => 'study_time', :value => @report.math_percentage %>
+          <%= f.text_area :math_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "数学のコメント" %>
+        <% when 6 then %>
+          <%= f.hidden_field :physics_percentage, :class => 'study_time', :value => @report.physics_percentage %>
+          <%= f.text_area :physics_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "物理のコメント" %>
+        <% when 7 then %>
+          <%= f.hidden_field :chemistry_percentage, :class => 'study_time', :value => @report.chemistry_percentage %>
+          <%= f.text_area :chemistry_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "化学のコメント" %>
+        <% when 8 then %>
+          <%= f.hidden_field :biology_percentage, :class => 'study_time', :value => @report.biology_percentage %>
+          <%= f.text_area :biology_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "生物のコメント" %>
+        <% when 9 then %>
+          <%= f.hidden_field :geology_percentage, :class => 'study_time', :value => @report.geology_percentage %>
+          <%= f.text_area :geology_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "地学のコメント" %>
+        <% when 10 then %>
+          <%= f.hidden_field :world_history_percentage, :class => 'study_time', :value => @report.world_history_percentage %>
+          <%= f.text_area :world_history_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "世界史のコメント" %>
+        <% when 11 then %>
+          <%= f.hidden_field :japanese_history_percentage, :class => 'study_time', :value => @report.japanese_history_percentage %>
+          <%= f.text_area :japanese_history_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "日本史のコメント" %>
+        <% when 12 then %>
+          <%= f.hidden_field :geography_percentage, :class => 'study_time', :value => @report.geography_percentage %>
+          <%= f.text_area :geography_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "地理のコメント" %>
+        <% when 13 then %>
+          <%= f.hidden_field :politics_and_economics_percentage, :class => 'study_time', :value => @report.politics_and_economics_percentage %>
+          <%= f.text_area :politics_and_economics_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "政治経済のコメント" %>
+        <% when 14 then %>
+          <%= f.hidden_field :ethics_percentage, :class => 'study_time', :value => @report.ethics_percentage %>
+          <%= f.text_area :ethics_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "倫理のコメント" %>
+        <% when 15 then %>
+          <%= f.hidden_field :modern_society_percentage, :class => 'study_time', :value => @report.modern_society_percentage %>
+          <%= f.text_area :modern_society_comment, :class => 'form-control', :style => 'height:200px;margin-bottom:20px;', :placeholder => "現代社会のコメント" %>
+        <% end %>
+        <span>※ページを離れると記入内容はリセットされますのでご注意下さい</span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  var sec = Number(<%= @s %>);
+  var min = Number(<%= @m[0] %>);
+  var hour = Number(<%= @h[0] %>);
+
+  var timer;
+  var flg = true;
+
+  // スタート
+  $(document).ready(function() {
+    // 開始時刻との差から開始
+    
+    $('#clock').html(("0" + hour).slice(-2) + ':' + ("0" + min).slice(-2) + ':' + ("0" + sec).slice(-2));
+    $('.study_time').val(0).val(<%= (Time.now - current_user.studying_started_at).to_i %>)
+    //$('#restart').attr('disabled', 'disabled');
+    clearInterval(timer);
+    //if(<%= @timer_already_moving %> == false){
+    timer = setInterval(countup, 1000);
+    //}
+    
+
+    //$(this).attr('disabled', 'disabled');
+    //$('#stop,#reset').removeAttr('disabled');    
+  });
+/*
+  // ストップ
+  $('#stop').click(function() {
+    // 一時停止
+    clearInterval(timer);
+
+    $(this).attr('disabled', 'disabled');
+    $('#restart').removeAttr('disabled');
+  });
+
+  // リスタート
+  $('#restart').click(function() {
+    // 一時停止から再開
+    timer = setInterval(countup, 1000);
+
+    $(this).attr('disabled', 'disabled');
+    $('#stop').removeAttr('disabled');
+  });
+
+  // リセット
+  $('#reset').click(function() {
+    // 初期状態
+    sec = 0;
+    min = 0;
+    hour = 0;
+    $('#clock').html('--:--:--');
+    clearInterval(timer);
+
+    $('#stop,#restart,#reset').attr('disabled', 'disabled');
+    $('#start').removeAttr('disabled');
+  });
+*/
+  
+ /**
+  * カウントアップ
+  */
+  function countup() {
+    flg = false;
+    sec += 1;
+
+    if (sec > 59) {
+      sec = 0;
+      min += 1;
+    }
+
+    if (min > 59) {
+      min = 0;
+      hour += 1;
+    }
+
+    if (sec < 10) {
+      sec_number = '0' + sec.toString();
+    } else {
+      sec_number = sec;
+    }
+
+    if (min < 10) {
+      min_number = '0' + min.toString();
+    } else {
+      min_number = min;
+    }
+
+    if (hour < 10) {
+      hour_number = '0' + hour.toString();
+    } else {
+      hour_number = hour;
+    }
+
+    $('#clock').html(hour_number + ':' +  min_number + ':' + sec_number);
+    var old_data = $('.study_time').val();
+    $('.study_time').val(Number(old_data) + 1);
+
+    if (Number(sec_number) == 59 && Number(min_number) == 59 && Number(hour_number) == 99){
+      hour = 0;
+      min = 0;
+      sec = 0;
+    }
+    
+  }
+
+</script>

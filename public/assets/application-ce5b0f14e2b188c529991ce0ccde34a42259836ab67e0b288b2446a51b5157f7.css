@@ -47,7 +47,7 @@ div#wrapper{
 .layout{
   height: 100%;
   min-height: 500px;
-  font-size: 80%;
+  font-size: 90%;
 }
 
 #wrapper{
@@ -121,51 +121,6 @@ input.text-right{
 legend{
   margin-bottom:50px;
   margin-top: 100px;
-}
-
-.japanese{
-  background-color:#d9534f;
-  color:white;
-}
-
-.japanese-border{
-  border:2px solid #d9534f;
-}
-
-.english{
-  background-color:#f0ad4e;
-  color: white;
-}
-
-.english-border{
-  border:2px solid #f0ad4e;
-}
-
-.math{
-  background-color: #5bc0de;
-  color: white;
-}
-
-.math-border{
-  border:2px solid #5bc0de;
-}
-
-.science{
-  background-color: #5cb75c;
-  color: white;
-}
-
-.science-border{
-  border:2px solid #5cb75c;
-}
-
-.social{
-  background-color: #777777;
-  color: white;
-}
-
-.social-border{
-  border:2px solid #777777;
 }
 
 .circle{
@@ -392,7 +347,7 @@ legend{
     margin-top: 0;
     color: inherit;
     line-height: 150%;
-    font-size: 100%;
+    font-size: 16px;
   }
   .timeline-body > p,
   .timeline-body > ul {
@@ -406,7 +361,7 @@ legend{
 @media only screen and (min-width:768px){
   .timeline {
     list-style: none;
-    padding: 10px 10px 10px;
+    padding: 20px 20px 20px;
     position: relative;
   }
   .timeline:before {
@@ -416,7 +371,7 @@ legend{
     content: " ";
     width: 3px;
     background-color: #eeeeee;
-    left: 35px;
+    left: 50%;
     margin-left: -1.5px;
   }
   .timeline > li {
@@ -441,11 +396,11 @@ legend{
   }
   .timeline > li > .timeline-panel {
     background-color: rgb(255,255,255);
-    width: 80%;
-    float: right;
+    width: 46%;
+    float: left;
     border: 1px solid #d4d4d4;
     border-radius: 2px;
-    padding: 10px;
+    padding: 20px;
     position: relative;
     -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
@@ -453,34 +408,24 @@ legend{
   .timeline > li > .timeline-panel:before {
     position: absolute;
     top: 26px;
-    /*left: -15px;*/
+    right: -15px;
     display: inline-block;
     border-top: 15px solid transparent;
     border-left: 15px solid #ccc;
     border-right: 0 solid #ccc;
     border-bottom: 15px solid transparent;
     content: " ";
-
-    border-left-width: 0;
-    border-right-width: 15px;
-    left: -15px;
-    right: auto;    
   }
   .timeline > li > .timeline-panel:after {
     position: absolute;
     top: 27px;
-    /*left: -14px;*/
+    right: -14px;
     display: inline-block;
     border-top: 14px solid transparent;
     border-left: 14px solid #fff;
     border-right: 0 solid #fff;
     border-bottom: 14px solid transparent;
     content: " ";
-
-    border-left-width: 0;
-    border-right-width: 14px;
-    left: -14px;
-    right: auto;
   }
   .timeline > li > .timeline-badge {
     color: #fff;
@@ -491,7 +436,7 @@ legend{
     text-align: center;
     position: absolute;
     top: 16px;
-    left: 25px;
+    left: 50%;
     margin-left: -25px;
     background-color: #999999;
     z-index: 100;
@@ -500,7 +445,7 @@ legend{
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
   }
-/*  .timeline > li.timeline-inverted > .timeline-panel {
+  .timeline > li.timeline-inverted > .timeline-panel {
     float: right;
   }
   .timeline > li.timeline-inverted > .timeline-panel:before {
@@ -514,7 +459,7 @@ legend{
     border-right-width: 14px;
     left: -14px;
     right: auto;
-  }*/
+  }
   .timeline-badge.primary {
     background-color: #2e6da4 !important;
   }
@@ -533,7 +478,6 @@ legend{
   .timeline-title {
     margin-top: 0;
     color: inherit;
-    font-size: 70%;
   }
   .timeline-body > p,
   .timeline-body > ul {
@@ -996,20 +940,10 @@ footer .nav>li>a:hover {
   background: #DDD;
 }
 
-.calendar-item-report{
+.calendar-item{
   clear:both;
   width:100%;
-  /*background-color:rgb(236,181,56);*/
-  padding:2px;
-  margin:2px auto;
-  color: white;
-  font-size: 90%;
-}
-
-.calendar-item-summary{
-  clear:both;
-  width:100%;
-  /*background-color:rgb(236,181,56);*/
+  background-color:rgb(236,181,56);
   padding:2px;
   margin:2px auto;
   color: white;
@@ -1029,32 +963,5 @@ footer .nav>li>a:hover {
 
 .new-report-form-item{
   padding:7.5px 0px;
-}
-
-#chart_legend {
-    padding: 10px;
-    overflow: hidden;
-    position: relative;
-}
-#chart_legend li span{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    margin-right: 5px;
-}
-ul.bar-legend {
-    list-style: none outside none;
-    float: left;
-    margin: 0 0 0 0;
-    padding: 0;
-    position: relative;
-    left: 50%;
-}
-ul.bar-legend > li {
-    float: left;
-    margin-right: 5px;
-    padding: 5px;
-    position: relative;
-    left: -50%;
 }
 

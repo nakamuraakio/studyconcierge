@@ -82,13 +82,14 @@
       </tr>
       <tr>
         <th><small>合計勉強時間</small></th>
-        <td><%= @total_studytime %>時間</td>
+        <td><%= (@total_studytime.to_f / 60).round(1) %> 時間</td>
       </tr>
       <tr>
         <th><small>科目別勉強時間</small></th>
         <td>
           <% @subjects.each do |subject, studytime| %>
             <p>
+            <% studytime = studytime.to_f.round(1) %>
             <% if subject == '現代文' or subject == '古文' or subject == '漢文' %>
               <span class = "label label-danger"><%= subject %></span>
             <% elsif subject == '英語' %>
@@ -116,18 +117,18 @@
 
     <div class="col-xs-12 col-md-9">
       <h3></h3>
-      <div class="panel panel-default" style="height:100%;padding:10px;">
+      <div class="panel panel-default" style="height:100%;padding:10px 0px 10px;">
         <div class="container-fluid row">
-          <div class="col-xs-3 col-md-2 text-center top-menu-item">
+          <div class="col-xs-3 col-md-3 text-center top-menu-item" style="padding:0 5px">
             <p>報告回数</p>
-            <p><span class="num"><%= current_user.reports.count %></span>回</p>
+            <p><span class="num"><%= current_user.reports.count %></span> 回</p>
           </div>
-          <div class="col-xs-3 col-md-2 text-center top-menu-item">
-            <p>総勉強時間</p>
-            <p><span class="num"><%= @total_studytime %></span>時間</p>
+          <div class="col-xs-3 col-md-3 text-center top-menu-item" style="padding:0 5px">
+            <p>勉強時間</p>
+            <p><span class="num"><%= (@total_studytime.to_f / 60).round(1) %></span> 時間</p>
           </div>
-          <div class="col-xs-3 col-md-2 text-center top-menu-item">
-            <p>チューター</p>
+          <div class="col-xs-3 col-md-3 text-center top-menu-item" style="padding:0 5px">
+            <p>TUTOR</p>
             <p style="margin:0;">
               <% if current_user.tutor.nil? %>
                 <small>未選択</small>
@@ -136,18 +137,19 @@
                   
                 <% end %>
                 <%= link_to "/select_tutor/show/#{current_user.tutor.id.to_s}" do %>
-                  <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '46', :width => '46', :class => 'img-circle' %><br>
+                  <%= image_tag url_for(:controller => 'tutors/registrations', :action => 'photo', :id => current_user.tutor.id), :height => '30', :width => '30', :class => 'img-circle', :style => 'border:1px solid black' %><br>
                 <% end %>
               <% end %>
             </p>
           </div>
-          <div class="col-xs-3 col-md-2 text-center top-menu-item">
+          <div class="col-xs-3 col-md-3 text-center top-menu-item" style="border-right:none;padding:0 5px">
             <p>コメント</p>
             <p style="position:relative;">
               <% if @unread_messages != 0 %>
                 <%= link_to summaries_path do %>
                   <i class="fa fa-comment-o fa-3x fa-gray"></i>
-                  <span class="badge badge-red" style="position:absolute;top:20px;left:60px;"><%= @unread_messages %></span>
+                  <span class="badge badge-red hidden-xs" style="position:absolute;top:20px;left:110px;"><%= @unread_messages %></span>
+                  <span class="badge badge-red visible-xs" style="position:absolute;top:15px;left:35px;font-size:8px"><%= @unread_messages %></span>
                 <% end %>
               <% else %>
                 <%= link_to summaries_path do %>
@@ -157,79 +159,335 @@
             </p>
           </div>
         </div>
-      </div>
-      
-      <h3 class="heading-shadow">タイムライン</h3>
-      <ul class="timeline">
-          <% # will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
 
-          <% @user_events.each_with_index do |user_event, i| %>
-          <% if i.even? %>
-          <li>
-            <% if user_event.event_type == 1 %>
-              <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
-            <% elsif user_event.event_type == 2 %>
-              <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
-            <% elsif user_event.event_type == 3 %>
-              <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
-            <% elsif user_event.event_type == 4 %>
-              <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
-            <% elsif user_event.event_type == 5 %>
-              <div class="timeline-badge success"><i class="fa fa-user"></i></div>
-            <% elsif user_event.event_type == 6 %>
-              <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
-            <% end  %>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4 class="timeline-title"><%= user_event.status %></h4>
-                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+      </div>
+
+      <% if current_user.studying_flag %>
+        <%= link_to home_study_path(:subject_attribute => current_user.studying_subject_attribute), class: "btn btn-warning btn-lg", style: 'width:100%' do %>勉強中...<% end %>
+      <% else %>
+        <a href="#" data-toggle="modal" data-target="#sampleModal2"><button class="btn btn-danger btn-lg" style="width:100%;">START</button></a>
+      <% end %>
+      <div class="row">
+        <div class="col-md-7" style="margin-top:20px;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b><%= current_user.name %>さんの勉強状況</b>
+            </div>
+            <div class="panel-body" style="padding:0;height:392px;overflow:scroll;">
+              <div style="height:100%;padding:10px">
+                <p style="font-size:80%">【今日】</p>
+                <p class="center-block">Daily Study Time:　<span class="num"><%= (@report_today.average_studytime.to_f / 60).round(1) %></span> 時間</p>
+                
+                <canvas id="bar3" height="150" width="150" class="center-block" style="margin-bottom:10px;"></canvas>
+                <canvas id="bar4" height="150" width="297" class="center-block"></canvas>
+                
               </div>
-              <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
-                <div class="timeline-body">
-                  <p><a href = "<%= user_event.link %>">詳細</a></p>
-                </div>
-              <% end %>
-            </div> 
-          </li>
-          <% else %>
-          <li class="timeline-inverted">
-            <% if user_event.event_type == 1 %>
-              <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
-            <% elsif user_event.event_type == 2 %>
-              <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
-            <% elsif user_event.event_type == 3 %>
-              <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
-            <% elsif user_event.event_type == 4 %>
-              <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
-            <% elsif user_event.event_type == 5 %>
-              <div class="timeline-badge success"><i class="fa fa-user"></i></div>
-            <% elsif user_event.event_type == 6 %>
-              <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
-            <% end  %>
-            <div class="timeline-panel">
-              <div class="timeline-heading">
-                <h4 class="timeline-title"><%= user_event.status %></h4>
-                <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+              <div style="background-color:rgb(250,250,250);padding:10px">
+                <p style="font-size:80%">【今週】</p>
+                <p class="center-block">Weekly Study Time:　<span class="num"><%= (@total_studytime_of_week.to_f / 60).round(1) %></span> 時間</p>
+                <canvas id="bar5" height="150" width="150" class="center-block" style="margin-bottom:10px;"></canvas>
+                <canvas id="bar6" height="150" width="297" class="center-block"></canvas>
+                
               </div>
-              <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
-                <div class="timeline-body">
-                  <p><a href = "<%= user_event.link %>">詳細</a></p>
-                </div>
-              <% end %>
-            </div> 
-          </li>
-          <% end %>
-          <% end %>
-          <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
-      </ul>
+              <div style="padding:10px">
+                <p style="font-size:80%">【今月】</p>
+                <p class="center-block">Monthly Study Time:　<span class="num"><%= (@total_studytime_of_month.to_f / 60).round(1) %></span> 時間</p>
+
+                <canvas id="bar7" height="150" width="150" class="center-block" style="margin-bottom:10px;"></canvas>
+                <canvas id="bar8" height="150" width="297" class="center-block"></canvas>
+              </div>
+              <div style="background-color:rgb(250,250,250);padding:10px">
+                <p style="font-size:80%">【総計】</p>
+                <p class="center-block">Total Study Time:　<span class="num"><%= (@total_studytime.to_f / 60).round(1) %></span> 時間</p>
+                <canvas id="bar1" height="150" width="150" class="center-block" style="margin-bottom:10px;"></canvas>
+                <canvas id="bar2" height="150" width="297" class="center-block"></canvas>
+                <div id="chart_legend" class="center-block"></div>
+                <div id="bar_pink" data-japanese="<%= @subjects[0]['現代文'] %>"></div>
+                <div id="bar_pink2" data-oldjapanese="<%= @subjects[0]['古文'] %>"></div>
+                <div id="bar_pink3" data-oldchinese="<%= @subjects[0]['漢文'] %>"></div>
+                <div id="bar_blue" data-math="<%= @subjects[0]['数学'] %>"></div>
+                <div id="bar_yellow" data-english="<%= @subjects[0]['英語'] %>"></div>
+                <div id="bar_purple" data-worldhistory="<%= @subjects[0]['世界史'] %>"></div>
+                <div id="bar_purple2" data-japanesehistory="<%= @subjects[0]['日本史'] %>"></div>
+                <div id="bar_purple3" data-geography="<%= @subjects[0]['地理'] %>"></div>
+                <div id="bar_purple4" data-politics="<%= @subjects[0]['政治経済'] %>"></div>
+                <div id="bar_purple5" data-ethics="<%= @subjects[0]['倫理'] %>"></div>
+                <div id="bar_purple6" data-modern="<%= @subjects[0]['現代社会'] %>"></div>
+                <div id="bar_green" data-chemistry="<%= @subjects[0]['化学'] %>"></div>
+                <div id="bar_green2" data-physics="<%= @subjects[0]['物理'] %>"></div>
+                <div id="bar_green3" data-biology="<%= @subjects[0]['生物'] %>"></div>
+                <div id="bar_green4" data-geology="<%= @subjects[0]['地学'] %>"></div>
+              </div>  
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>最新のコメント</b>
+            </div>
+            <div class="panel-body">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5" style="margin-top:20px;">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <b>タイムライン</b>
+            </div>
+            <div class="panel-body">
+              <ul class="timeline">
+                  <% # will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ' %>
+
+                  <% @user_events.each_with_index do |user_event, i| %>
+                  <% if i.even? %>
+                  <li>
+                    <% if user_event.event_type == 1 || user_event.event_type == 7 %>
+                      <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
+                    <% elsif user_event.event_type == 2 %>
+                      <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
+                    <% elsif user_event.event_type == 3 %>
+                      <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
+                    <% elsif user_event.event_type == 4 %>
+                      <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
+                    <% elsif user_event.event_type == 5 %>
+                      <div class="timeline-badge success"><i class="fa fa-user"></i></div>
+                    <% elsif user_event.event_type == 6 %>
+                      <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
+                    <% end %>
+                    <div class="timeline-panel">
+                      <div class="timeline-heading">
+                        <h4 class="timeline-title"><%= user_event.status %></h4>
+                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+                      </div>
+                      <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
+                        <div class="timeline-body">
+                          <p><a href = "<%= user_event.link %>">詳細</a></p>
+                        </div>
+                      <% end %>
+                    </div> 
+                  </li>
+                  <% else %>
+                  <li class="timeline-inverted">
+                    <% if user_event.event_type == 1 || user_event.event_type == 7 %>
+                      <div class="timeline-badge warning"><i class="fa fa-pencil"></i></div>
+                    <% elsif user_event.event_type == 2 %>
+                      <div class="timeline-badge info"><i class="fa fa-commenting-o"></i></div>
+                    <% elsif user_event.event_type == 3 %>
+                      <div class="timeline-badge default"><i class="fa fa-send-o"></i></div>
+                    <% elsif user_event.event_type == 4 %>
+                      <div class="timeline-badge danger"><i class="fa fa-group"></i></div>
+                    <% elsif user_event.event_type == 5 %>
+                      <div class="timeline-badge success"><i class="fa fa-user"></i></div>
+                    <% elsif user_event.event_type == 6 %>
+                      <div class="timeline-badge primary"><i class="fa fa-check-square-o"></i></div>
+                    <% end  %>
+                    <div class="timeline-panel">
+                      <div class="timeline-heading">
+                        <h4 class="timeline-title"><%= user_event.status %></h4>
+                        <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i><%= time_ago_in_words(user_event.created_at) %>前</small></p>
+                      </div>
+                      <% if user_event.event_type == 1 or user_event.event_type == 2 or user_event.event_type == 3 %>
+                        <div class="timeline-body">
+                          <p><a href = "<%= user_event.link %>">詳細</a></p>
+                        </div>
+                      <% end %>
+                    </div> 
+                  </li>
+                  <% end %>
+                  <% end %>
+                  <%= will_paginate @user_events, :renderer => BootstrapPagination::Rails, previous_label: '前へ', next_label: '次へ', class: 'center-block' %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 
   </div>
 </div>
 
+<%= render 'modal2' %>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+<script type = "text/javascript">
 
 
+// var pink = document.getElementById("bar_pink");
+// var japanese = pink.getAttribute('data-pink');
 
+var japanese = [$("#bar_pink").data("japanese"),<%= @report_today.japanese_percentage %>,<%= @subjects[2]['現代文'] || 0 %>,<%= @subjects[3]['現代文'] || 0 %>];
+var oldjapanese = [$("#bar_pink2").data("oldjapanese"),<%= @report_today.old_japanese_percentage %>,<%= @subjects[2]['古文'] || 0 %>,<%= @subjects[3]['古文'] || 0 %>];
+var oldchinese = [$("#bar_pink3").data("oldchinese"),<%= @report_today.old_chinese_percentage %>,<%= @subjects[2]['漢文'] || 0 %>,<%= @subjects[3]['漢文'] || 0 %>];
+var math = [$("#bar_blue").data("math"),<%= @report_today.math_percentage %>,<%= @subjects[2]['数学'] || 0 %>,<%= @subjects[3]['数学'] || 0 %>];
+var english = [$("#bar_yellow").data("english"),<%= @report_today.english_percentage %>,<%= @subjects[2]['英語'] || 0 %>,<%= @subjects[3]['英語'] || 0 %>];
+var worldhistory = [$("#bar_purple").data("worldhistory"),<%= @report_today.world_history_percentage %>,<%= @subjects[2]['世界史'] || 0 %>,<%= @subjects[3]['世界史'] || 0 %>];
+var japanesehistory = [$("#bar_purple2").data("japanesehistory"),<%= @report_today.japanese_history_percentage %>,<%= @subjects[2]['日本史'] || 0 %>,<%= @subjects[3]['日本史'] || 0 %>];
+var geography = [$("#bar_purple3").data("geography"),<%= @report_today.geography_percentage %>,<%= @subjects[2]['地理'] || 0 %>,<%= @subjects[3]['地理'] || 0 %>];
+var politics = [$("#bar_purple4").data("politics"),<%= @report_today.politics_and_economics_percentage %>,<%= @subjects[2]['政治経済'] || 0 %>,<%= @subjects[3]['政治経済'] || 0 %>];
+var ethics = [$("#bar_purple5").data("ethics"),<%= @report_today.ethics_percentage %>,<%= @subjects[2]['倫理'] || 0 %>,<%= @subjects[3]['倫理'] || 0 %>];
+var modern = [$("#bar_purple6").data("modern"),<%= @report_today.modern_society_percentage %>,<%= @subjects[2]['現代社会'] || 0 %>,<%= @subjects[3]['現代社会'] || 0 %>];
+var chemistry = [$("#bar_green").data("chemistry"),<%= @report_today.chemistry_percentage %>,<%= @subjects[2]['化学'] || 0 %>,<%= @subjects[3]['化学'] || 0 %>];
+var physics = [$("#bar_green2").data("physics"),<%= @report_today.physics_percentage %>,<%= @subjects[2]['物理'] || 0 %>,<%= @subjects[3]['物理'] || 0 %>];
+var biology = [$("#bar_green3").data("biology"),<%= @report_today.biology_percentage %>,<%= @subjects[2]['生物'] || 0 %>,<%= @subjects[3]['生物'] || 0 %>];
+var geology = [$("#bar_green4").data("geology"),<%= @report_today.geology_percentage %>,<%= @subjects[2]['地学'] || 0 %>,<%= @subjects[3]['地学'] || 0 %>];
+
+var doughnutData = [];
+
+for (var i = 0; i <= 3; i++) {
+  doughnutData[i] = [
+    {
+      value: japanese[i],
+      color:"#d9534f",
+      label: "現代文"
+    },
+    {
+      value: oldjapanese[i],
+      color:"#d9534f",
+      label: "古文"
+    },
+    {
+      value: oldchinese[i],
+      color:"#d9534f",
+      label: "漢文"
+    },
+    {
+      value: math[i],
+      color: "#5bc0de",
+      label: "数学"
+    },
+    {
+      value: english[i],
+      color: "#f0ad4e",
+      label: "英語"
+    },
+    {
+      value: worldhistory[i],
+      color: "#777777",
+      label: "世界史"
+    },
+    {
+      value: japanesehistory[i],
+      color: "#777777",
+      label: "日本史"
+    },
+    {
+      value: geography[i],
+      color: "#777777",
+      label: "地理"
+    },
+    {
+      value: politics[i],
+      color: "#777777",
+      label: "政治経済"
+    },
+    {
+      value: ethics[i],
+      color: "#777777",
+      label: "倫理"
+    },
+    {
+      value: modern[i],
+      color: "#777777",
+      label: "現代社会"
+    },
+    {
+      value: chemistry[i],
+      color: "#5cb75c",
+      label: "化学"
+    },
+    {
+      value: physics[i],
+      color: "#5cb75c",
+      label: "物理"
+    },
+    {
+      value: biology[i],
+      color: "#5cb75c",
+      label: "生物"
+    },
+    {
+      value: geology[i],
+      color: "#5cb75c",
+      label: "地学"
+    },
+  ];
+};
+
+var barData = [];
+
+
+barData[0] = {
+    labels: <%= raw @subjects[0].keys %>,
+    datasets: [
+        {
+            label: "総計勉強時間",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: <%= raw @subjects[0].values %>
+        }
+    ]
+
+};
+barData[1] = {
+    labels: <%= raw @subjects[1].keys %>,
+    datasets: [
+        {
+            label: "今日の勉強時間",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: <%= raw @subjects[1].values %>
+        }
+    ]
+
+};
+barData[2] = {
+    labels: <%= raw @subjects[2].keys %>,
+    datasets: [
+        {
+            label: "今週の勉強時間",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: <%= raw @subjects[2].values %>
+        }
+    ]
+
+};
+barData[3] = {
+    labels: <%= raw @subjects[3].keys %>,
+    datasets: [
+        {
+            label: "今月の勉強時間",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
+            data: <%= raw @subjects[3].values %>
+        }
+    ]
+
+};
+
+
+var myDoughnut = [];
+var myBarChart = [];
+
+for (var i = 0; i <= 3; i++) {
+  myDoughnut[i] = new Chart(document.getElementById("bar" + String(2*i + 1)).getContext("2d")).Doughnut(doughnutData[i]);
+
+  var ctx = document.getElementById("bar" + String(2*i + 2)).getContext("2d");
+  myBarChart[i] = new Chart(ctx).Bar(barData[i], {scaleFontSize: 9});
+  //document.getElementById('chart_legend').innerHTML = myBarChart.generateLegend();
+};
+  // 処理
+
+</script>
 
 

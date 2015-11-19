@@ -19,7 +19,7 @@
 
 // var pink = document.getElementById("bar_pink");
 // var japanese = pink.getAttribute('data-pink');
-
+/*
 var japanese = $("#bar_pink").data("japanese");
 var math = $("#bar_blue").data("math");
 var english = $("#bar_yellow").data("english");
@@ -50,3 +50,4 @@ var doughnutData = [
  
 var myDoughnut = new Chart(document.getElementById("bar").
 getContext("2d")).Doughnut(doughnutData);
+*/
